@@ -1,0 +1,145 @@
+package app.modelo.dao;
+
+import app.modelo.Conectar;
+import app.modelo.vo.Imagen;
+import app.utils.AppException;
+import app.utils.interfaces.IDao;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+
+public class ImagenDAO implements IDao<Imagen>{
+
+
+    public ArrayList<Imagen> Consultar() throws AppException{
+        ArrayList<Imagen> list = new ArrayList<Imagen>();
+        Conectar conec = new Conectar();
+        String sql = "SELECT * FROM imagen;";
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        try{
+            ps = conec.getCnn().prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Imagen vo = new Imagen();
+                vo.setIdImagen(rs.getInt(1));
+                vo.setLinkImagen(rs.getString(2));
+                list.add(vo);
+            }
+        }catch(SQLException ex){
+            throw new AppException(-2,"error al acceder a Imagen");
+        }catch(Exception ex){
+            throw new AppException(-2,"error al acceder a Imagen");
+        }finally{
+            try{
+                ps.close();
+                rs.close();
+                conec.desconectar();
+            }catch(Exception ex){}
+        }
+        return list;
+    }
+
+
+
+    public void Insertar(Imagen vo) throws AppException{
+        Conectar conec = new Conectar();
+        String sql = "INSERT INTO imagen (linkImagen) VALUES(?);";
+        PreparedStatement ps = null;
+        try{
+            ps = conec.getCnn().prepareStatement(sql);
+            
+            ps.setString(1, vo.getLinkImagen());
+            ps.executeUpdate();
+        }catch(SQLException ex){
+            throw new AppException(-2,"error al acceder a Imagen");
+        }catch(Exception ex){
+            throw new AppException(-2,"error al acceder a Imagen");
+        }finally{
+            try{
+                ps.close();
+                conec.desconectar();
+            }catch(Exception ex){}
+        }
+    }
+
+
+
+    public void Modificar(Imagen vo) throws AppException{
+        Conectar conec = new Conectar();
+        String sql = "UPDATE imagen SET linkImagen = ? WHERE idImagen = ?;";
+        PreparedStatement ps = null;
+        try{
+            ps = conec.getCnn().prepareStatement(sql);
+            ps.setString(1, vo.getLinkImagen());
+            ps.setInt(2, vo.getIdImagen());
+            ps.executeUpdate();
+        }catch(SQLException ex){
+            throw new AppException(-2,"error al acceder a Imagen");
+        }catch(Exception ex){
+            throw new AppException(-2,"error al acceder a Imagen");
+        }finally{
+            try{
+                ps.close();
+                conec.desconectar();
+            }catch(Exception ex){}
+        }
+    }
+
+
+
+    public void Eliminar(Imagen vo) throws AppException{
+        Conectar conec = new Conectar();
+        String sql = "DELETE FROM imagen WHERE idImagen = ?;";
+        PreparedStatement ps = null;
+        try{
+            ps = conec.getCnn().prepareStatement(sql);
+            ps.setInt(1, vo.getIdImagen());
+            ps.executeUpdate();
+        }catch(SQLException ex){
+            throw new AppException(-2,"error al acceder a Imagen");
+        }catch(Exception ex){
+            throw new AppException(-2,"error al acceder a Imagen");
+        }finally{
+            try{
+                ps.close();
+                conec.desconectar();
+            }catch(Exception ex){}
+        }
+    }
+
+    @Override
+    public Imagen ObtenerId(Imagen vo) throws AppException {
+        ArrayList<Imagen> list = new ArrayList<Imagen>();
+        Conectar conec = new Conectar();
+        String sql = "SELECT * FROM imagen where linkImagen = ?;";
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        try{
+            ps = conec.getCnn().prepareStatement(sql);
+            ps.setString(1, vo.getLinkImagen());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Imagen voTemp = new Imagen();
+                voTemp.setIdImagen(rs.getInt(1));
+                voTemp.setLinkImagen(rs.getString(2));
+                list.add(voTemp);
+            }
+        }catch(SQLException ex){
+            throw new AppException(-2,"error al acceder a Imagen");
+        }catch(Exception ex){
+            throw new AppException(-2,"error al acceder a Imagen");
+        }finally{
+            try{
+                ps.close();
+                rs.close();
+                conec.desconectar();
+            }catch(Exception ex){}
+        }
+        return list.get(0);
+    }
+
+
+}

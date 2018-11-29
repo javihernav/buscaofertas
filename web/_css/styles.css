@@ -1,0 +1,191 @@
+html{
+    width: 100%;
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #b51017;
+    margin-bottom: 1%;
+}
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 1% 3%;
+    text-decoration: none;
+    font-size: 75%;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav a.active {
+    background-color: #290c0c;
+    color: white;
+}
+.consulta{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    margin: 1%;
+}
+.consultaAvanzada{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 40%;
+    align-items:baseline;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 2%;
+}
+.registrarPerfil{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 50%;
+    align-items:baseline;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 2%;
+}
+.busquedaAvanzada{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 15%;
+    align-items:baseline;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 2%;
+}
+#botonBuscar{
+    background: #b51017;
+    color: #ddd;
+    height: 36px;
+    width: 36px;
+    background: url("../_img/lupa.png");
+    background-size: 36px 36px;
+    border-radius: 5px;
+}
+#botonRegistrar{
+    background: #b51017;
+    color: #ddd;
+    width: 100px;
+    height: 36px;
+    border-radius: 5px;
+}
+#botonRecuperar{
+    background: #b51017;
+    color: #ddd;
+    width: 100px;
+    height: 36px;
+    border-radius: 5px;
+}
+#botonIngresar{
+    background: #b51017;
+    color: #ddd;
+    width: 100px;
+    height: 36px;
+    border-radius: 5px;
+}
+#botonCancelar{
+    background: #290c0c;
+    color: #ddd;
+    width: 100px;
+    height: 36px;
+    border-radius: 5px;
+}
+.registrarOferta input{
+    background: #ddd;
+    color: black;
+    height: 30px;
+    width: 50%;
+    font-size: 100%;
+    border-radius:10px;
+    margin: 1vw;
+}
+.login{
+    position: absolute;
+    top:55%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 40%;
+    margin: 2% 10%;
+}
+.login input{
+    background: #ddd;
+    color: black;
+    height: 30px;
+    width: 50%;
+    font-size: 100%;
+    border-radius:10px;
+    margin: 1vw;
+}
+.registrarOferta img{
+    border: 2px #290c0c solid; 
+}
+.consultaAvanzada div input, .consultaAvanzada div select{
+    background: #ddd;
+    color: black;
+    height: 30px;
+    widows: 30%;
+    font-size: 100%
+
+}
+.registrarPerfil div input, .registrarPerfil div select{
+    background: #ddd;
+    color: black;
+    height: 30px;
+    widows: 30%;
+    font-size: 100%
+
+}
+.letrero{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    width: 25%;
+    transform: translate(-50%,-50%);
+    margin: 1%;
+}
+.letreroCA{
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    width: 25%;
+    transform: translate(-50%,-50%);
+    margin: 1%;
+}
+figure{
+    overflow: hidden;
+
+}
+label{
+    display: inline-block;
+    width: 100px;
+}
+#mensajeRecuperacion{
+    position: absolute;
+    top:15%;
+    color:#290c0c;
+    left:25%;
+    width:60%;
+    text-align: center;
+
+}
+table{
+    table-layout: auto;
+    border: #290c0c solid 1px;
+    border-collapse: separate;
+    padding: 10%;
+}
