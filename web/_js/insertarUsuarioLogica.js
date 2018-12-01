@@ -18,7 +18,7 @@ function accionEnviarDatos() {
             genero: $('#cbGenero option:selected').attr("value")
 
         };
-        alert("genero " + $('#cbGenero option:selected').attr("value"));
+        
         console.log(objDatos);
 
         $.ajax({
