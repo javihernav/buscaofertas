@@ -4,7 +4,7 @@ window.onload = function () {
 };
 
 function accionEnviarDatos() {
-    debugger;
+    //debugger;
     if (validarFormularioLogin()) {
         var objDatos = {
             usuario: $('#txtUsuario').val(),
