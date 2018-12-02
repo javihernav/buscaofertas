@@ -170,10 +170,11 @@ figure{
     overflow: hidden;
 
 }
+/*
 label{
     display: inline-block;
     width: 100px;
-}
+}*/
 #mensajeRecuperacion{
     position: absolute;
     top:15%;
@@ -188,4 +189,8 @@ table{
     border: #290c0c solid 1px;
     border-collapse: separate;
     padding: 10%;
+}
+.container {
+    background: #D3D5DB;
+    border-radius: 1vw;
 }
