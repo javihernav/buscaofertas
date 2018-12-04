@@ -5,7 +5,7 @@ window.onload = function () {
 };
 
 function accionEnviarDatos() {
-    debugger;
+    //debugger;
     if (validarFormulario()) {
         var objDatos = {
             nombres: $('#txtNombres').val(),
