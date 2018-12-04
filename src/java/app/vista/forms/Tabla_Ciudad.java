@@ -1,5 +1,6 @@
 package app.vista.forms;
 
+import app.modelo.Conectar;
 import app.modelo.dao.CiudadDAO;
 import app.modelo.vo.Ciudad;
 import app.utils.AppException;
@@ -21,7 +22,7 @@ public class Tabla_Ciudad{
         dt.addColumn("nombreCiudad");
         dt.addColumn("departamentoCiudad");
 
-        dao = new CiudadDAO();
+        dao = new CiudadDAO(Conectar.getCnn());
         Ciudad vo = new Ciudad();
         ArrayList<Ciudad> list=null;
        try {

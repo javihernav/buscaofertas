@@ -5,6 +5,7 @@ window.onload = function () {
 };
 
 function accionEnviarDatos() {
+    debugger;
     if (validarFormulario()) {
         var objDatos = {
             nombres: $('#txtNombres').val(),
@@ -30,7 +31,7 @@ function accionEnviarDatos() {
             success: function (data, textStatus, jqXHR) {
                 alert(data.mensaje);
                 if (data.codigo !== 0) {
-                    $(location).attr('href', '/BuscaOfertas/Principal');
+                    $(location).attr('href', '/BuscaOfertas/jsp/PaginaPrincipal.jsp');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

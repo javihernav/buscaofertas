@@ -25,13 +25,13 @@
         <header>
 
             <div class="topnav">
-                <a class="active" href="#home">Home</a>
+                <a class="active" href="./PaginaPrincipal.jsp">Home</a>
                 <a href="#news">Acerca de nosotros</a>
                 <a href="#news">Contáctanos</a>
                 <a href="#contact">Siguenos en Redes Sociales</a>
                 <a href="#about">Ayuda</a>
-                <a href="#about">Inicia Sesión</a>
-                <a href="#about">Regístrate</a>
+                <a href="./Login.jsp">Inicia Sesión</a>
+                <a href="./RegistrarPerfil.jsp">Regístrate</a>
             </div>
         </header>
 
@@ -41,7 +41,16 @@
         </figure>
 
         <div class="container">
-            <form class="form-check" autocomplete="on">
+            <form class="form-check" autocomplete="on"  >
+                <div class="row">
+                    &nbsp;
+                </div>
+                <div class="row">
+                    <h1 class="h1 d-block mx-auto font-italic">Registro de Usuarios</h1>
+                </div>
+                <div class="row">
+                    &nbsp;
+                </div>
                 <div class="row">
                     <div class="form-group col-md-6"><label class="control-label ">Nombres:</label><input class="form-control "id="txtNombres" type="text" value="" maxlength="45" placeholder="Introduzca sus nombres " oninput="validarNombres()" required></div>
                     <div class="form-group col-md-6"><label class="control-label ">Apellidos:</label><input class="form-control "id="txtApellidos" type="text" value="" maxlength="45" placeholder="Introduzca sus apellidos " oninput="validarApellidos()" required></div>
@@ -56,21 +65,30 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6"><label class="control-label ">Usuario:</label><input class="form-control "id="txtUsuario" type="text" value="" maxlength="20" placeholder="Nombre de usuario para su cuenta" oninput="validarNombreUsuario()" required></div>
-                    <div class="form-group col-md-6"><label class="control-label ">Password:</label><input class="form-control "id="txtPassword" type="password" value="" maxlength="20" placeholder="Introduzca su contraseña" oninput="validarPassword()" required></div>
+                    <div class="form-group col-md-6"><label class="control-label ">Género:</label><select class="form-control "id="cbGenero" type="text" onchange="validarGenero()" required><option value="0">Género</option><option value="m">Masculino</option><option value="f">Femenino</option></select></div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6"><label class="control-label ">Género:</label><select class="form-control "id="cbGenero" type="text" onchange="validarGenero()" required><option value="0">Género</option><option value="m">Masculino</option><option value="f">Femenino</option></select></div>
+                    <div class="form-group col-md-6"><label class="control-label ">Password:</label><input class="form-control "id="txtPassword" type="password" value="" maxlength="20" placeholder="Introduzca su contraseña" oninput="validarPassword()" required></div>
                     <div class="form-group col-md-6"><label class="control-label ">Confirmar Password:</label><input class="form-control "id="txtPasswordConfirmacion" type="password" value="" maxlength="20" placeholder="Confirme su contraseña"  oninput="validarPassword()" required></div>
                 </div>
                 <div class="row">
+                    &nbsp;
+                </div>
+                <div class="row">
                     <div  class="form-group col-md-6">
-                        <input class="form-control  btn btn-dark  col-md-6 offset-3" type="button" value="Cancelar"><!--id="botonCancelar"--> 
+                        <input class="form-control  btn btn-dark  col-md-6 offset-3" type="button" value="Cancelar" href="PaginaPrincipal.jsp" onclick = "location='PaginaPrincipal.jsp'"/><!--id="botonCancelar"--> 
                     </div>
                     <div  class="form-group col-md-6">
-                        <input  class="form-control  btn btn-danger  col-md-6 offset-3" type="submit" value="Registrar" ><!--id="botonRegistrar"-->
+                        <input  class="form-control  btn btn-danger  col-md-6 offset-3" type="submit" value="Registrar" id="botonRegistrar"><!---->
                     </div>
                 </div>
+                <div class="row">
+                    &nbsp;
+                </div>
             </form>
+        </div>
+        <div class="row">
+            &nbsp;
         </div>
 
         <script type="text/javascript" src="../_js/consultasCiudadLogica.js"></script>

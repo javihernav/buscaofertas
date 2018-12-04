@@ -25,13 +25,13 @@
         <header>
 
             <div class="topnav">
-                <a class="active" href="#home">Home</a>
+                <a class="active" href="./PaginaPrincipal.jsp">Home</a>
                 <a href="#news">Acerca de nosotros</a>
                 <a href="#news">Contáctanos</a>
                 <a href="#contact">Siguenos en Redes Sociales</a>
                 <a href="#about">Ayuda</a>
-                <a href="#about">Inicia Sesión</a>
-                <a href="#about">Regístrate</a>
+                <a href="./Login.jsp">Inicia Sesión</a>
+                <a href="./RegistrarPerfil.jsp">Regístrate</a>
             </div>
         </header>
 

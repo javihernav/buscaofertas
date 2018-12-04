@@ -1,5 +1,6 @@
 package app.vista.forms;
 
+import app.modelo.Conectar;
 import app.modelo.dao.DetalleProductoDAO;
 import app.modelo.vo.DetalleProducto;
 import app.utils.AppException;
@@ -23,7 +24,7 @@ public class Tabla_Detalleproducto{
         dt.addColumn("Producto_idProducto1");
         dt.addColumn("Oferta_idOferta1");
 
-        dao = new DetalleProductoDAO();
+        dao = new DetalleProductoDAO(Conectar.getCnn());
         DetalleProducto vo = new DetalleProducto();
         ArrayList<DetalleProducto> list = null;
        try {
@@ -39,8 +40,6 @@ public class Tabla_Detalleproducto{
                 fila[0] = vo.getOferta_idOferta();
                 fila[1] = vo.getProducto_idProducto();
                 fila[2] = vo.getPrecio();
-                fila[3] = vo.getProducto_idProducto1();
-                fila[4] = vo.getOferta_idOferta1();
                 dt.addRow(fila);
             }
             tabla.setModel(dt);

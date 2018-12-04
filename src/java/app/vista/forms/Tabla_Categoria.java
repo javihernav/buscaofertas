@@ -1,5 +1,6 @@
 package app.vista.forms;
 
+import app.modelo.Conectar;
 import app.modelo.dao.CategoriaDAO;
 import app.modelo.vo.Categoria;
 import app.utils.AppException;
@@ -20,7 +21,7 @@ public class Tabla_Categoria{
         dt.addColumn("idCategoria");
         dt.addColumn("nombreCategoria");
 
-        dao = new CategoriaDAO();
+        dao = new CategoriaDAO(Conectar.getCnn());
         Categoria vo = new Categoria();
         ArrayList<Categoria> list = null;
        try {
