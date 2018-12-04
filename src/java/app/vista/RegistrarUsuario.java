@@ -89,7 +89,7 @@ public class RegistrarUsuario extends HttpServlet {
                 sesion.setAttribute("usuario", usuario);
                 RespuestaServer resp = new RespuestaServer();
                 resp.setCodigo(1);
-                resp.setMensaje("Datos Correctos");
+                resp.setMensaje("Usuario creado satisfactoriamente");
                 out.println(new Gson().toJson(resp));
 
             }
