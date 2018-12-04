@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Contenido</title>
+        <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
     </head>
     <body>
         <div id="contenido">

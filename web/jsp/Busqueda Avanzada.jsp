@@ -20,6 +20,7 @@
     <link href="https://fonts.googleapis.com/css?family=Krub" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Michroma" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
     <script src="_js/scripts.js"></script>
 </head>
 
