@@ -13,7 +13,7 @@
         <meta charset="UTF-8">
         <meta name="titulo" content="Proyecto BuscaOfertas">
         <meta name="descripcion" content="Entrega Proyecto BuscaOfertas">
-        <meta name="viewport" content="width=device-width" , user-scalable=no, initial-scale=1.0, maximum-scale=1.0,
+        <meta name="viewport" content="width=device-width" user-scalable=no  initial-scale=1.0  maximum-scale=1.0
               maximum-scalable=1.0>
         <link rel="shortcut icon" type="image/x-icon" href="../_img/LETRERO-BUSCAOFERTAS-Y-nombre-técnico.png">
         <link href="https://fonts.googleapis.com/css?family=Krub" rel="stylesheet">
@@ -80,7 +80,7 @@
                         <input class="form-control  btn btn-dark  col-md-6 offset-3" type="button" value="Cancelar" href="PaginaPrincipal.jsp" onclick = "location='PaginaPrincipal.jsp'"/><!--id="botonCancelar"--> 
                     </div>
                     <div  class="form-group col-md-6">
-                        <input  class="form-control  btn btn-danger  col-md-6 offset-3" type="submit" value="Registrar" id="botonRegistrar"><!---->
+                        <input  class="form-control  btn btn-danger  col-md-6 offset-3" type="button" value="Registrar" id="botonRegistrar"><!---->
                     </div>
                 </div>
                 <div class="row">

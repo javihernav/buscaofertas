@@ -26,7 +26,7 @@ function accionEnviarDatos() {
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert('NO OK ' + JSON.stringify(jqXHR));
+                alert('Datos Incorrectos ' + JSON.stringify(jqXHR));
             }
 
 

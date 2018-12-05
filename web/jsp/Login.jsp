@@ -13,9 +13,9 @@
         <meta charset="UTF-8">
         <meta name="titulo" content="Proyecto BuscaOfertas">
         <meta name="descripcion" content="Entrega Proyecto BuscaOfertas">
-        <meta name="viewport" content="width=device-width" , user-scalable=no, initial-scale=1.0, maximum-scale=1.0, 
+        <meta name="viewport" content="width=device-width"  user-scalable=no initial-scale=1.0 maximum-scale=1.0
               maximum-scalable=1.0>
-        <link rel="shortcut icon" type="image/x-icon" href="_img/LETRERO-BUSCAOFERTAS-Y-nombre-técnico.png">
+        <link rel="shortcut icon" type="image/x-icon" href="../_img/LETRERO-BUSCAOFERTAS-Y-nombre-técnico.png">
         <link href="https://fonts.googleapis.com/css?family=Krub" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Michroma" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
@@ -70,7 +70,7 @@
                 <div class="row col-md-12">
                     <div class="form-group col-md-12">
                         <input class="form-control col-md-4 offset-3 btn btn-dark" id="botonCancelar"type="reset" value="Cancelar" onclick = "location = 'PaginaPrincipal.jsp'">
-                        <input class="form-control col-md-4 btn btn-danger"id="botonIngresar"type="submit" value="Ingresar"><br/><br/>
+                        <input class="form-control col-md-4 btn btn-danger"id="botonIngresar"type="button" value="Ingresar"><br/><br/>
                     </div>
                 </div>
 
