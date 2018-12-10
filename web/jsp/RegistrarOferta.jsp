@@ -42,7 +42,8 @@
         </figure>
 
         <div>
-            <form class="registrarOferta" autocomplete="on">
+          
+            <form class="registrarOferta" autocomplete="on" method="post" action="" enctype="multipart/form-data" >
                 <table style="width:100% ">
                     <tr>
                         <th>
@@ -64,6 +65,7 @@
                     </th>
                     <th>
                         <img id="imgProducto"  src="../_img/lupa.png" alt="Imagen del producto" oninput="validarImagen()" width="200px" height="200px" required>
+                        <input type="file" onchange="mostrarImagen()">
                     </th>
                     </tr>
                     <tr>
@@ -97,6 +99,7 @@
 
         <script type="text/javascript" src="../_js/jquery-3.3.1.js"></script>
         <script type="text/javascript" src="../_js/consultasCiudadLogica.js"></script>
+        <script type="text/javascript" src="../_js/tratamientoImagenes.js"></script>
      
         <script type="text/javascript" src="../_js/validacion.js"></script>
         <script type="text/javascript" src="../_js/insertarOfertaLogica.js"></script>
