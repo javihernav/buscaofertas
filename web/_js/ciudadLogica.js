@@ -1,4 +1,5 @@
 function cargarComboBoxCiudad() {
+    cargarFechas();
     $.ajax({
         type: 'POST',
         url: '/BuscaOfertas/usus/consultarCiudad',//nombre url del servlet
