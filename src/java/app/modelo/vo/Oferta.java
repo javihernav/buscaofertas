@@ -14,6 +14,16 @@ public class Oferta  implements IVo {
     Date fechaFin;
     int vecesCompartida;
 
+    public Oferta(int idOferta, int Usuario_idUsuario, String nombreOferta, Date fechaCreacion, Date fechaInicio, Date fechaFin, int vecesCompartida) {
+        this.idOferta = idOferta;
+        this.Usuario_idUsuario = Usuario_idUsuario;
+        this.nombreOferta = nombreOferta;
+        this.fechaCreacion = fechaCreacion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.vecesCompartida = vecesCompartida;
+    }
+
 public Oferta(){}
 
 

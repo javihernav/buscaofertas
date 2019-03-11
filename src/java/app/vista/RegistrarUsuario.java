@@ -75,14 +75,15 @@ public class RegistrarUsuario extends HttpServlet {
                 vo.setNombreUsuario(usuario);
                 vo.setContrasena(clave);
                 vo.setGenero(genero.charAt(0));
+                int id=0;
                 try {
-                    control.insertar(vo);
+                    id=control.insertar(vo);
 
                 } catch (AppException ex) {
                     RespuestaServer resp = new RespuestaServer();
                     resp.setCodigo(0);
                     resp.setMensaje("Fallo al insertar Datos" + ex.getMensaje());
-                    out.println(new Gson().toJson(resp));
+                    out.println(id+""+new Gson().toJson(resp));
                 }
                 System.out.println("OK");
                 HttpSession sesion = request.getSession();

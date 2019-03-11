@@ -44,7 +44,7 @@ public class MarcaDAO implements IDao<Marca>{
 
 
 
-    public void Insertar(Marca vo) throws AppException{
+    public int Insertar(Marca vo) throws AppException{
         Conectar conec = new Conectar();
         String sql = "INSERT INTO marca ( nombreMarca) VALUES(?);";
         PreparedStatement ps = null;
@@ -53,6 +53,14 @@ public class MarcaDAO implements IDao<Marca>{
             //ps.setInt(1, vo.getIdMarca());
             ps.setString(1, vo.getNombreMarca());
             ps.executeUpdate();
+            sql = "SELECT LAST_INSERT_ID();";
+            ps = conec.getCnn().prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            int id=0;
+            if(rs.next()){
+                id=rs.getInt(1);
+            }
+            return id;
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a Marca");
         }catch(Exception ex){

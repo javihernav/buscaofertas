@@ -45,7 +45,7 @@ public class TipoDAO implements IDao<Tipo>{
 
 
 
-    public void Insertar(Tipo vo) throws AppException{
+    public int Insertar(Tipo vo) throws AppException{
         Conectar conec = new Conectar();
         String sql = "INSERT INTO tipo (Categoria_idCategoria, nombreTipo) VALUES( ?, ?);";
         PreparedStatement ps = null;
@@ -55,6 +55,14 @@ public class TipoDAO implements IDao<Tipo>{
             ps.setInt(1, vo.getCategoria_idCategoria());
             ps.setString(2, vo.getNombreTipo());
             ps.executeUpdate();
+            sql = "SELECT LAST_INSERT_ID();";
+            ps = conec.getCnn().prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            int id=0;
+            if(rs.next()){
+                id=rs.getInt(1);
+            }
+            return id;
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a Tipo");
         }catch(Exception ex){

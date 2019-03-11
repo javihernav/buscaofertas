@@ -49,7 +49,7 @@ public class ProductoDAO implements IDao<Producto>{
 
 
 
-    public void Insertar(Producto vo) throws AppException{
+    public int Insertar(Producto vo) throws AppException{
         Conectar conec = new Conectar();
         String sql = "INSERT INTO producto (Tipo_idTipo, Marca_idMarca, nombreProducto, fabricanteProducto, modeloProducto, presentacionProducto) VALUES(?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = null;
@@ -63,6 +63,14 @@ public class ProductoDAO implements IDao<Producto>{
             ps.setString(i++, vo.getModeloProducto());
             ps.setString(i++, vo.getPresentacionProducto());
             ps.executeUpdate();
+            sql = "SELECT LAST_INSERT_ID();";
+            ps = conec.getCnn().prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            int id=0;
+            if(rs.next()){
+                id=rs.getInt(1);
+            }
+            return id;
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder aProducto");
         }catch(Exception ex){

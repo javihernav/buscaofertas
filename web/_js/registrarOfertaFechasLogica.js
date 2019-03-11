@@ -1,7 +1,7 @@
 function cargarFechas() {
     var fechaActual = new Date();
 //Año
-alert(fechaActual);
+//alert(fechaActual);
     var anio = fechaActual.getFullYear();
 //Mes
     var mes = fechaActual.getMonth() + 1;

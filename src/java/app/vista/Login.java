@@ -66,6 +66,7 @@ public class Login extends HttpServlet {
                         System.out.println(voValidado.getNombreUsuario());
                         resp.setMensaje("Datos Correctos");
                         out.println(new Gson().toJson(resp));
+                        
                     } else {
                         resp.setCodigo(0);
                         resp.setMensaje("Datos Incorrectos");

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface IDao<T extends IVo> {
     
-    public void Insertar(T vo)throws AppException;
+    public int Insertar(T vo)throws AppException;
     public void Modificar(T vo)throws AppException;
     public void Eliminar(T vo)throws AppException;
     public List<T> Consultar()throws AppException;

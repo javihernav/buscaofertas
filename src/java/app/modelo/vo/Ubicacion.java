@@ -12,6 +12,12 @@ public class Ubicacion  implements IVo {
 
 public Ubicacion(){}
 
+    public Ubicacion(String nombreTienda, String direccion, String ciudad) {
+        this.nombreTienda = nombreTienda;
+        this.direccion = direccion;
+        this.ciudad = ciudad;
+    }
+
 
     public int getIdUbicacion(){
         return idUbicacion;

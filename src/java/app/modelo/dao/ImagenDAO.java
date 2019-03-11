@@ -46,7 +46,7 @@ public class ImagenDAO implements IDao<Imagen>{
 
 
 
-    public void Insertar(Imagen vo) throws AppException{
+    public int Insertar(Imagen vo) throws AppException{
         Conectar conec = new Conectar();
         String sql = "INSERT INTO imagen (linkImagen,foto) VALUES(?,?);";
         PreparedStatement ps = null;
@@ -56,6 +56,14 @@ public class ImagenDAO implements IDao<Imagen>{
             ps.setString(i++, vo.getLinkImagen());
             ps.setBinaryStream(i++, new ByteArrayInputStream(vo.getFoto()));
             ps.executeUpdate();
+            sql = "SELECT LAST_INSERT_ID();";
+            ps = conec.getCnn().prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            int id=0;
+            if(rs.next()){
+                id=rs.getInt(1);
+            }
+            return id;
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a Imagen");
         }catch(Exception ex){

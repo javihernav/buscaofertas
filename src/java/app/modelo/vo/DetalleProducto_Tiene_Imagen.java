@@ -10,6 +10,12 @@ public class DetalleProducto_Tiene_Imagen  implements IVo {
     int DetalleProducto_Oferta_idOferta;
     int DetalleProducto_Producto_idProducto;
 
+    public DetalleProducto_Tiene_Imagen(int Imagen_idImagen, int DetalleProducto_Oferta_idOferta, int DetalleProducto_Producto_idProducto) {
+        this.Imagen_idImagen = Imagen_idImagen;
+        this.DetalleProducto_Oferta_idOferta = DetalleProducto_Oferta_idOferta;
+        this.DetalleProducto_Producto_idProducto = DetalleProducto_Producto_idProducto;
+    }
+
 public DetalleProducto_Tiene_Imagen(){}
 
 

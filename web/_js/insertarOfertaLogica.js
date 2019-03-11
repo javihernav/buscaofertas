@@ -5,7 +5,7 @@ window.onload = function () {
 };
 
 function accionEnviarDatos() {
-    if (validarFormularioRegistrarOferta()) {
+    if (true) {
         var objDatos = {
             nombreProducto: $('#txtNombreProducto').val(),
             nombreOferta: $('#txtNombreOferta').val(),

@@ -50,7 +50,7 @@ Connection cnn;
 
 
 
-    public void Insertar(DetalleProducto vo) throws AppException{
+    public int Insertar(DetalleProducto vo) throws AppException{
         Conectar conec = new Conectar();
         String sql = "INSERT INTO detalleproducto (Oferta_idOferta, Producto_idProducto, precio) VALUES(?, ?, ?);";
         PreparedStatement ps = null;
@@ -61,6 +61,14 @@ Connection cnn;
             ps.setDouble(3, vo.getPrecio());
          
             ps.executeUpdate();
+            sql = "SELECT LAST_INSERT_ID();";
+            ps = conec.getCnn().prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            int id=0;
+            if(rs.next()){
+                id=rs.getInt(1);
+            }
+            return id;
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a DetalleProducto");
         }catch(Exception ex){

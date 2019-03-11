@@ -27,8 +27,8 @@ public class ControlGenerico<T extends IDao, V extends IVo> {
         this.cnn = cnn;
         this.dao = dao;
     }
-    public void insertar(V vo) throws AppException{
-        getDao().Insertar(vo);
+    public int insertar(V vo) throws AppException{
+        return getDao().Insertar(vo);
     }
     public void modificar(V vo) throws AppException{
         getDao().Modificar(vo);

@@ -9,6 +9,12 @@ public class DetalleProducto  implements IVo {
     int Producto_idProducto;
     double precio;
 
+    public DetalleProducto(int Oferta_idOferta, int Producto_idProducto, double precio) {
+        this.Oferta_idOferta = Oferta_idOferta;
+        this.Producto_idProducto = Producto_idProducto;
+        this.precio = precio;
+    }
+
 
 public DetalleProducto(){}
 

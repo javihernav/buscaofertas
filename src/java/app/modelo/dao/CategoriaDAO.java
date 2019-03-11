@@ -51,7 +51,7 @@ public class CategoriaDAO implements IDao<Categoria>{
 
 
 
-    public void Insertar(Categoria vo) throws AppException{
+    public int Insertar(Categoria vo) throws AppException{
         Conectar conec = new Conectar();
         String sql = "INSERT INTO categoria (nombreCategoria) VALUES(?);";
         PreparedStatement ps = null;
@@ -60,6 +60,14 @@ public class CategoriaDAO implements IDao<Categoria>{
             //ps.setInt(1, vo.getIdCategoria());
             ps.setString(1, vo.getNombreCategoria());
             ps.executeUpdate();
+            sql = "SELECT LAST_INSERT_ID();";
+            ps = conec.getCnn().prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            int id=0;
+            if(rs.next()){
+                id=rs.getInt(1);
+            }
+            return id;
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
         }catch(Exception ex){
@@ -70,6 +78,7 @@ public class CategoriaDAO implements IDao<Categoria>{
                 conec.desconectar();
             }catch(Exception ex){}
         }
+        return 0;
     }
 
 

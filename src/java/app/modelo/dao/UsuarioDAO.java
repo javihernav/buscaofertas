@@ -52,7 +52,7 @@ public class UsuarioDAO implements IDao<Usuario>{
 
 
 
-    public void Insertar(Usuario vo) throws AppException{
+    public int Insertar(Usuario vo) throws AppException{
         Conectar conec = new Conectar();
         String sql = "INSERT INTO usuario (Ciudad_idCiudad, nombreUsuario, contrasena, nombre, apellido, telefono, correo, fechaNacimiento, genero, rol) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = null;
@@ -71,6 +71,14 @@ public class UsuarioDAO implements IDao<Usuario>{
             ps.setString(i++, String.valueOf(vo.getGenero()));
             ps.setString(i++, vo.getRol());
             ps.executeUpdate();
+            sql = "SELECT LAST_INSERT_ID();";
+            ps = conec.getCnn().prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            int id=0;
+            if(rs.next()){
+                id=rs.getInt(1);
+            }
+            return id;
         }catch(SQLException ex){
             throw new AppException(-2,"error al insertar datos:"+ex.getMessage());
         }finally{
@@ -143,7 +151,7 @@ public class UsuarioDAO implements IDao<Usuario>{
             ps = conec.getCnn().prepareStatement(sql);
             ps.setString(1, vo.getNombreUsuario());
             rs = ps.executeQuery();
-            while(rs.next()){
+            if(rs.next()){
                 Usuario voTemp = new Usuario();
                 voTemp.setIdUsuario(rs.getInt(1));
                 voTemp.setCiudad_idCiudad(rs.getInt(2));

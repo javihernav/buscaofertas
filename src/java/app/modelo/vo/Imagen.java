@@ -5,6 +5,11 @@ import java.io.InputStream;
 
 public class Imagen implements IVo {
 
+    int idImagen;
+    String linkImagen;
+    private InputStream foto2;
+    private byte[] foto;
+
     /**
      * @return the foto2
      */
@@ -32,11 +37,6 @@ public class Imagen implements IVo {
     public void setFoto(byte[] foto) {
         this.foto = foto;
     }
-
-    int idImagen;
-    String linkImagen;
-    private InputStream foto2;
-    private byte[] foto;
 
     public Imagen() {
     }

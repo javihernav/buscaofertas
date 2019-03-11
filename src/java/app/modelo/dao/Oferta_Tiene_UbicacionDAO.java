@@ -45,7 +45,7 @@ public class Oferta_Tiene_UbicacionDAO implements IDao<Oferta_Tiene_Ubicacion>{
 
 
 
-    public void Insertar(Oferta_Tiene_Ubicacion vo) throws AppException{
+    public int Insertar(Oferta_Tiene_Ubicacion vo) throws AppException{
         Conectar conec = new Conectar();
         String sql = "INSERT INTO oferta_tiene_ubicacion (Oferta_idOferta, Ubicacion_idUbicacion) VALUES( ?, ?);";
         PreparedStatement ps = null;
@@ -55,6 +55,14 @@ public class Oferta_Tiene_UbicacionDAO implements IDao<Oferta_Tiene_Ubicacion>{
             ps.setInt(1, vo.getOferta_idOferta());
             ps.setInt(2, vo.getUbicacion_idUbicacion());
             ps.executeUpdate();
+            sql = "SELECT LAST_INSERT_ID();";
+            ps = conec.getCnn().prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            int id=0;
+            if(rs.next()){
+                id=rs.getInt(1);
+            }
+            return id;
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a OTubicación");
         }catch(Exception ex){

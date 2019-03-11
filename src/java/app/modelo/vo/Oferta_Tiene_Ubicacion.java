@@ -11,6 +11,11 @@ public class Oferta_Tiene_Ubicacion  implements IVo {
 
 public Oferta_Tiene_Ubicacion(){}
 
+    public Oferta_Tiene_Ubicacion(int Oferta_idOferta, int Ubicacion_idUbicacion) {
+        this.Oferta_idOferta = Oferta_idOferta;
+        this.Ubicacion_idUbicacion = Ubicacion_idUbicacion;
+    }
+
 
     public int getId_Oferta_tiene_Ubicacion(){
         return Id_Oferta_tiene_Ubicacion;

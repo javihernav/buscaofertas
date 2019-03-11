@@ -46,7 +46,7 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
 
 
 
-    public void Insertar(DetalleProducto_Tiene_Imagen vo) throws AppException{
+    public int Insertar(DetalleProducto_Tiene_Imagen vo) throws AppException{
         Conectar conec = new Conectar();
         String sql = "INSERT INTO detalleproducto_tiene_imagen (Imagen_idImagen, DetalleProducto_Oferta_idOferta, DetalleProducto_Producto_idProducto) VALUES(?, ?, ?);";
         PreparedStatement ps = null;
@@ -57,6 +57,14 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
             ps.setInt(2, vo.getDetalleProducto_Oferta_idOferta());
             ps.setInt(3, vo.getDetalleProducto_Producto_idProducto());
             ps.executeUpdate();
+            sql = "SELECT LAST_INSERT_ID();";
+            ps = conec.getCnn().prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            int id=0;
+            if(rs.next()){
+                id=rs.getInt(1);
+            }
+            return id;
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a DetalleProducto_Tiene_Imagen");
         }catch(Exception ex){

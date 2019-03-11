@@ -20,5 +20,7 @@ public class ControlCiudad extends ControlGenerico<CiudadDAO,Ciudad>{
     public ControlCiudad(Connection cnn) {
         super(cnn, new CiudadDAO(cnn));
     }
+
+
     
 }
