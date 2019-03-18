@@ -188,7 +188,7 @@ public class UsuarioDAO implements IDao<Usuario>{
             ps.setString(1, vo.getNombreUsuario());
             ps.setString(2, vo.getContrasena());
             rs = ps.executeQuery();
-            while(rs.next()){
+            if(rs.next()){
                 Usuario voTemp = new Usuario();
                 voTemp.setIdUsuario(rs.getInt(1));
                 voTemp.setCiudad_idCiudad(rs.getInt(2));

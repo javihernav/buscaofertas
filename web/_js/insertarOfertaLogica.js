@@ -7,6 +7,7 @@ window.onload = function () {
 function accionEnviarDatos() {
     if (true) {
         var objDatos = {
+            
             nombreProducto: $('#txtNombreProducto').val(),
             nombreOferta: $('#txtNombreOferta').val(),
             ciudadOferta: $('#cbCiudadOferta option:selected').attr("value"),

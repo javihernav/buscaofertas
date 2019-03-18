@@ -25,18 +25,8 @@
     </head>
 
     <body onload="acordeon()">
-        <header>
-
-            <div class="topnav">
-                <a class="active" href="./PaginaPrincipal.jsp">Home</a>
-                <a href="#news">Acerca de nosotros</a>
-                <a href="#news">Contáctanos</a>
-                <a href="#contact">Siguenos en Redes Sociales</a>
-                <a href="#about">Ayuda</a>
-                <a href="./Login.jsp">Inicia Sesión</a>
-                <a href="./RegistrarPerfil.jsp">Regístrate</a>
-                <!--  a href = ". / otherPage.jsp? param1 = Hellold" -->
-            </div>
+        <header>  
+            <%@include file="/jsp/Barra.jsp" %>
         </header>
 
         <figure>
@@ -66,8 +56,9 @@
                 </div>
             </form>
         </div>
+       
         <script type="text/javascript" src="../_js/jquery-3.3.1.js"></script>
-        <script type="text/javascript" src="../_js/bootstrap.min.js"></script>
+         <script type="text/javascript" src="../_js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../_js/popper.min.js"></script>
         <link rel="stylesheet" href="../_css/bootstrap.min.css">
         <link href="../_css/styles.css" rel="stylesheet" type="text/css" />

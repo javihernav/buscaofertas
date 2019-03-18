@@ -52,7 +52,9 @@
                     </div>
                     <center><h1 class="mx-auto d-block">Registro de Ofertas</h1></center>
                     <div class="row">
-                        <div class="form-group col-md-12"><label  class="custom-control-label">Nombre del producto:</label><input class="form-control" id="txtNombreProducto" type="text" value="" maxlength="45" placeholder="Introduzca nombre del producto " oninput="validarNombreProducto()" required></div><br />
+                        <div class="form-group col-md-4"><label  class="custom-control-label">Nombre del producto:</label><input class="form-control" id="txtNombreProducto" type="text" value="" maxlength="45" placeholder="Introduzca nombre del producto " oninput="validarNombreProducto()" required></div><br />
+                        <div class="form-group col-md-4"><label  class="custom-control-label">Tipo:</label><input class="form-control"  id="txtTipo" type="text" value="" maxlength="45" placeholder="Tipo de Producto " oninput="" required></div><br />
+                        <div class="form-group col-md-4"><label  class="custom-control-label">Categoría:</label><input class="form-control"  id="txtCategoria" type="text" value="" maxlength="45" placeholder="Ctegoría del Producto" oninput="" required></div><br />
 
                     </div>
                     <div class="row col-md-12">

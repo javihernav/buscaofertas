@@ -32,6 +32,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,9 +65,9 @@ public class RegistrarOfertas extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession sesion = request.getSession();
-            String usuario = sesion.getAttribute("usuario").toString();
-            Usuario usuarioVo = new Usuario();
-            usuarioVo.setNombreUsuario(usuario);
+            Usuario usuarioVo = (Usuario)sesion.getAttribute("usuario");
+            
+            
             String nombreProducto = request.getParameter("nombreProducto");
             String nombreOferta = request.getParameter("nombreOferta");
             String ciudadOferta = request.getParameter("ciudadOferta");
@@ -75,7 +76,7 @@ public class RegistrarOfertas extends HttpServlet {
             String direccionTienda = request.getParameter("direccionTienda");
             String precioOferta = request.getParameter("precioOferta");
 
-            String fechaCreacion = new Date().toString();
+            Calendar fechaCreacion = Calendar.getInstance();
             String fechaInicio = request.getParameter("fechaInicio");
             String fechaFinalizacion = request.getParameter("fechaFinalizacion");
             String mensaje;
@@ -109,7 +110,7 @@ public class RegistrarOfertas extends HttpServlet {
                 try {
                     idUsuario = controlUsuario.ObtenerId(usuarioVo).getIdUsuario();
                     SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                    Oferta ofertaVo = new Oferta(0, idUsuario, nombreOferta, formatoFecha.parse(fechaCreacion), formatoFecha.parse(fechaInicio), formatoFecha.parse(fechaFinalizacion), 0);
+                    Oferta ofertaVo = new Oferta(0, idUsuario, nombreOferta, formatoFecha.parse(fechaCreacion.get(Calendar.YEAR)+"-"+(fechaCreacion.get(Calendar.MONTH)+1)+"-"+fechaCreacion.get(Calendar.DAY_OF_MONTH)+"-"), formatoFecha.parse(fechaInicio), formatoFecha.parse(fechaFinalizacion), 0);
 
                     idOferta = controlOferta.insertar(ofertaVo);
                     Ciudad ciudadVo = new Ciudad();
@@ -138,7 +139,7 @@ public class RegistrarOfertas extends HttpServlet {
                 }
                 System.out.println("OK");
                 
-                sesion.setAttribute("usuario", usuario);
+                sesion.setAttribute("usuario", usuarioVo);
                 RespuestaServer resp = new RespuestaServer();
                 resp.setCodigo(1);
                 resp.setMensaje("Datos Correctos");
