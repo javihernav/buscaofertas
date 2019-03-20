@@ -125,14 +125,14 @@ public class TipoDAO implements IDao<Tipo>{
     public Tipo ObtenerId(Tipo vo) throws AppException {
         ArrayList<Tipo> list = new ArrayList<Tipo>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM tipo where nombreTipo = ?;";
+        String sql = "SELECT * FROM tipo where idTipo = ?;";
         ResultSet rs = null;
         PreparedStatement ps = null;
         try{
             ps = conec.getCnn().prepareStatement(sql);
-            ps.setString(1, vo.getNombreTipo());
+            ps.setInt(1, vo.getIdTipo());
             rs = ps.executeQuery();
-            while(rs.next()){
+            if(rs.next()){
                 Tipo voTemp = new Tipo();
                 voTemp.setIdTipo(rs.getInt(1));
                 voTemp.setCategoria_idCategoria(rs.getInt(2));
@@ -141,14 +141,13 @@ public class TipoDAO implements IDao<Tipo>{
             }
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a Tipo");
-        }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Tipo");
+        
         }finally{
             try{
                 ps.close();
                 rs.close();
                 conec.desconectar();
-            }catch(Exception ex){}
+            }catch(SQLException ex){throw new AppException(-2,"error al cerrar conexion a bd");}
         }
         return list.get(0);
     }

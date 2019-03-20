@@ -46,6 +46,76 @@ public class OfertaDAO implements IDao<Oferta>{
         }
         return list;
     }
+    public ArrayList<Oferta> consultarPorIdUsuario(int idUsuario) throws AppException{
+        ArrayList<Oferta> list = new ArrayList<Oferta>();
+        Conectar conec = new Conectar();
+        String sql = "SELECT * FROM oferta where Usuario_idUsuario = ?;";
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        
+        try{
+            ps = conec.getCnn().prepareStatement(sql);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Oferta vo = new Oferta();
+                vo.setIdOferta(rs.getInt(1));
+                vo.setUsuario_idUsuario(rs.getInt(2));
+                vo.setNombreOferta(rs.getString(3));
+                vo.setFechaCreacion(rs.getDate(4));
+                vo.setFechaInicio(rs.getDate(5));
+                vo.setFechaFin(rs.getDate(6));
+                vo.setVecesCompartida(rs.getInt(7));
+                list.add(vo);
+            }
+        }catch(SQLException ex){
+            throw new AppException(-2,"error al acceder a Oferta");
+        }catch(Exception ex){
+            throw new AppException(-2,"error al acceder a Oferta");
+        }finally{
+            try{
+                ps.close();
+                rs.close();
+                conec.desconectar();
+            }catch(Exception ex){}
+        }
+        return list;
+    }
+    public Oferta consultarPorIdOferta(int idOferta) throws AppException{
+        ArrayList<Oferta> list = new ArrayList<Oferta>();
+        Conectar conec = new Conectar();
+        String sql = "SELECT * FROM oferta where idOferta = ?;";
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        
+        try{
+            ps = conec.getCnn().prepareStatement(sql);
+            ps.setInt(1, idOferta);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                Oferta vo = new Oferta();
+                vo.setIdOferta(rs.getInt(1));
+                vo.setUsuario_idUsuario(rs.getInt(2));
+                vo.setNombreOferta(rs.getString(3));
+                vo.setFechaCreacion(rs.getDate(4));
+                vo.setFechaInicio(rs.getDate(5));
+                vo.setFechaFin(rs.getDate(6));
+                vo.setVecesCompartida(rs.getInt(7));
+                list.add(vo);
+            }
+        }catch(SQLException ex){
+            throw new AppException(-2,"error al acceder a Oferta");
+        }catch(Exception ex){
+            throw new AppException(-2,"error al acceder a Oferta");
+        }finally{
+            try{
+                ps.close();
+                rs.close();
+                conec.desconectar();
+            }catch(Exception ex){}
+        }
+        return list.get(0);
+    }
 
 
 

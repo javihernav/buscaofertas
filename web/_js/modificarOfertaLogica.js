@@ -1,6 +1,6 @@
 window.onload = function () {
     cargarComboBoxCiudad();
-    $('#botonRegistrar').on('click', accionEnviarDatos);
+    $('#botonActualizar').on('click', accionEnviarDatos);
     $('#botonCancelar').on('click', volver);
 };
 
@@ -26,7 +26,7 @@ function accionEnviarDatos() {
 
         $.ajax({
             type: 'POST',
-            url: '/BuscaOfertas/RegistrarOfertas',
+            url: '/BuscaOfertas/ModificarOferta',
             //contentType:'application/json',
             data: (objDatos),
             //dataType:'json',

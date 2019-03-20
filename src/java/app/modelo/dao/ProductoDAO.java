@@ -138,6 +138,40 @@ public class ProductoDAO implements IDao<Producto>{
     public Producto ObtenerId(Producto vo) throws AppException {
         ArrayList<Producto> list = new ArrayList<Producto>();
         Conectar conec = new Conectar();
+        String sql = "SELECT * FROM producto where  idProducto =?;";
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        try{
+            ps = conec.getCnn().prepareStatement(sql);
+            ps.setInt(1, vo.getIdProducto());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Producto voTemp = new Producto();
+                voTemp.setIdProducto(rs.getInt(1));
+                voTemp.setTipo_idTipo(rs.getInt(2));
+                voTemp.setMarca_idMarca(rs.getInt(3));
+                voTemp.setNombreProducto(rs.getString(4));
+                voTemp.setFabricanteProducto(rs.getString(5));
+                voTemp.setModeloProducto(rs.getString(6));
+                voTemp.setPresentacionProducto(rs.getString(7));
+                list.add(voTemp);
+            }
+        }catch(SQLException ex){
+            throw new AppException(-2,"error al acceder aProducto");
+        }catch(Exception ex){
+            throw new AppException(-2,"error al acceder aProducto");
+        }finally{
+            try{
+                ps.close();
+                rs.close();
+                conec.desconectar();
+            }catch(Exception ex){}
+        }
+        return list.get(0);
+    }
+    public Producto ObtenerIdConNombre(Producto vo) throws AppException {
+        ArrayList<Producto> list = new ArrayList<Producto>();
+        Conectar conec = new Conectar();
         String sql = "SELECT * FROM producto where  nombreProducto =?;";
         ResultSet rs = null;
         PreparedStatement ps = null;

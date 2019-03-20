@@ -15,8 +15,8 @@ import app.control.ControlOferta;
 import app.control.ControlOferta_Tiene_Ubicacion;
 import app.control.ControlProducto;
 import app.control.ControlTipo;
-import app.control.ControlUsuario;
 import app.control.ControlUbicacion;
+import app.control.ControlUsuario;
 import app.modelo.Conectar;
 import app.modelo.vo.Categoria;
 import app.modelo.vo.Ciudad;
@@ -39,7 +39,6 @@ import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -53,8 +52,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author JAVIER
  */
-@WebServlet(name = "RegistrarOfertas", urlPatterns = {"/RegistrarOfertas"})
-public class RegistrarOfertas extends HttpServlet {
+@WebServlet(name = "ModificarOferta", urlPatterns = {"/ModificarOferta"})
+public class ModificarOferta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -66,14 +65,21 @@ public class RegistrarOfertas extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
+            throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession sesion = request.getSession();
-            Usuario usuarioVo = (Usuario)sesion.getAttribute("usuario");
-            
-            
+            Usuario usuarioVo = (Usuario) sesion.getAttribute("usuario");
+            Oferta ofertaVo = (Oferta) sesion.getAttribute("oferta");
+            Ubicacion ubicacionVo = (Ubicacion) sesion.getAttribute("ubicacion");
+            Tipo tipoVo = (Tipo) sesion.getAttribute("tipo");
+            Categoria categoriaVo = (Categoria) sesion.getAttribute("categoria");
+            Imagen imagenVo = (Imagen) sesion.getAttribute("imagen");
+            DetalleProducto detalleProductoVo = (DetalleProducto) sesion.getAttribute("detalleProducto");
+            Producto productoVo = (Producto) sesion.getAttribute("producto");
+            Marca marcaVo = (Marca) sesion.getAttribute("marca");
+
             String nombreProducto = request.getParameter("nombreProducto");
             String tipoProducto = request.getParameter("tipoProducto");
             String categoriaProducto = request.getParameter("categoriaProducto");
@@ -90,14 +96,14 @@ public class RegistrarOfertas extends HttpServlet {
             String fechaFinalizacion = request.getParameter("fechaFinalizacion");
             String mensaje;
             mensaje = "";
-            if (nombreProducto != null
-                    && nombreOferta != null
-                    && ciudadOferta != null
-                    && imagenProducto != null
-                    && direccionTienda != null
-                    && precioOferta != null
-                    && fechaInicio != null
-                    && fechaFinalizacion != null) {
+            if (ofertaVo != null
+                    && detalleProductoVo != null
+                    && ubicacionVo != null
+                    && tipoVo != null
+                    && categoriaVo != null
+                    && imagenVo != null
+                    && productoVo != null
+                    && marcaVo != null) {
                 Connection cnn;
                 cnn = Conectar.getCnn();
                 ControlUsuario controlUsuario = new ControlUsuario(cnn);
@@ -105,83 +111,73 @@ public class RegistrarOfertas extends HttpServlet {
                 ControlCiudad controlCiudad = new ControlCiudad(cnn);
                 ControlImagen controlImagen = new ControlImagen(cnn);
                 ControlOferta controlOferta = new ControlOferta(cnn);
-                ControlOferta_Tiene_Ubicacion controlOferta_Tiene_Ubicacion = new ControlOferta_Tiene_Ubicacion(cnn);
+                //ControlOferta_Tiene_Ubicacion controlOferta_Tiene_Ubicacion = new ControlOferta_Tiene_Ubicacion(cnn);
                 ControlProducto controlProducto = new ControlProducto(cnn);
                 ControlTipo controlTipo = new ControlTipo(cnn);
                 ControlCategoria controlCategoria = new ControlCategoria(cnn);
                 ControlMarca controlMarca = new ControlMarca(cnn);
-                
+
                 ControlDetalleProducto controlDetalleProducto = new ControlDetalleProducto(cnn);
-                ControlDetalleProducto_Tiene_Imagen controlDetalleProducto_Tiene_Imagen = new ControlDetalleProducto_Tiene_Imagen(cnn);
+                //ControlDetalleProducto_Tiene_Imagen controlDetalleProducto_Tiene_Imagen = new ControlDetalleProducto_Tiene_Imagen(cnn);
 
                 int idUsuario = 0;
                 int idOferta = 0;
-                int idUbicacion=0;
-                int idProducto=0;
-                int idImagen=0;
+                int idUbicacion = 0;
+                int idProducto = 0;
+                int idImagen = 0;
                 String nombreCiudad = "";
                 try {
                     idUsuario = controlUsuario.ObtenerId(usuarioVo).getIdUsuario();
-                    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                    Oferta ofertaVo = new Oferta(0, idUsuario, nombreOferta, formatoFecha.parse(fechaCreacion.get(Calendar.YEAR)+"-"+(fechaCreacion.get(Calendar.MONTH)+1)+"-"+fechaCreacion.get(Calendar.DAY_OF_MONTH)+"-"), formatoFecha.parse(fechaInicio), formatoFecha.parse(fechaFinalizacion), 0);
 
-                    idOferta = controlOferta.insertar(ofertaVo);
-                    Ciudad ciudadVo = new Ciudad();
-                    ciudadVo.setNombreCiudad(ciudadOferta);
-                    //nombreCiudad = controlCiudad.ObtenerId(ciudadVo).getNombreCiudad();
-                    Ubicacion ubicacionVo = new Ubicacion(nombreTienda, direccionTienda, ciudadOferta);
-                    idUbicacion=controlUbicacion.insertar(ubicacionVo);
-                    Oferta_Tiene_Ubicacion otu=new Oferta_Tiene_Ubicacion(idOferta,idUbicacion);
-                    controlOferta_Tiene_Ubicacion.insertar(otu);
-                    
-                    Marca marca = new Marca();
-                    marca.setNombreMarca(marcaProducto);
-                    int idMarca = controlMarca.insertar(marca);
-                    
-                    Categoria Categoria = new Categoria();
-                    Categoria.setNombreCategoria(categoriaProducto);
-                    int idCategoria = controlCategoria.insertar(Categoria);
-                    
-                    Tipo Tipo = new Tipo();
-                    Tipo.setNombreTipo(tipoProducto);
-                    Tipo.setCategoria_idCategoria(idCategoria);
-                    int idTipo = controlTipo.insertar(Tipo);
-                    
-                    
-                    Producto productoVo=new Producto();
+                    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+
+                    ofertaVo.setNombreOferta(nombreOferta);
+                    try {
+                        ofertaVo.setFechaInicio(formatoFecha.parse(fechaInicio));
+                        ofertaVo.setFechaFin(formatoFecha.parse(fechaFinalizacion));
+                    } catch (ParseException ex) {
+                        throw new AppException(-3, "error al convertir fechas");
+                    }
+                    controlOferta.modificar(ofertaVo);
+
+                    detalleProductoVo.setPrecio(Integer.parseInt(precioOferta));
+                    controlDetalleProducto.modificar(detalleProductoVo);
+
+                    ubicacionVo.setNombreTienda(nombreTienda);
+                    ubicacionVo.setDireccion(direccionTienda);
+                    ubicacionVo.setCiudad(nombreCiudad);
+                    controlUbicacion.modificar(ubicacionVo);
+
+                    marcaVo.setNombreMarca(marcaProducto);
+                    controlMarca.modificar(marcaVo);
+
+                    categoriaVo.setNombreCategoria(categoriaProducto);
+                    controlCategoria.modificar(categoriaVo);
+
+                    tipoVo.setNombreTipo(tipoProducto);
+                    controlTipo.modificar(tipoVo);
+
                     productoVo.setNombreProducto(nombreProducto);
-                    productoVo.setTipo_idTipo(idTipo);
-                    productoVo.setMarca_idMarca(idMarca);
-                    idProducto=controlProducto.insertar(productoVo);
-                    
-                    
-                    
-                    
-                    DetalleProducto detalleProductoVo=new DetalleProducto(idOferta, idProducto, Double.parseDouble(precioOferta));
-                    
-                    controlDetalleProducto.insertar(detalleProductoVo);
-                    Imagen imgVo= new Imagen(); 
-                    imgVo.setLinkImagen(imagenProducto);
-                    byte [] foto={00000000};
-                    imgVo.setFoto(foto);
-                    
-                    
-                    idImagen=controlImagen.insertar(imgVo);
-                    DetalleProducto_Tiene_Imagen dPTIVo=new DetalleProducto_Tiene_Imagen(idImagen,idOferta,idProducto);
-                    controlDetalleProducto_Tiene_Imagen.insertar(dPTIVo);
-                    
+                    controlProducto.modificar(productoVo);
+
+                    detalleProductoVo.setPrecio(Double.parseDouble(precioOferta));
+                    controlDetalleProducto.modificar(detalleProductoVo);
+
+                    imagenVo.setLinkImagen(imagenProducto);
+                    controlImagen.modificar(imagenVo);
+
                 } catch (AppException ex) {
                     RespuestaServer resp = new RespuestaServer();
                     resp.setCodigo(0);
-                    resp.setMensaje("Fallo al insertar Datos" + ex.getMensaje());
+                    resp.setMensaje("Fallo al actualizar Datos" + ex.getMensaje());
                     out.println(new Gson().toJson(resp));
                 }
                 System.out.println("OK");
-                
+
                 sesion.setAttribute("usuario", usuarioVo);
                 RespuestaServer resp = new RespuestaServer();
                 resp.setCodigo(1);
-                resp.setMensaje("Datos Correctos");
+                resp.setMensaje("Actualizacion de datos correcta");
                 out.println(new Gson().toJson(resp));
 
             }
@@ -200,11 +196,7 @@ public class RegistrarOfertas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(RegistrarOfertas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -218,11 +210,7 @@ public class RegistrarOfertas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(RegistrarOfertas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

@@ -129,14 +129,13 @@ public class UbicacionDAO implements IDao<Ubicacion>{
     public Ubicacion ObtenerId(Ubicacion vo) throws AppException {
         ArrayList<Ubicacion> list = new ArrayList<Ubicacion>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM ubicacion where nombreTienda = ? and direccion = ? and ciudad = ?;";
+        String sql = "SELECT * FROM ubicacion where idUbicacion = ?;";
         ResultSet rs = null;
         PreparedStatement ps = null;
         try{
             ps = conec.getCnn().prepareStatement(sql);
-            ps.setString(1, vo.getNombreTienda());
-            ps.setString(2, vo.getDireccion());
-            ps.setString(3, vo.getCiudad());
+            ps.setInt(1, vo.getIdUbicacion());
+            
             rs = ps.executeQuery();
             if(rs.next()){
                 Ubicacion voTemp = new Ubicacion();

@@ -7,6 +7,7 @@ package app.control;
 
 import app.modelo.dao.Oferta_Tiene_UbicacionDAO;
 import app.modelo.vo.Oferta_Tiene_Ubicacion;
+import app.utils.AppException;
 import java.sql.Connection;
 
 /**
@@ -19,4 +20,8 @@ public class ControlOferta_Tiene_Ubicacion extends ControlGenerico<Oferta_Tiene_
         super(cnn, new Oferta_Tiene_UbicacionDAO());
     }
     
+    public Oferta_Tiene_Ubicacion consultarPorIdOferta(Oferta_Tiene_Ubicacion vo) throws AppException {
+        Oferta_Tiene_UbicacionDAO oferta_Tiene_UbicacionDAO = new Oferta_Tiene_UbicacionDAO();
+        return oferta_Tiene_UbicacionDAO.consultarPorIdOferta(vo);
+    }
 }

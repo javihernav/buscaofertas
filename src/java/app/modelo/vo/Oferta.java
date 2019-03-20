@@ -6,13 +6,13 @@ import java.util.Date;
 public class Oferta  implements IVo {
 
 
-    int idOferta;
-    int Usuario_idUsuario;
-    String nombreOferta;
-    Date fechaCreacion;
-    Date fechaInicio;
-    Date fechaFin;
-    int vecesCompartida;
+    private int idOferta;
+    private int Usuario_idUsuario;
+    private String nombreOferta;
+    private Date fechaCreacion;
+    private Date fechaInicio;
+    private Date fechaFin;
+    private int vecesCompartida;
 
     public Oferta(int idOferta, int Usuario_idUsuario, String nombreOferta, Date fechaCreacion, Date fechaInicio, Date fechaFin, int vecesCompartida) {
         this.idOferta = idOferta;
@@ -71,6 +71,11 @@ public Oferta(){}
     }
     public void setVecesCompartida(int vecesCompartida){
         this.vecesCompartida = vecesCompartida;
+    }
+    
+    @Override
+    public String toString(){
+        return "Nombre Oferta: "+this.getNombreOferta()+" Fecha Inicio: "+this.getFechaInicio().toString()+" Fecha Final: "+this.getFechaFin().toString();
     }
 
 }

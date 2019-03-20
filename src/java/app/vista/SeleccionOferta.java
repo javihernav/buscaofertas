@@ -5,17 +5,11 @@
  */
 package app.vista;
 
-import app.control.ControlUsuario;
-import app.modelo.Conectar;
-import app.modelo.vo.Usuario;
 import app.utils.AppException;
 import app.utils.RespuestaServer;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author JAVIER
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "SeleccionOferta", urlPatterns = {"/SeleccionOferta"})
+public class SeleccionOferta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,44 +37,33 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
             HttpSession sesion = request.getSession();
-            String usuario = request.getParameter("usuario");
-            String clave = request.getParameter("clave");
-            String mensaje = "";
-            if (usuario != null && clave != null) {
-                Connection cnn;
-                try {
-                    cnn = Conectar.getCnn();
-                    ControlUsuario control = new ControlUsuario(cnn);
+            String idOfertaString = request.getParameter("idOferta");
+            
+            String mensaje;
+            mensaje = "";
+            if (idOfertaString != null) {
+                
+                System.out.println("OK");
+                
+                sesion.setAttribute("idOferta", idOfertaString);
+                RespuestaServer resp = new RespuestaServer();
+                resp.setCodigo(1);
+                resp.setMensaje("id cargado a la sesión");
+                out.println(new Gson().toJson(resp));
 
-                    Usuario vo = new Usuario();
-                    vo.setNombreUsuario(usuario);
-                    vo.setContrasena(clave);
-
-                    Usuario voValidado = control.validarUsuario(vo);
-                        RespuestaServer resp = new RespuestaServer();
-                    if (voValidado != null) {
-            //sesion.setAttribute("usuario", usuario);
-                        System.out.println("Validación OK");
-                        //HttpSession sesion = request.getSession();
-                        sesion.setAttribute("usuario", voValidado);
-                        resp.setCodigo(1);
-                        System.out.println(voValidado.getNombreUsuario());
-                        resp.setMensaje("Bienvenido "+voValidado.getNombre());
-                        out.println(new Gson().toJson(resp));
-                        
-                    } else {
-                        resp.setCodigo(0);
-                        resp.setMensaje("Datos Incorrectos");
-                        out.println(new Gson().toJson(resp));
-                        
-                    }
-
-                } catch (AppException ex) {
-                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            }else{
+                    System.out.println("Fail");
+                
+                RespuestaServer resp = new RespuestaServer();
+                resp.setCodigo(0);
+                resp.setMensaje("id NO cargado a la sesión");
+                out.println(new Gson().toJson(resp));
 
             }
+            
+            
         }
     }
 

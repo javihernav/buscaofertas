@@ -10,9 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-public class UsuarioDAO implements IDao<Usuario>{
-
+public class UsuarioDAO implements IDao<Usuario> {
 
     public ArrayList<Usuario> Consultar() throws AppException {
         ArrayList<Usuario> list = new ArrayList<Usuario>();
@@ -20,10 +18,10 @@ public class UsuarioDAO implements IDao<Usuario>{
         String sql = "SELECT * FROM usuario;";
         ResultSet rs = null;
         PreparedStatement ps = null;
-        try{
+        try {
             ps = conec.getCnn().prepareStatement(sql);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Usuario vo = new Usuario();
                 vo.setIdUsuario(rs.getInt(1));
                 vo.setCiudad_idCiudad(rs.getInt(2));
@@ -38,28 +36,27 @@ public class UsuarioDAO implements IDao<Usuario>{
                 vo.setRol(rs.getString(11));
                 list.add(vo);
             }
-        }catch(SQLException ex){
-            throw new AppException(-2,"error al consultar datos:"+ex.getMessage());
-        }finally{
-            try{
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al consultar datos:" + ex.getMessage());
+        } finally {
+            try {
                 ps.close();
                 rs.close();
                 conec.desconectar();
-            }catch(Exception ex){}
+            } catch (Exception ex) {
+            }
         }
         return list;
     }
 
-
-
-    public int Insertar(Usuario vo) throws AppException{
+    public int Insertar(Usuario vo) throws AppException {
         Conectar conec = new Conectar();
         String sql = "INSERT INTO usuario (Ciudad_idCiudad, nombreUsuario, contrasena, nombre, apellido, telefono, correo, fechaNacimiento, genero, rol) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = null;
-        try{
-            int i=1;
+        try {
+            int i = 1;
             ps = conec.getCnn().prepareStatement(sql);
-           // ps.setInt(1, vo.getIdUsuario());
+            // ps.setInt(1, vo.getIdUsuario());
             ps.setInt(i++, vo.getCiudad_idCiudad());
             ps.setString(i++, vo.getNombreUsuario());
             ps.setString(i++, vo.getContrasena());
@@ -73,30 +70,29 @@ public class UsuarioDAO implements IDao<Usuario>{
             ps.executeUpdate();
             sql = "SELECT LAST_INSERT_ID();";
             ps = conec.getCnn().prepareStatement(sql);
-            ResultSet rs= ps.executeQuery();
-            int id=0;
-            if(rs.next()){
-                id=rs.getInt(1);
+            ResultSet rs = ps.executeQuery();
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt(1);
             }
             return id;
-        }catch(SQLException ex){
-            throw new AppException(-2,"error al insertar datos:"+ex.getMessage());
-        }finally{
-            try{
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al insertar datos:" + ex.getMessage());
+        } finally {
+            try {
                 ps.close();
                 conec.desconectar();
-            }catch(Exception ex){}
+            } catch (Exception ex) {
+            }
         }
     }
 
-
-
-    public void Modificar(Usuario vo) throws AppException{
+    public void Modificar(Usuario vo) throws AppException {
         Conectar conec = new Conectar();
         String sql = "UPDATE usuario SET Ciudad_idCiudad = ?, nombreUsuario = ?, contrasena = ?, nombre = ?, apellido = ?, telefono = ?, correo = ?, fechaNacimiento = ?, genero = ?, rol = ? WHERE idUsuario = ?;";
         PreparedStatement ps = null;
-        try{
-            int i=1;
+        try {
+            int i = 1;
             ps = conec.getCnn().prepareStatement(sql);
             ps.setInt(i++, vo.getCiudad_idCiudad());
             ps.setString(i++, vo.getNombreUsuario());
@@ -110,33 +106,34 @@ public class UsuarioDAO implements IDao<Usuario>{
             ps.setString(i++, vo.getRol());
             ps.setInt(i++, vo.getIdUsuario());
             ps.executeUpdate();
-        }catch(SQLException ex){
-            throw new AppException(-2,"error al modificar datos:"+ex.getMessage());
-        }finally{
-            try{
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al modificar datos:" + ex.getMessage());
+        } finally {
+            try {
                 ps.close();
                 conec.desconectar();
-            }catch(Exception ex){}
+            } catch (Exception ex) {
+            }
         }
     }
 
-
-
-    public void Eliminar(Usuario vo) throws AppException{
+    public void Eliminar(Usuario vo) throws AppException {
         Conectar conec = new Conectar();
         String sql = "DELETE FROM usuario WHERE idUsuario = ?;";
         PreparedStatement ps = null;
-        try{
+        try {
             ps = conec.getCnn().prepareStatement(sql);
             ps.setInt(1, vo.getIdUsuario());
             ps.executeUpdate();
-        }catch(SQLException ex){
-            throw new AppException(-2,"error al eliminar datos:"+ex.getMessage());
-        }finally{
-            try{
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al eliminar datos:" + ex.getMessage());
+        } finally {
+            try {
                 ps.close();
                 conec.desconectar();
-            }catch(Exception ex){throw new AppException(-2,"error al eliminar datos:"+ex.getMessage());}
+            } catch (Exception ex) {
+                throw new AppException(-2, "error al eliminar datos:" + ex.getMessage());
+            }
         }
     }
 
@@ -147,12 +144,13 @@ public class UsuarioDAO implements IDao<Usuario>{
         String sql = "SELECT * FROM usuario where nombreUsuario = ?;";
         ResultSet rs = null;
         PreparedStatement ps = null;
-        try{
+        try {
             ps = conec.getCnn().prepareStatement(sql);
             ps.setString(1, vo.getNombreUsuario());
             rs = ps.executeQuery();
-            if(rs.next()){
-                Usuario voTemp = new Usuario();
+            Usuario voTemp = null;
+            if (rs.next()) {
+                voTemp = new Usuario();
                 voTemp.setIdUsuario(rs.getInt(1));
                 voTemp.setCiudad_idCiudad(rs.getInt(2));
                 voTemp.setNombreUsuario(rs.getString(3));
@@ -166,29 +164,36 @@ public class UsuarioDAO implements IDao<Usuario>{
                 voTemp.setRol(rs.getString(11));
                 list.add(voTemp);
             }
-        }catch(SQLException ex){
-            throw new AppException(-2,"error al consultar datos:"+ex.getMessage());
-        }finally{
-            try{
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al consultar datos:" + ex.getMessage());
+        } finally {
+            try {
                 ps.close();
                 rs.close();
                 conec.desconectar();
-            }catch(Exception ex){}
+            } catch (Exception ex) {
+                throw new AppException(-2, "error al cerrar conexión:" + ex.getMessage());
+            }
         }
-        return list.get(0);
+        if (list.size() > 0) {
+            return list.get(0);
+        } else {
+            return null;
+        }
     }
+
     public Usuario validarUsuario(Usuario vo) throws AppException {
         ArrayList<Usuario> list = new ArrayList<Usuario>();
         Conectar conec = new Conectar();
         String sql = "SELECT * FROM usuario where nombreUsuario = ? and contrasena = ?;";
         ResultSet rs = null;
         PreparedStatement ps = null;
-        try{
+        try {
             ps = conec.getCnn().prepareStatement(sql);
             ps.setString(1, vo.getNombreUsuario());
             ps.setString(2, vo.getContrasena());
             rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 Usuario voTemp = new Usuario();
                 voTemp.setIdUsuario(rs.getInt(1));
                 voTemp.setCiudad_idCiudad(rs.getInt(2));
@@ -202,20 +207,19 @@ public class UsuarioDAO implements IDao<Usuario>{
                 voTemp.setGenero(rs.getString(10).charAt(0));
                 voTemp.setRol(rs.getString(11));
                 list.add(voTemp);
-                
+
             }
-        }catch(SQLException ex){
-            throw new AppException(-2,"error al consultar datos:"+ex.getMessage());
-        }finally{
-            try{
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al consultar datos:" + ex.getMessage());
+        } finally {
+            try {
                 ps.close();
                 rs.close();
                 conec.desconectar();
-            }catch(Exception ex){}
+            } catch (Exception ex) {
+            }
         }
         return list.get(0);
     }
-
-
 
 }

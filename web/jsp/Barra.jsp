@@ -36,12 +36,12 @@
                 <button class="dropbtn btn-dark"><%= user.getNombreUsuario()%>
                     <i class="fa fa-caret-down"></i>
                 </button>
-                <div class="dropdown-content">
+                <!--<div class="dropdown-content">-->
                     <a class="" href="#">Resumen</a>
-                    <a  class="" href="#">Mis Ofertas</a>
+                    <a  class="" href="./GestionarOfertas.jsp">Mis Ofertas</a>
                     <a  class="" href="#">Mis Datos</a>
                     <a  class="" href="../CerrarSesion" >Cerrar Sesión</a>
-                </div>
+                <!--</div>-->
             </div>
 
    
@@ -54,23 +54,6 @@
 
 
 
-
-        <div class="container">
-            <h2>Dropdowns</h2>
-            <p>The .dropdown class is used to indicate a dropdown menu.</p>
-            <p>Use the .dropdown-menu class to actually build the dropdown menu.</p>
-            <p>To open the dropdown menu, use a button or a link with a class of .dropdown-toggle and data-toggle="dropdown".</p>                                          
-            <div class="dropdown">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    Dropdown button
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Link 1</a>
-                    <a class="dropdown-item" href="#">Link 2</a>
-                    <a class="dropdown-item" href="#">Link 3</a>
-                </div>
-            </div>
-        </div>
 
 
 

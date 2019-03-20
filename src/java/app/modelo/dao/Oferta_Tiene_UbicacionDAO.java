@@ -153,6 +153,36 @@ public class Oferta_Tiene_UbicacionDAO implements IDao<Oferta_Tiene_Ubicacion>{
         }
         return list.get(0);
     }
+    public Oferta_Tiene_Ubicacion consultarPorIdOferta(Oferta_Tiene_Ubicacion vo) throws AppException {
+        ArrayList<Oferta_Tiene_Ubicacion> list = new ArrayList<Oferta_Tiene_Ubicacion>();
+        Conectar conec = new Conectar();
+        String sql = "SELECT * FROM oferta_tiene_ubicacion where Oferta_idOferta = ?;";
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        try{
+            ps = conec.getCnn().prepareStatement(sql);
+            ps.setInt(1, vo.getOferta_idOferta());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Oferta_Tiene_Ubicacion voTemp = new Oferta_Tiene_Ubicacion();
+                voTemp.setId_Oferta_tiene_Ubicacion(rs.getInt(1));
+                voTemp.setOferta_idOferta(rs.getInt(2));
+                voTemp.setUbicacion_idUbicacion(rs.getInt(3));
+                list.add(voTemp);
+            }
+        }catch(SQLException ex){
+            throw new AppException(-2,"error al acceder a OTubicación");
+        }catch(Exception ex){
+            throw new AppException(-2,"error al acceder a OTubicación");
+        }finally{
+            try{
+                ps.close();
+                rs.close();
+                conec.desconectar();
+            }catch(Exception ex){}
+        }
+        return list.get(0);
+    }
 
 
 }

@@ -69,7 +69,7 @@
                 </div>
                 <div class="row col-md-12">
                     <div class="form-group col-md-12">
-                        <input class="form-control col-md-4 offset-3 btn btn-dark" id="botonCancelar"type="reset" value="Cancelar" onclick = "location = 'PaginaPrincipal.jsp'">
+                        <input class="form-control col-md-4 offset-3 btn btn-dark" id="botonCancelar"type="button" value="Cancelar" onclick = "location = 'PaginaPrincipal.jsp'">
                         <input class="form-control col-md-4 btn btn-danger"id="botonIngresar"type="button" value="Ingresar"><br/><br/>
                     </div>
                 </div>

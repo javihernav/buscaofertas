@@ -22,7 +22,7 @@ function accionEnviarDatos() {
             success: function (data, textStatus, jqXHR) {
                 alert(data.mensaje);
                 if (data.codigo !== 0) {
-                    $(location).attr('href', '/BuscaOfertas/jsp/RegistrarOferta.jsp');
+                    $(location).attr('href', '/BuscaOfertas/jsp/PaginaPrincipal.jsp');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

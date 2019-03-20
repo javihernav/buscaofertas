@@ -122,12 +122,12 @@ public class MarcaDAO implements IDao<Marca>{
     public Marca ObtenerId(Marca vo) throws AppException {
         ArrayList<Marca> list = new ArrayList<Marca>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM marca where nombreMarca = ?;";
+        String sql = "SELECT * FROM marca where idMarca = ?;";
         ResultSet rs = null;
         PreparedStatement ps = null;
         try{
             ps = conec.getCnn().prepareStatement(sql);
-            ps.setString(1, vo.getNombreMarca());
+            ps.setInt(1, vo.getIdMarca());
             rs = ps.executeQuery();
             while(rs.next()){
                 Marca voTemp = new Marca();

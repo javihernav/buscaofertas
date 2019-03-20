@@ -130,12 +130,12 @@ public class CategoriaDAO implements IDao<Categoria>{
     public Categoria ObtenerId(Categoria vo) throws AppException {
         ArrayList<Categoria> list = new ArrayList<Categoria>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM categoria where nombreCategoria = ?;";
+        String sql = "SELECT * FROM categoria where idCategoria = ?;";
         ResultSet rs = null;
         PreparedStatement ps = null;
         try{
             ps = conec.getCnn().prepareStatement(sql);
-            ps.setString(1, vo.getNombreCategoria());
+            ps.setInt(1, vo.getIdCategoria());
             rs = ps.executeQuery();
             if(rs.next()){
                 Categoria vo1 = new Categoria();

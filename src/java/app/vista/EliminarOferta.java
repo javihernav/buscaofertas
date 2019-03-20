@@ -5,30 +5,20 @@
  */
 package app.vista;
 
-import app.control.ControlUsuario;
-import app.modelo.Conectar;
-import app.modelo.vo.Usuario;
-import app.utils.AppException;
-import app.utils.RespuestaServer;
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author JAVIER
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "EliminarOferta", urlPatterns = {"/EliminarOferta"})
+public class EliminarOferta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,44 +33,16 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession sesion = request.getSession();
-            String usuario = request.getParameter("usuario");
-            String clave = request.getParameter("clave");
-            String mensaje = "";
-            if (usuario != null && clave != null) {
-                Connection cnn;
-                try {
-                    cnn = Conectar.getCnn();
-                    ControlUsuario control = new ControlUsuario(cnn);
-
-                    Usuario vo = new Usuario();
-                    vo.setNombreUsuario(usuario);
-                    vo.setContrasena(clave);
-
-                    Usuario voValidado = control.validarUsuario(vo);
-                        RespuestaServer resp = new RespuestaServer();
-                    if (voValidado != null) {
-            //sesion.setAttribute("usuario", usuario);
-                        System.out.println("Validación OK");
-                        //HttpSession sesion = request.getSession();
-                        sesion.setAttribute("usuario", voValidado);
-                        resp.setCodigo(1);
-                        System.out.println(voValidado.getNombreUsuario());
-                        resp.setMensaje("Bienvenido "+voValidado.getNombre());
-                        out.println(new Gson().toJson(resp));
-                        
-                    } else {
-                        resp.setCodigo(0);
-                        resp.setMensaje("Datos Incorrectos");
-                        out.println(new Gson().toJson(resp));
-                        
-                    }
-
-                } catch (AppException ex) {
-                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet EliminarOferta</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet EliminarOferta at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
