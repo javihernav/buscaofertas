@@ -23,17 +23,8 @@
     </head>
 
     <body onload="cargarComboBoxCiudad()">
-        <header>
-
-            <div class="topnav">
-                <a class="active" href="./PaginaPrincipal.jsp">Home</a>
-                <a href="#news">Acerca de nosotros</a>
-                <a href="#news">Contáctanos</a>
-                <a href="#contact">Siguenos en Redes Sociales</a>
-                <a href="#about">Ayuda</a>
-                <a href="./Login.jsp">Inicia Sesión</a>
-                <a href="./RegistrarPerfil.jsp">Regístrate</a>
-            </div>
+        <header>  
+            <%@include file="/jsp/Barra.jsp" %>
         </header>
 
         <figure>

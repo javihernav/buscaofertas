@@ -24,28 +24,24 @@
 
     <body >
         <header>
-
-            <div class="topnav">
-                <a class="active" href="./PaginaPrincipal.jsp">Home</a>
-                <a href="#news">Acerca de nosotros</a>
-                <a href="#news">Contáctanos</a>
-                <a href="#contact">Siguenos en Redes Sociales</a>
-                <a href="#about">Ayuda</a>
-                <a href="./Login.jsp">Inicia Sesión</a>
-                <a href="./RegistrarPerfil.jsp">Regístrate</a>
-            </div>
+            <%@include file="/jsp/Barra.jsp" %>
         </header>
-
-        <figure>
-            <img class="img-fluid mx-auto d-block " src="../_img/LETRERO-BUSCAOFERTAS-sin-nombre-tecnico.png" alt="BuscaOfertas.jpg" >
-
-        </figure>
+        <!--
+                <figure>
+                    <img class="img-fluid mx-auto d-block " src="../_img/LETRERO-BUSCAOFERTAS-sin-nombre-tecnico.png" alt="BuscaOfertas.jpg" >
+        
+                </figure>-->
 
         <div class="container col-md-6">
 
-            <form class="form-inline" action="">
+            <form class="form-inline" autocomplete="off" action="">
                 <div class="row  col-md-12">
-                    <h1 class="mx-auto d-block ">Ingreso de Usuarios</h1>
+                    <div class="form-group col-md-12">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="row  col-md-12">
+                    <h1 class="mx-auto d-block h3 offset-2">Ingreso de Usuarios</h1>
                 </div>
                 <div class="row  col-md-12">
                     <div class="form-group col-md-12">
@@ -54,12 +50,39 @@
                 </div>
                 <div class="row  col-md-12">
                     <div class="form-group col-md-12">
-                        <input class="form-control col-md-8 offset-3" id="txtUsuario" type="text" name="usuario" placeholder="ingrese nombre de usuario" oninput="validarUsuario()"><br/>
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="row  col-md-12">
+                    <div class="form-group col-md-12">
+
+
+                        <label for="txtUsuario" class=" col-md-8">Usuario:</label>
+                        <div class="row  col-md-12">
+                            <div class="form-group col-md-12">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <input autofocus="on" class="form-control col-md-8 offset-3" id="txtUsuario" type="text" name="usuario" placeholder="ingrese nombre de usuario" oninput="validarUsuario()"><br/>
+
                     </div>
                 </div>
                 <div class="row col-md-12">
                     <div class="form-group col-md-12">
+                        <div class="row  col-md-12">
+                            <div class="form-group col-md-12">
+                                &nbsp;
+                            </div>
+                        </div>
+
+                        <label for="txtPassword" class=" col-md-8">Password:</label>
+                        <div class="row  col-md-12">
+                            <div class="form-group col-md-12">
+                                &nbsp;
+                            </div>
+                        </div>
                         <input class="form-control col-md-8 offset-3" id="txtPassword" type="password" name="clave" placeholder="ingrese password"value="" oninput="validarPasswd()"><br/><br/>
+
                     </div>
                 </div>
                 <div class="row  col-md-12">
@@ -74,7 +97,7 @@
                     </div>
                 </div>
 
-                <a class="form-text offset-3" href="">recuperar contraseña</a>
+                <a class="form-text offset-3" href="">Recuperar password</a>
                 <div class="row  col-md-12">
                     <div class="form-group col-md-12">
                         &nbsp;

@@ -38,36 +38,23 @@ function accionModificarOferta() {
     }
 }
 function accionEliminarOferta() {
-    $(location).attr('href', '/BuscaOfertas/jsp/EliminarOferta.jsp');
-}
-function accionEnviarDatos() {
-    //debugger;
-    if (validarFormulario()) {
-        var objDatos = {
-            nombres: $('#txtNombres').val(),
-            apellidos: $('#txtApellidos').val(),
-            correo: $('#txtCorreo').val(),
-            telefono: $('#txtTelefono').val(),
-            ciudad: $('#cbCiudadUsuario option:selected').attr("value"),
-            fechaDeNacimiento: $('#txtFechaDeNacimiento').val(),
-            usuario: $('#txtUsuario').val(),
-            clave: $('#txtPassword').val(),
-            genero: $('#cbGenero option:selected').attr("value")
-
+    if (confirm('¿Estas seguro de eliminar esta oferta?')) {
+        var objDatos2 = {
+            idOferta: $('input[name = "oferta"]:checked').val()
         };
 
-        console.log(objDatos);
+        console.log(objDatos2);
 
         $.ajax({
             type: 'POST',
-            url: '/BuscaOfertas/RegistrarUsuario',
+            url: '/BuscaOfertas/EliminarOferta',
             //contentType:'application/json',
-            data: (objDatos),
+            data: (objDatos2),
             //dataType:'json',
             success: function (data, textStatus, jqXHR) {
                 alert(data.mensaje);
                 if (data.codigo !== 0) {
-                    $(location).attr('href', '/BuscaOfertas/jsp/PaginaPrincipal.jsp');
+                    $(location).attr('href', '/BuscaOfertas/jsp/GestionarOfertas.jsp');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -82,6 +69,7 @@ function accionEnviarDatos() {
 }
 
 
+/*
 	$(document).ready(function()
 		{
 		$("input[name=oferta]").click(function () {	 
@@ -89,3 +77,4 @@ function accionEnviarDatos() {
 			
 			});
 		 });
+*/

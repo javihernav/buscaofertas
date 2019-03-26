@@ -12,12 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <header>
-
-            <div class="topnav">
-                
-                <a href="./RegistrarPerfil.jsp">usuario</a>
-            </div>
+        <header>  
+            <%@include file="/jsp/Barra.jsp" %>
         </header>
     </body>
 </html>

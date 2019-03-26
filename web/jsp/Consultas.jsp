@@ -13,9 +13,12 @@
         <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
     </head>
     <body>
+        <header>  
+            <%@include file="/jsp/Barra.jsp" %>
+        </header>
         <div id="contenido">
             <div id="tablaDatos">
-                
+
             </div>
         </div>
         <script src="../_js/jquery-3.3.1.js"></script>

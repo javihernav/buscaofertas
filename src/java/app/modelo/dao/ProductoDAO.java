@@ -172,12 +172,12 @@ public class ProductoDAO implements IDao<Producto>{
     public Producto ObtenerIdConNombre(Producto vo) throws AppException {
         ArrayList<Producto> list = new ArrayList<Producto>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM producto where  nombreProducto =?;";
+        String sql = "SELECT * FROM producto where idProducto = ?;";
         ResultSet rs = null;
         PreparedStatement ps = null;
         try{
             ps = conec.getCnn().prepareStatement(sql);
-            ps.setString(1, vo.getNombreProducto());
+            ps.setInt(1, vo.getIdProducto());
             rs = ps.executeQuery();
             while(rs.next()){
                 Producto voTemp = new Producto();

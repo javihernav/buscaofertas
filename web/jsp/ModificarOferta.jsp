@@ -48,7 +48,7 @@
 
     <body onload="cargarComboBoxCiudad()">
         <%
-           HttpSession sesion=request.getSession();
+            HttpSession sesion=request.getSession();
             String idOfertaString = (String)sesion.getAttribute("idOferta");
             
             System.out.println("\nnúmero de oferta recibida en el jsp: " + idOfertaString);
@@ -124,23 +124,14 @@
 
         %>
 
-        <header>
-
-            <div class="topnav">
-                <a class="active" href="./PaginaPrincipal.jsp">Home</a>
-                <a href="#news">Acerca de nosotros</a>
-                <a href="#news">Contáctanos</a>
-                <a href="#contact">Siguenos en Redes Sociales</a>
-                <a href="#about">Ayuda</a>
-                <a href="./Login.jsp">Inicia Sesión</a>
-                <a href="./RegistrarPerfil.jsp">Regístrate</a>
-            </div>
+        <header>  
+            <%@include file="/jsp/Barra.jsp" %>
         </header>
-
+<!--
         <figure>
             <img class="mx-auto d-block img-fluid" src="../_img/LETRERO-BUSCAOFERTAS-sin-nombre-tecnico.png" alt="BuscaOfertas.jpg" width="500">
 
-        </figure>
+        </figure>-->
 
         <div class="container">
 
@@ -220,7 +211,7 @@
                         </div>
                         <div class="row col-md-6">
                             <input class="btn btn-dark offset-1 col-md-4"  id="botonCancelar" type="button" value="Cancelar">
-                            <input class="btn btn-danger offset-1 col-md-4"  id="botonActualizar" type="button" value="Actualizar Oferta">
+                            <input class="btn btn-danger offset-1 col-md-4"  id="botonActualizar" type="button" value="Actualizar">
                         </div>
                     </div>
 

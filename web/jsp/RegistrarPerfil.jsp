@@ -23,23 +23,14 @@
     </head>
 
     <body onload="cargarComboBoxDatos()">
-        <header>
-
-            <div class="topnav">
-                <a class="active" href="./PaginaPrincipal.jsp">Home</a>
-                <a href="#news">Acerca de nosotros</a>
-                <a href="#news">Contáctanos</a>
-                <a href="#contact">Siguenos en Redes Sociales</a>
-                <a href="#about">Ayuda</a>
-                <a href="./Login.jsp">Inicia Sesión</a>
-                <a href="./RegistrarPerfil.jsp">Regístrate</a>
-            </div>
+        <header>  
+            <%@include file="/jsp/Barra.jsp" %>
         </header>
 
-        <figure>
+        <!--<figure>
             <img class="img-fluid mx-auto d-block" src="../_img/LETRERO-BUSCAOFERTAS-sin-nombre-tecnico.png" alt="BuscaOfertas.jpg" >
 
-        </figure>
+        </figure>-->
 
         <div class="container">
             <form class="form-check" autocomplete="on"  >
@@ -53,7 +44,7 @@
                     &nbsp;
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6"><label class="control-label ">Nombres:</label><input class="form-control "id="txtNombres" type="text" value="" maxlength="45" placeholder="Introduzca sus nombres " oninput="validarNombres()" required></div>
+                    <div class="form-group col-md-6"><label class="control-label ">Nombres:</label><input autofocus="on" class="form-control "id="txtNombres" type="text" value="" maxlength="45" placeholder="Introduzca sus nombres " oninput="validarNombres()" required></div>
                     <div class="form-group col-md-6"><label class="control-label ">Apellidos:</label><input class="form-control "id="txtApellidos" type="text" value="" maxlength="45" placeholder="Introduzca sus apellidos " oninput="validarApellidos()" required></div>
                 </div>
                 <div class="row">
@@ -77,7 +68,7 @@
                 </div>
                 <div class="row">
                     <div  class="form-group col-md-6">
-                        <input class="form-control  btn btn-dark  col-md-6 offset-3" type="button" value="Cancelar" href="PaginaPrincipal.jsp" onclick = "location='PaginaPrincipal.jsp'"/><!--id="botonCancelar"--> 
+                        <input class="form-control  btn btn-dark  col-md-6 offset-3" type="button" value="Cancelar" href="PaginaPrincipal.jsp" onclick = "location = 'PaginaPrincipal.jsp'"/><!--id="botonCancelar"--> 
                     </div>
                     <div  class="form-group col-md-6">
                         <input  class="form-control  btn btn-danger  col-md-6 offset-3" type="button" value="Registrar" id="botonRegistrar"><!---->
