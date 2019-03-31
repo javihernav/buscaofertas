@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.vista;
+package app.control.servlets;
 
 import app.control.ControlUsuario;
 import app.modelo.Conectar;
@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -41,6 +42,7 @@ public class RegistrarUsuario extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
             String nombres = request.getParameter("nombres");
             String apellidos = request.getParameter("apellidos");
             String correo = request.getParameter("correo");
@@ -49,6 +51,7 @@ public class RegistrarUsuario extends HttpServlet {
             String fechaDeNacimiento = request.getParameter("fechaDeNacimiento");
             String usuario = request.getParameter("usuario");
             String clave = request.getParameter("clave");
+            
             String genero = request.getParameter("genero");
             String mensaje;
             mensaje = "";

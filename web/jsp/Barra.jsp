@@ -48,7 +48,8 @@
                 </li>
         
             <%  HttpSession sesion = request.getSession();
-                Usuario user = (Usuario) sesion.getAttribute("usuario");
+            Usuario user=null;
+                try{user = (Usuario) sesion.getAttribute("usuario");}catch(ClassCastException ce){}
                 if (user == null) {
             %>
             <li> <a href="./Login.jsp">Inicia Sesión</a></li>
@@ -67,7 +68,7 @@
 
                         <a class="dropdown-item" href="#">Resumen</a>
                         <a  class="dropdown-item" href="./GestionarOfertas.jsp">Mis Ofertas</a>
-                        <a  class="dropdown-item" href="#">Mis Datos</a>
+                        <a  class="dropdown-item" href="./ActualizarDatosPersonales.jsp">Mis Datos</a>
                         <a  class="dropdown-item" href="../CerrarSesion" >Cerrar Sesión</a>
                     </div>
                 </li>

@@ -48,8 +48,9 @@
                     <div class="form-group col-md-6"><label class="control-label ">Apellidos:</label><input class="form-control "id="txtApellidos" type="text" value="" maxlength="45" placeholder="Introduzca sus apellidos " oninput="validarApellidos()" required></div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6"><label class="control-label ">Email:</label><input class="form-control "id="txtCorreo" type="email" value="" maxlength="45" placeholder="Introduzca su e-mail " oninput="validarCorreo()" required></div>
-                    <div class="form-group col-md-6"><label class="control-label ">Teléfono:</label><input class="form-control "id="txtTelefono" type="text" value="" maxlength="20" placeholder="Introduzca su teléfono " oninput="validarTelefono()" required></div>
+                    <div class="form-group col-md-4"><label class="control-label ">Email:</label><input class="form-control "id="txtCorreo" type="email" value="" maxlength="45" placeholder="Introduzca su e-mail " oninput="validarCorreo()" required></div>
+                    <div class="form-group col-md-4"><label class="control-label ">Confirmar:</label><input class="form-control "id="txtConfirmarCorreo" type="email" value="" maxlength="45" placeholder="Introduzca su e-mail " oninput="validarCorreo()" required></div>
+                    <div class="form-group col-md-4"><label class="control-label ">Teléfono:</label><input class="form-control "id="txtTelefono" type="text" value="" maxlength="20" placeholder="Introduzca su teléfono " oninput="validarTelefono()" required></div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6"><label class="control-label ">Ciudad:</label><select class="form-control "id="cbCiudadUsuario" type="text" required><option value="0">Seleccione Ciudad</option></select></div>

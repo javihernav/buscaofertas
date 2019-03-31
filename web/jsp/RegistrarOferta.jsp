@@ -27,10 +27,6 @@
             <%@include file="/jsp/Barra.jsp" %>
         </header>
 
-        <figure>
-            <img class="mx-auto d-block img-fluid" src="../_img/LETRERO-BUSCAOFERTAS-sin-nombre-tecnico.png" alt="BuscaOfertas.jpg" width="500">
-
-        </figure>
 
         <div class="container">
 
@@ -43,14 +39,13 @@
                     </div>
                     <center><h1 class="mx-auto d-block">Registro de Ofertas</h1></center>
                     <div class="row">
-                        <div class="form-group col-md-3"><label  class="custom-control-label">Nombre del producto:</label><input class="form-control" id="txtNombreProducto" type="text" value="" maxlength="45" placeholder="Nombre del producto " oninput="validarNombreProducto()" required></div><br />
-                        <div class="form-group col-md-3"><label  class="custom-control-label">Tipo:</label><input class="form-control"  id="txtTipo" type="text" value="" maxlength="45" placeholder="Tipo de Producto " oninput="" required></div><br />
-                        <div class="form-group col-md-3"><label  class="custom-control-label">Categoría:</label><input class="form-control"  id="txtCategoria" type="text" value="" maxlength="45" placeholder="Categoría del Producto" oninput="" required></div><br />
-                        <div class="form-group col-md-3"><label  class="custom-control-label">Marca:</label><input class="form-control"  id="txtMarca" type="text" value="" maxlength="45" placeholder="Marca del Producto" oninput="" required></div><br />
+                        <div class="form-group col-md-4"><label  class="custom-control-label">Nombre del producto:</label><input class="form-control" id="txtNombreProducto" type="text" value="" maxlength="45" placeholder="Nombre del producto " oninput="validarNombreProducto()" required></div><br />
+                        <div class="form-group col-md-4"><label  class="custom-control-label">Categoría:</label><input class="form-control"  id="txtCategoria" type="text" value="" maxlength="45" placeholder="Categoría del Producto" oninput="" required></div><br />
+                        <div class="form-group col-md-4"><label  class="custom-control-label">Marca:</label><input class="form-control"  id="txtMarca" type="text" value="" maxlength="45" placeholder="Marca del Producto" oninput="" required></div><br />
 
                     </div>
                     <div class="row col-md-12">
-                        <div class="row col-md-7">
+                        <div class="row col-md-6">
 
                             <div class="row col-md-12">
                                 <div class="form-group col-md-12">
@@ -63,11 +58,11 @@
                             <div class="row col-md-12">
                                 <div class="form-group col-md-12"><label class="custom-control-label">Nombre de la tienda:</label><input class="form-control"  id="txtNombreTienda" type="text" value="" maxlength="20" placeholder="Introduzca nombre de la tienda " oninput="validarNombreTienda()" required></div><br />
                             </div>
+                        </div>
+                        <div class="form-group mx-auto d-block img-fluid  col-md-6">
                             <div class="row col-md-12">
                                 <div class="form-group col-md-12"><label class="custom-control-label">Dirección de la tienda:</label><input class="form-control"  id="txtDireccionTienda" type="text" placeholder="Dirección de la tienda" oninput="validarDireccionTienda()" required></input></div><br />
                             </div>
-                        </div>
-                        <div class="form-group mx-auto d-block img-fluid  col-md-4">
                             <label class="custom-control-label mx-auto d-block" for="imgProducto">Imagen del producto:</label>
                             <div class="row">
                                 &nbsp;
@@ -110,7 +105,7 @@
                         </div>
                         <div class="row col-md-6">
                             <input class="btn btn-dark offset-1 col-md-4"  id="botonCancelar" type="button" value="Cancelar">
-                            <input class="btn btn-danger offset-1 col-md-4"  id="botonRegistrar" type="button" value="Publicar Oferta">
+                            <input class="btn btn-danger offset-1 col-md-4"  id="botonRegistrar" type="button" value="Publicar">
                         </div>
                     </div>
 

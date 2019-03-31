@@ -217,6 +217,7 @@ label{
     display: inline-block;
     width: 100px;
     text-align: left;
+    min-width: 30vw;
 }
 #mensajeRecuperacion{
     position: absolute;
@@ -237,7 +238,7 @@ table{
     background: #D3D5DB;
     border-radius: 1vw;
     margin: 8vw auto;
-    padding: 3vw;
+    padding: 1vw;
     
 }
 
@@ -320,4 +321,12 @@ body {
     overflow: visible;
     min-width: 150px;
     margin: 5px;
+}
+.conjuntoImagen{
+    left: 3.5vw;
+    top: 2vw;
+    
+    padding: 1vw;
+    /*background: #343a40;
+    border-radius: 10px;*/
 }

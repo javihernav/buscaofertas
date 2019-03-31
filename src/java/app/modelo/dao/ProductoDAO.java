@@ -25,12 +25,10 @@ public class ProductoDAO implements IDao<Producto>{
             while(rs.next()){
                 Producto vo = new Producto();
                 vo.setIdProducto(rs.getInt(1));
-                vo.setTipo_idTipo(rs.getInt(2));
+                vo.setCategoria_idCategoria(rs.getInt(2));
                 vo.setMarca_idMarca(rs.getInt(3));
                 vo.setNombreProducto(rs.getString(4));
-                vo.setFabricanteProducto(rs.getString(5));
-                vo.setModeloProducto(rs.getString(6));
-                vo.setPresentacionProducto(rs.getString(7));
+           
                 list.add(vo);
             }
         }catch(SQLException ex){
@@ -51,17 +49,15 @@ public class ProductoDAO implements IDao<Producto>{
 
     public int Insertar(Producto vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "INSERT INTO producto (Tipo_idTipo, Marca_idMarca, nombreProducto, fabricanteProducto, modeloProducto, presentacionProducto) VALUES(?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO producto (Categoria_idCategoria, Marca_idMarca, nombreProducto) VALUES(?, ?, ?);";
         PreparedStatement ps = null;
         try{
             ps = conec.getCnn().prepareStatement(sql);
             int i=1;
-            ps.setInt(i++, vo.getTipo_idTipo());
+            ps.setInt(i++, vo.getCategoria_idCategoria());
             ps.setInt(i++, vo.getMarca_idMarca());
             ps.setString(i++, vo.getNombreProducto());
-            ps.setString(i++, vo.getFabricanteProducto());
-            ps.setString(i++, vo.getModeloProducto());
-            ps.setString(i++, vo.getPresentacionProducto());
+            
             ps.executeUpdate();
             sql = "SELECT LAST_INSERT_ID();";
             ps = conec.getCnn().prepareStatement(sql);
@@ -87,17 +83,14 @@ public class ProductoDAO implements IDao<Producto>{
 
     public void Modificar(Producto vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "UPDATE producto SET Tipo_idTipo = ?, Marca_idMarca = ?, nombreProducto = ?, fabricanteProducto = ?, modeloProducto = ?, presentacionProducto = ? WHERE idProducto = ?;";
+        String sql = "UPDATE producto SET Categoria_idCategoria = ?, Marca_idMarca = ?, nombreProducto = ? WHERE idProducto = ?;";
         PreparedStatement ps = null;
         try{
             ps = conec.getCnn().prepareStatement(sql);
             int i=1;
-            ps.setInt(i++, vo.getTipo_idTipo());
+            ps.setInt(i++, vo.getCategoria_idCategoria());
             ps.setInt(i++, vo.getMarca_idMarca());
             ps.setString(i++, vo.getNombreProducto());
-            ps.setString(i++, vo.getFabricanteProducto());
-            ps.setString(i++, vo.getModeloProducto());
-            ps.setString(i++, vo.getPresentacionProducto());
             ps.setInt(i++, vo.getIdProducto());
             ps.executeUpdate();
         }catch(SQLException ex){
@@ -138,22 +131,23 @@ public class ProductoDAO implements IDao<Producto>{
     public Producto ObtenerId(Producto vo) throws AppException {
         ArrayList<Producto> list = new ArrayList<Producto>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM producto where  idProducto =?;";
+        
+                                                   
+        String sql = "SELECT * FROM producto where idProducto = ?;";
         ResultSet rs = null;
         PreparedStatement ps = null;
         try{
             ps = conec.getCnn().prepareStatement(sql);
             ps.setInt(1, vo.getIdProducto());
+            System.out.println("id de producto ingresado: "+vo.getIdProducto());
             rs = ps.executeQuery();
-            while(rs.next()){
+            if(rs.next()){
                 Producto voTemp = new Producto();
                 voTemp.setIdProducto(rs.getInt(1));
-                voTemp.setTipo_idTipo(rs.getInt(2));
+                voTemp.setCategoria_idCategoria(rs.getInt(2));
                 voTemp.setMarca_idMarca(rs.getInt(3));
                 voTemp.setNombreProducto(rs.getString(4));
-                voTemp.setFabricanteProducto(rs.getString(5));
-                voTemp.setModeloProducto(rs.getString(6));
-                voTemp.setPresentacionProducto(rs.getString(7));
+       
                 list.add(voTemp);
             }
         }catch(SQLException ex){
@@ -169,6 +163,7 @@ public class ProductoDAO implements IDao<Producto>{
         }
         return list.get(0);
     }
+    
     public Producto ObtenerIdConNombre(Producto vo) throws AppException {
         ArrayList<Producto> list = new ArrayList<Producto>();
         Conectar conec = new Conectar();
@@ -182,12 +177,10 @@ public class ProductoDAO implements IDao<Producto>{
             while(rs.next()){
                 Producto voTemp = new Producto();
                 voTemp.setIdProducto(rs.getInt(1));
-                voTemp.setTipo_idTipo(rs.getInt(2));
+                voTemp.setCategoria_idCategoria(rs.getInt(2));
                 voTemp.setMarca_idMarca(rs.getInt(3));
                 voTemp.setNombreProducto(rs.getString(4));
-                voTemp.setFabricanteProducto(rs.getString(5));
-                voTemp.setModeloProducto(rs.getString(6));
-                voTemp.setPresentacionProducto(rs.getString(7));
+              
                 list.add(voTemp);
             }
         }catch(SQLException ex){

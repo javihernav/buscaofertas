@@ -125,15 +125,16 @@ public class Oferta_Tiene_UbicacionDAO implements IDao<Oferta_Tiene_Ubicacion>{
     public Oferta_Tiene_Ubicacion ObtenerId(Oferta_Tiene_Ubicacion vo) throws AppException {
         ArrayList<Oferta_Tiene_Ubicacion> list = new ArrayList<Oferta_Tiene_Ubicacion>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM oferta_tiene_ubicacion where Oferta_idOferta = ? and Ubicacion_idUbicacion = ?;";
+                           //  	    oferta_tiene_ubicacion       Oferta_idOferta
+        String sql = "SELECT * FROM oferta_tiene_ubicacion where Oferta_idOferta = ?;";
         ResultSet rs = null;
         PreparedStatement ps = null;
         try{
             ps = conec.getCnn().prepareStatement(sql);
             ps.setInt(1, vo.getOferta_idOferta());
-            ps.setInt(2, vo.getUbicacion_idUbicacion());
+            System.out.println("id de oferta recibido en Oferta_Tiene_ubicacionDAO.ObtenerId: "+vo.getOferta_idOferta());
             rs = ps.executeQuery();
-            while(rs.next()){
+            if(rs.next()){
                 Oferta_Tiene_Ubicacion voTemp = new Oferta_Tiene_Ubicacion();
                 voTemp.setId_Oferta_tiene_Ubicacion(rs.getInt(1));
                 voTemp.setOferta_idOferta(rs.getInt(2));
@@ -163,7 +164,7 @@ public class Oferta_Tiene_UbicacionDAO implements IDao<Oferta_Tiene_Ubicacion>{
             ps = conec.getCnn().prepareStatement(sql);
             ps.setInt(1, vo.getOferta_idOferta());
             rs = ps.executeQuery();
-            while(rs.next()){
+            if(rs.next()){
                 Oferta_Tiene_Ubicacion voTemp = new Oferta_Tiene_Ubicacion();
                 voTemp.setId_Oferta_tiene_Ubicacion(rs.getInt(1));
                 voTemp.setOferta_idOferta(rs.getInt(2));

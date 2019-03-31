@@ -18,13 +18,14 @@ function accionModificarOferta() {
         $.ajax({
             type: 'POST',
             url: '/BuscaOfertas/SeleccionOferta',
+            
             //contentType:'application/json',
             data: (objDatos),
             //dataType:'json',
             success: function (data, textStatus, jqXHR) {
                 alert(data.mensaje);
                 if (data.codigo !== 0) {
-                    $(location).attr('href', '/BuscaOfertas/jsp/ModificarOferta.jsp');
+                   $(location).attr('href', '/BuscaOfertas/jsp/ModificarOferta.jsp');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -58,7 +59,7 @@ function accionEliminarOferta() {
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert('NO OK ' + JSON.stringify(jqXHR));
+                alert('Fallo al eliminar oferta ' + JSON.stringify(jqXHR));
             }
 
 

@@ -33,7 +33,7 @@
         </figure>-->
 
         <div class="container">
-            <form class="form-check" autocomplete="on"  >
+            <form class="form-check" autocomplete="off"  >
                 <div class="row">
                     &nbsp;
                 </div>
@@ -52,8 +52,9 @@
                     <div class="form-group col-md-6"><label class="control-label ">Apellidos:</label><input class="form-control "id="txtApellidos" type="text" value="<%= vo.getApellido() %>" maxlength="45" placeholder="Introduzca sus apellidos " oninput="validarApellidos()" required></div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6"><label class="control-label ">Email:</label><input class="form-control "id="txtCorreo" type="email" value="<%= vo.getCorreo() %>" maxlength="45" placeholder="Introduzca su e-mail " oninput="validarCorreo()" required></div>
-                    <div class="form-group col-md-6"><label class="control-label ">Teléfono:</label><input class="form-control "id="txtTelefono" type="text" value="<%= vo.getTelefono() %>" maxlength="20" placeholder="Introduzca su teléfono " oninput="validarTelefono()" required></div>
+                    <div class="form-group col-md-4"><label class="control-label ">Email:</label><input class="form-control "id="txtCorreo" type="email" value="<%= vo.getCorreo() %>" maxlength="45" placeholder="Introduzca su e-mail " oninput="validarCorreo()" required></div>
+                    <div class="form-group col-md-4"><label class="control-label ">Confirmar Email:</label><input class="form-control "id="txtConfirmarCorreo" type="email" value="<%= vo.getCorreo() %>" maxlength="45" placeholder="Introduzca su e-mail " oninput="validarCorreo()" required></div>
+                    <div class="form-group col-md-4"><label class="control-label ">Teléfono:</label><input class="form-control "id="txtTelefono" type="text" value="<%= vo.getTelefono() %>" maxlength="20" placeholder="Introduzca su teléfono " oninput="validarTelefono()" required></div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6"><label class="control-label ">Ciudad:</label><select class="form-control "id="cbCiudadUsuario" type="text" required><option value="<%= vo.getCiudad_idCiudad() %>">Seleccione Ciudad</option></select></div>

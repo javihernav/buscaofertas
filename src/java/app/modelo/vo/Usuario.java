@@ -16,6 +16,19 @@ public class Usuario implements IVo {
     char genero;
     String rol;
 
+    public Usuario(int idUsuario, int Ciudad_idCiudad, String nombreUsuario, String contrasena, String nombre, String apellido, String telefono, String correo, String fechaNacimiento, char genero, String rol) {
+        this.idUsuario = idUsuario;
+        this.Ciudad_idCiudad = Ciudad_idCiudad;
+        this.nombreUsuario = nombreUsuario;
+        this.contrasena = contrasena;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+        this.rol = rol;
+    }
     public Usuario() {
     }
 
@@ -107,4 +120,8 @@ public class Usuario implements IVo {
         this.rol = rol;
     }
 
+public String toString(){
+return "idUsuario: "+idUsuario+ " Ciudad_idCiudad: " + Ciudad_idCiudad+" nombreUsuario: "+nombreUsuario+" contrasena: "+contrasena+" nombre: "+
+        nombre+" apellido: "+apellido+" telefono: "+telefono+" correo: "+correo+" fechaNacimiento: "+fechaNacimiento+" genero: "+genero+" rol "+rol;
+}
 }

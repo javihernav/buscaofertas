@@ -3,26 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.vista;
+package app.control.servlets;
 
+import app.control.ControlCiudad;
+import app.modelo.Conectar;
+import app.modelo.vo.Ciudad;
 import app.utils.AppException;
 import app.utils.RespuestaServer;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author JAVIER
  */
-@WebServlet(name = "SeleccionOferta", urlPatterns = {"/SeleccionOferta"})
-public class SeleccionOferta extends HttpServlet {
+@WebServlet(name = "ServiciosCiudad", urlPatterns = {"/usus/consultarCiudad"}) //urlPatterns = {"/ServiciosCiudad"}
+public class ServiciosCiudad extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,33 +43,25 @@ public class SeleccionOferta extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            HttpSession sesion = request.getSession();
-            String idOfertaString = request.getParameter("idOferta");
-            
-            String mensaje;
-            mensaje = "";
-            if (idOfertaString != null) {
-                
-                System.out.println("OK");
-                
-                sesion.setAttribute("idOferta", idOfertaString);
-                RespuestaServer resp = new RespuestaServer();
-                resp.setCodigo(1);
-                resp.setMensaje("id cargado a la sesión");
-                out.println(new Gson().toJson(resp));
-
-            }else{
-                    System.out.println("Fail");
-                
-                RespuestaServer resp = new RespuestaServer();
-                resp.setCodigo(0);
-                resp.setMensaje("id NO cargado a la sesión");
-                out.println(new Gson().toJson(resp));
-
+            Connection cnn=Conectar.getCnn();
+            ControlCiudad control=new ControlCiudad(cnn);
+                List<Ciudad> listaCiudades = null;
+            try {
+                listaCiudades = control.consultar();
+            } catch (AppException ex) {
+                Logger.getLogger(ServiciosCiudad.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            
+            RespuestaServer respuesta = new RespuestaServer();
+            if(listaCiudades==null||listaCiudades.isEmpty()){
+                respuesta.setCodigo(0);
+                respuesta.setMensaje("no hay datos");
+                respuesta.setData(null);
+            }else{
+            respuesta.setCodigo(1);
+                respuesta.setMensaje("datos consultados");
+                respuesta.setData(listaCiudades);
+            }
+            out.print(new Gson().toJson(respuesta));
         }
     }
 

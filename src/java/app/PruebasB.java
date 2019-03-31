@@ -21,7 +21,6 @@ import app.vista.forms.Tabla_Oferta_tiene_ubicacion;
 import app.vista.forms.Tabla_Producto;
 import app.vista.forms.Tabla_Ubicacion;
 import app.vista.forms.Tabla_Detalleproducto;
-import app.vista.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

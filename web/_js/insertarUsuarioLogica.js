@@ -7,6 +7,7 @@ window.onload = function () {
 function accionEnviarDatos() {
     //debugger;
     if (validarFormulario()) {
+        
         var objDatos = {
             nombres: $('#txtNombres').val(),
             apellidos: $('#txtApellidos').val(),

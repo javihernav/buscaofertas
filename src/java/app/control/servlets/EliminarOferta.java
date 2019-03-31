@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.vista;
+package app.control.servlets;
 
 import app.control.ControlCategoria;
 import app.control.ControlDetalleProducto;
@@ -65,8 +65,8 @@ public class EliminarOferta extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             
             HttpSession sesion = request.getSession();
-            String idOfertaString = (String)sesion.getAttribute("idOferta");
-            System.out.println("id de la oferta recibido en el servlet: "+idOfertaString);
+            String idOfertaString = (String)request.getParameter("idOferta");
+            System.out.println("id de la oferta recibido en el servlet EliminarOferta: "+idOfertaString);
             Usuario usuarioVo = null;
             Oferta ofertaVo = null;
             Ubicacion ubicacionVo = null;
@@ -90,7 +90,7 @@ public class EliminarOferta extends HttpServlet {
                 Connection cnn;
                 cnn = Conectar.getCnn();
                 
-                ControlUsuario controlUsuario = new ControlUsuario(cnn);
+                //ControlUsuario controlUsuario = new ControlUsuario(cnn);
                 ControlUbicacion controlUbicacion = new ControlUbicacion(cnn);
                 ControlDetalleProducto controlDetalleProducto = new ControlDetalleProducto(cnn);
                 
@@ -108,7 +108,7 @@ public class EliminarOferta extends HttpServlet {
                 ofertaVo=controlOferta.ObtenerId(offer);
                 
                 Oferta_Tiene_Ubicacion offerTieneUbicacion= new Oferta_Tiene_Ubicacion();
-                offerTieneUbicacion.setOferta_idOferta(idOferta);
+                offerTieneUbicacion.setOferta_idOferta(ofertaVo.getIdOferta());
                 Oferta_Tiene_Ubicacion oferta_Tiene_UbicacionVo=controlOferta_Tiene_Ubicacion.ObtenerId(offerTieneUbicacion);
                 
                 Ubicacion ubicacion= new Ubicacion();
@@ -129,7 +129,7 @@ public class EliminarOferta extends HttpServlet {
                 imagenVo = controlImagen.ObtenerId(Imagen);
                 
                 Producto producto= new Producto();
-                producto.setIdProducto(detalleProducto.getProducto_idProducto());
+                producto.setIdProducto(detalleProductoVo.getProducto_idProducto());
                 productoVo = controlProducto.ObtenerId(producto);
                 
                 Marca marca= new Marca();
@@ -137,7 +137,7 @@ public class EliminarOferta extends HttpServlet {
                 marcaVo = controlMarca.ObtenerId(marca);
                 
                 Tipo Tipo= new Tipo();
-                Tipo.setIdTipo(productoVo.getTipo_idTipo());
+                Tipo.setIdTipo(productoVo.getCategoria_idCategoria());
                 tipoVo = controlTipo.ObtenerId(Tipo);
                 
                 Categoria categoria= new Categoria();
@@ -146,9 +146,6 @@ public class EliminarOferta extends HttpServlet {
                 
                 
                 try {
-                    controlOferta_Tiene_Ubicacion.eliminar(oferta_Tiene_UbicacionVo);
-                    controlOferta.eliminar(ofertaVo);
-                    controlUbicacion.eliminar(ubicacionVo);
                     controlDetalleProducto_Tiene_Imagen.eliminar(detalleProducto_Tiene_ImagenVo);
                     controlImagen.eliminar(imagenVo);
                     controlDetalleProducto.eliminar(detalleProductoVo);
@@ -156,6 +153,9 @@ public class EliminarOferta extends HttpServlet {
                     controlMarca.eliminar(marcaVo);
                     controlTipo.eliminar(tipoVo);
                     controlCategoria.eliminar(categoriaVo);
+                    controlOferta_Tiene_Ubicacion.eliminar(oferta_Tiene_UbicacionVo);
+                    controlOferta.eliminar(ofertaVo);
+                    controlUbicacion.eliminar(ubicacionVo);
 
                 } catch (AppException ex) {
                     RespuestaServer resp = new RespuestaServer();

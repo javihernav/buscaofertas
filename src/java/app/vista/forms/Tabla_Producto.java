@@ -18,7 +18,7 @@ public class Tabla_Producto{
     public void visualizar_Producto(JTable tabla){
         DefaultTableModel dt = new DefaultTableModel();
         dt.addColumn("idProducto");
-        dt.addColumn("Tipo_idTipo");
+        dt.addColumn("Categoria_idCategoria");
         dt.addColumn("Marca_idMarca");
         dt.addColumn("nombreProducto");
         dt.addColumn("fabricanteProducto");
@@ -39,12 +39,10 @@ public class Tabla_Producto{
                 Object fila[] = new Object[7];
                 vo = list.get(i);
                 fila[0] = vo.getIdProducto();
-                fila[1] = vo.getTipo_idTipo();
+                fila[1] = vo.getCategoria_idCategoria();
                 fila[2] = vo.getMarca_idMarca();
                 fila[3] = vo.getNombreProducto();
-                fila[4] = vo.getFabricanteProducto();
-                fila[5] = vo.getModeloProducto();
-                fila[6] = vo.getPresentacionProducto();
+               
                 dt.addRow(fila);
             }
             tabla.setModel(dt);

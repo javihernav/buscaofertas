@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.vista;
+package app.control.servlets;
 
-import app.control.ControlCiudad;
+import app.control.ControlUsuario;
 import app.modelo.Conectar;
-import app.modelo.vo.Ciudad;
+import app.modelo.vo.Usuario;
 import app.utils.AppException;
 import app.utils.RespuestaServer;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -22,13 +21,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author JAVIER
  */
-@WebServlet(name = "ServiciosCiudad", urlPatterns = {"/usus/consultarCiudad"}) //urlPatterns = {"/ServiciosCiudad"}
-public class ServiciosCiudad extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = {"/Login"})
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,25 +43,44 @@ public class ServiciosCiudad extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            Connection cnn=Conectar.getCnn();
-            ControlCiudad control=new ControlCiudad(cnn);
-                List<Ciudad> listaCiudades = null;
-            try {
-                listaCiudades = control.consultar();
-            } catch (AppException ex) {
-                Logger.getLogger(ServiciosCiudad.class.getName()).log(Level.SEVERE, null, ex);
+            HttpSession sesion = request.getSession();
+            String usuario = request.getParameter("usuario");
+            String clave = request.getParameter("clave");
+            String mensaje = "";
+            if (usuario != null && clave != null) {
+                Connection cnn;
+                try {
+                    cnn = Conectar.getCnn();
+                    ControlUsuario control = new ControlUsuario(cnn);
+
+                    Usuario vo = new Usuario();
+                    vo.setNombreUsuario(usuario);
+                    vo.setContrasena(clave);
+
+                    Usuario voValidado = control.validarUsuario(vo);
+                    RespuestaServer resp = new RespuestaServer();
+                    if (voValidado != null) {
+                        //sesion.setAttribute("usuario", usuario);
+                        System.out.println("Validación OK");
+                        //HttpSession sesion = request.getSession();
+                        sesion.setAttribute("usuario", voValidado);
+                        resp.setCodigo(1);
+                        System.out.println(voValidado.getNombreUsuario());
+                        resp.setMensaje("Bienvenido " + voValidado.getNombre());
+                        out.println(new Gson().toJson(resp));
+
+                    } else {
+                        resp.setCodigo(0);
+                        resp.setMensaje("Datos Incorrectos");
+                        out.println(new Gson().toJson(resp));
+
+                    }
+
+                } catch (AppException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
-            RespuestaServer respuesta = new RespuestaServer();
-            if(listaCiudades==null||listaCiudades.isEmpty()){
-                respuesta.setCodigo(0);
-                respuesta.setMensaje("no hay datos");
-                respuesta.setData(null);
-            }else{
-            respuesta.setCodigo(1);
-                respuesta.setMensaje("datos consultados");
-                respuesta.setData(listaCiudades);
-            }
-            out.print(new Gson().toJson(respuesta));
         }
     }
 

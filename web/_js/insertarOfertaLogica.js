@@ -9,7 +9,6 @@ function accionEnviarDatos() {
         var objDatos = {
 
             nombreProducto: $('#txtNombreProducto').val(),
-            tipoProducto: $('#txtTipo').val(),
             categoriaProducto: $('#txtCategoria').val(),
             marcaProducto: $('#txtMarca').val(),
             nombreOferta: $('#txtNombreOferta').val(),
