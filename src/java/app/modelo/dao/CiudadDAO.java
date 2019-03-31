@@ -5,7 +5,7 @@ import app.modelo.vo.Ciudad;
 import app.utils.AppException;
 import app.utils.interfaces.IDao;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,12 +22,12 @@ Connection cnn;
     public ArrayList<Ciudad> Consultar() throws AppException{
         ArrayList<Ciudad> list = new ArrayList<Ciudad>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM ciudad;";
+        String sql = "{CALL buscaofertas.consultarCiudad()}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            rs = ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+            rs = cst.executeQuery();
             while(rs.next()){
                 Ciudad vo = new Ciudad();
                 vo.setIdCiudad(rs.getInt(1));
@@ -41,7 +41,7 @@ Connection cnn;
             throw new AppException(-2,"error al Consultar datos:"+ex.getMessage());
         }finally{
             try{
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             }catch(Exception ex){throw new AppException(-2,"error al Consultar datos:"+ex.getMessage());}
@@ -53,17 +53,16 @@ Connection cnn;
 
     public int Insertar(Ciudad vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "INSERT INTO ciudad ( nombreCiudad, departamentoCiudad) VALUES(?, ?);";
-        PreparedStatement ps = null;
+        String sql = "CALL buscaofertas.insertCiudad(?,?,?)";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
+            cst = conec.getCnn().prepareCall(sql);
            
-            ps.setString(1, vo.getNombreCiudad());
-            ps.setString(2, vo.getDepartamentoCiudad());
-            ps.executeUpdate();
-            sql = "SELECT LAST_INSERT_ID();";
-            ps = conec.getCnn().prepareStatement(sql);
-            ResultSet rs= ps.executeQuery();
+            cst.setInt(1, vo.getIdCiudad());
+            cst.setString(2, vo.getNombreCiudad());
+            cst.setString(3, vo.getDepartamentoCiudad());
+            
+            ResultSet rs= cst.executeQuery();
             int id=0;
             if(rs.next()){
                 id=rs.getInt(1);
@@ -75,7 +74,7 @@ Connection cnn;
             throw new AppException(-2,"error al Insertar datos:"+ex.getMessage());
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){throw new AppException(-2,"error al Insertar datos:"+ex.getMessage());}
         }
@@ -85,21 +84,21 @@ Connection cnn;
 
     public void Modificar(Ciudad vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "UPDATE ciudad SET nombreCiudad = ?, departamentoCiudad = ? WHERE idCiudad = ?;";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.modificarCiudad(?,?,?)}";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setString(1, vo.getNombreCiudad());
-            ps.setString(2, vo.getDepartamentoCiudad());
-            ps.setInt(3, vo.getIdCiudad());
-            ps.executeUpdate();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdCiudad());
+            cst.setString(2, vo.getNombreCiudad());
+            cst.setString(3, vo.getDepartamentoCiudad());
+            cst.executeUpdate();
         }catch(SQLException ex){
             throw new AppException(-2,"error al Modificar datos:"+ex.getMessage());
         }catch(Exception ex){
            throw new AppException(-2,"error al Modificar datos:"+ex.getMessage());
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){throw new AppException(-2,"error al Modificar datos:"+ex.getMessage());}
         }
@@ -109,19 +108,19 @@ Connection cnn;
 
     public void Eliminar(Ciudad vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "DELETE FROM ciudad WHERE idCiudad = ?;";
-        PreparedStatement ps = null;
+        String sql = "CALL buscaofertas.eliminarCiudad(?)";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdCiudad());
-            ps.executeUpdate();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdCiudad());
+            cst.executeUpdate();
         }catch(SQLException ex){
             throw new AppException(-2,"error al eliminar datos:"+ex.getMessage());
         }catch(Exception ex){
             throw new AppException(-2,"error al eliminar datos:"+ex.getMessage());
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){throw new AppException(-2,"error al eliminar datos:"+ex.getMessage());}
         }
@@ -129,8 +128,33 @@ Connection cnn;
 
     @Override
     public Ciudad ObtenerId(Ciudad vo) throws AppException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Conectar conec = new Conectar();
+        String sql = "{CALL buscaofertas.obtenerIdCiudad(?)}";
+        ResultSet rs = null;
+        CallableStatement cst = null;
+        try{
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setString(1, vo.getNombreCiudad());
+            rs = cst.executeQuery();
+            if(rs.next()){
+                Ciudad ciudadVo = new Ciudad();
+                ciudadVo.setIdCiudad(rs.getInt(1));
+                ciudadVo.setNombreCiudad(rs.getString(2));
+                ciudadVo.setDepartamentoCiudad(rs.getString(3));
+                return ciudadVo;
+            }
+            return null;
+        }catch(SQLException ex){
+            throw new AppException(-2,"error al Consultar datos:"+ex.getMessage());
+        }catch(Exception ex){
+            throw new AppException(-2,"error al Consultar datos:"+ex.getMessage());
+        }finally{
+            try{
+                cst.close();
+                rs.close();
+                conec.desconectar();
+            }catch(Exception ex){throw new AppException(-2,"error al Consultar datos:"+ex.getMessage());}
+        }
     }
-
-
 }

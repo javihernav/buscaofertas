@@ -4,7 +4,7 @@ import app.modelo.Conectar;
 import app.modelo.vo.Marca;
 import app.utils.AppException;
 import app.utils.interfaces.IDao;
-import java.sql.PreparedStatement;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,12 +16,12 @@ public class MarcaDAO implements IDao<Marca>{
     public ArrayList<Marca> Consultar() throws AppException{
         ArrayList<Marca> list = new ArrayList<Marca>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM marca;";
+        String sql = "{CALL buscaofertas.consultarMarcas()}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            rs = ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+            rs = cst.executeQuery();
             while(rs.next()){
                 Marca vo = new Marca();
                 vo.setIdMarca(rs.getInt(1));
@@ -34,7 +34,7 @@ public class MarcaDAO implements IDao<Marca>{
             throw new AppException(-2,"error al acceder a Marca");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             }catch(Exception ex){}
@@ -46,16 +46,14 @@ public class MarcaDAO implements IDao<Marca>{
 
     public int Insertar(Marca vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "INSERT INTO marca ( nombreMarca) VALUES(?);";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.insertMarca(?)}";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            //ps.setInt(1, vo.getIdMarca());
-            ps.setString(1, vo.getNombreMarca());
-            ps.executeUpdate();
-            sql = "SELECT LAST_INSERT_ID();";
-            ps = conec.getCnn().prepareStatement(sql);
-            ResultSet rs= ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+           
+            cst.setString(1, vo.getNombreMarca());
+            cst.executeUpdate();
+            ResultSet rs= cst.executeQuery();
             int id=0;
             if(rs.next()){
                 id=rs.getInt(1);
@@ -67,7 +65,7 @@ public class MarcaDAO implements IDao<Marca>{
             throw new AppException(-2,"error al acceder a Marca");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
@@ -77,20 +75,20 @@ public class MarcaDAO implements IDao<Marca>{
 
     public void Modificar(Marca vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "UPDATE marca SET nombreMarca = ? WHERE idMarca = ?;";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.modificarMarca(?,?)}";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setString(1, vo.getNombreMarca());
-            ps.setInt(2, vo.getIdMarca());
-            ps.executeUpdate();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setString(1, vo.getNombreMarca());
+            cst.setInt(2, vo.getIdMarca());
+            cst.executeUpdate();
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a Marca");
         }catch(Exception ex){
             throw new AppException(-2,"error al acceder a Marca");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
@@ -100,19 +98,19 @@ public class MarcaDAO implements IDao<Marca>{
 
     public void Eliminar(Marca vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "DELETE FROM marca WHERE idMarca = ?;";
-        PreparedStatement ps = null;
+        String sql = "{call buscaofertas.eliminarMarca(?)}";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdMarca());
-            ps.executeUpdate();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdMarca());
+            cst.executeUpdate();
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a Marca");
         }catch(Exception ex){
             throw new AppException(-2,"error al acceder a Marca");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
@@ -120,33 +118,34 @@ public class MarcaDAO implements IDao<Marca>{
 
     @Override
     public Marca ObtenerId(Marca vo) throws AppException {
-        ArrayList<Marca> list = new ArrayList<Marca>();
+        
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM marca where idMarca = ?;";
+        String sql = "{CALL buscaofertas.obtenerIdMarca(?)}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdMarca());
-            rs = ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdMarca());
+            rs = cst.executeQuery();
             while(rs.next()){
                 Marca voTemp = new Marca();
                 voTemp.setIdMarca(rs.getInt(1));
                 voTemp.setNombreMarca(rs.getString(2));
-                list.add(voTemp);
+                return(voTemp);
             }
+            return null;
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a Marca");
         }catch(Exception ex){
             throw new AppException(-2,"error al acceder a Marca");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
-        return list.get(0);
+        
     }
 
 

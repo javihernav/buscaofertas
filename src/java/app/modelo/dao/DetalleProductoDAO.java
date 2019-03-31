@@ -5,7 +5,7 @@ import app.modelo.vo.DetalleProducto;
 import app.utils.AppException;
 import app.utils.interfaces.IDao;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,12 +21,12 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
     public ArrayList<DetalleProducto> Consultar() throws AppException {
         ArrayList<DetalleProducto> list = new ArrayList<DetalleProducto>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM detalleproducto;";
+        String sql = "{CALL buscaofertas.consultarDetalleProducto()}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+        CallableStatement cst = null;
         try {
-            ps = conec.getCnn().prepareStatement(sql);
-            rs = ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+            rs = cst.executeQuery();
             while (rs.next()) {
                 DetalleProducto vo = new DetalleProducto();
                 vo.setOferta_idOferta(rs.getInt(1));
@@ -40,7 +40,7 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
             throw new AppException(-2, "error al acceder a DetalleProducto");
         } finally {
             try {
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             } catch (Exception ex) {
@@ -51,18 +51,15 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
 
     public int Insertar(DetalleProducto vo) throws AppException {
         Conectar conec = new Conectar();
-        String sql = "INSERT INTO detalleproducto (Oferta_idOferta, Producto_idProducto, precio) VALUES(?, ?, ?);";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.insertDetalleProducto(?,?,?)}";
+        CallableStatement cst = null;
         try {
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getOferta_idOferta());
-            ps.setInt(2, vo.getProducto_idProducto());
-            ps.setDouble(3, vo.getPrecio());
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getOferta_idOferta());
+            cst.setInt(2, vo.getProducto_idProducto());
+            cst.setDouble(3, vo.getPrecio());
 
-            ps.executeUpdate();
-            sql = "SELECT LAST_INSERT_ID();";
-            ps = conec.getCnn().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = cst.executeQuery();
             int id = 0;
             if (rs.next()) {
                 id = rs.getInt(1);
@@ -74,7 +71,7 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
             throw new AppException(-2, "error al acceder a DetalleProducto");
         } finally {
             try {
-                ps.close();
+                cst.close();
                 conec.desconectar();
             } catch (Exception ex) {
             }
@@ -83,22 +80,22 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
 
     public void Modificar(DetalleProducto vo) throws AppException {
         Conectar conec = new Conectar();
-        String sql = "UPDATE detalleproducto SET precio = ? WHERE Oferta_idOferta = ? and Producto_idProducto = ?;";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.modificarDetalleProducto(?,?,?)}";
+        CallableStatement cst = null;
         try {
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(2, vo.getOferta_idOferta());
-            ps.setInt(3, vo.getProducto_idProducto());
-            ps.setDouble(1, vo.getPrecio());
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setDouble(1, vo.getPrecio());
+            cst.setInt(2, vo.getOferta_idOferta());
+            cst.setInt(3, vo.getProducto_idProducto());
 
-            ps.executeUpdate();
+            cst.executeUpdate();
         } catch (SQLException ex) {
             throw new AppException(-2, "error al acceder a DetalleProducto");
         } catch (Exception ex) {
             throw new AppException(-2, "error al acceder a DetalleProducto");
         } finally {
             try {
-                ps.close();
+                cst.close();
                 conec.desconectar();
             } catch (Exception ex) {
             }
@@ -107,20 +104,20 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
 
     public void Eliminar(DetalleProducto vo) throws AppException {
         Conectar conec = new Conectar();
-        String sql = "DELETE FROM detalleproducto WHERE Oferta_idOferta = ? and Producto_idProducto = ?;";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.eliminarDetalleProducto(?,?)}";
+        CallableStatement cst = null;
         try {
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getOferta_idOferta());
-            ps.setInt(2, vo.getProducto_idProducto());
-            ps.executeUpdate();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getOferta_idOferta());
+            cst.setInt(2, vo.getProducto_idProducto());
+            cst.executeUpdate();
         } catch (SQLException ex) {
             throw new AppException(-2, "error al acceder a DetalleProducto");
         } catch (Exception ex) {
             throw new AppException(-2, "error al acceder a DetalleProducto");
         } finally {
             try {
-                ps.close();
+                cst.close();
                 conec.desconectar();
             } catch (Exception ex) {
             }
@@ -129,39 +126,40 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
 
     @Override
     public DetalleProducto ObtenerId(DetalleProducto vo) throws AppException {
-        ArrayList<DetalleProducto> list = new ArrayList<DetalleProducto>();
+
         Conectar conec = new Conectar();
-                                                            
-        String sql = "SELECT * FROM detalleproducto where Oferta_idOferta = ?;";
+
+        String sql = "{CALL buscaofertas.obtenerIdDetalleProducto(?)}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+        CallableStatement cst = null;
         try {
 
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getOferta_idOferta());
-            rs = ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getOferta_idOferta());
+            rs = cst.executeQuery();
             DetalleProducto voTemp = null;
             while (rs.next()) {
                 voTemp = new DetalleProducto();
                 voTemp.setOferta_idOferta(rs.getInt("Oferta_idOferta"));
                 voTemp.setProducto_idProducto(rs.getInt("Producto_idProducto"));//Producto_idProducto
                 voTemp.setPrecio(rs.getDouble("precio"));
-                System.out.println("Oferta_idOferta "+rs.getInt("Oferta_idOferta")+" Producto_idProducto "+rs.getInt("Producto_idProducto")+" precio "+rs.getDouble("precio")+" en detalle producto");
-                list.add(voTemp);
+                System.out.println("Oferta_idOferta " + rs.getInt("Oferta_idOferta") + " Producto_idProducto " + rs.getInt("Producto_idProducto") + " precio " + rs.getDouble("precio") + " en detalle producto");
+                return (voTemp);
             }
+            return null;
         } catch (SQLException ex) {
             throw new AppException(-2, "error al acceder a DetalleProducto");
         } catch (Exception ex) {
             throw new AppException(-2, "error al acceder a DetalleProducto");
         } finally {
             try {
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             } catch (Exception ex) {
             }
         }
-        return list.get(0);
+
     }
 
 }

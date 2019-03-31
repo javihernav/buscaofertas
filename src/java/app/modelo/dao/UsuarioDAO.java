@@ -19,14 +19,20 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class UsuarioDAO implements IDao<Usuario> {
 
     public ArrayList<Usuario> Consultar() throws AppException {
-        ArrayList<Usuario> list = new ArrayList<Usuario>();
+        ArrayList<Usuario> list = new ArrayList<>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM usuario;";
+        String sql = "{CALL buscaofertas.consultarUsuarios()}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+
+        CallableStatement cst = null;
         try {
-            ps = conec.getCnn().prepareStatement(sql);
-            rs = ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+            rs = cst.executeQuery();
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al ejecutar el procedimiento almacenado consultarUsuarios:" + ex.getMessage());
+        }
+        try {
+
             while (rs.next()) {
                 Usuario vo = new Usuario();
                 vo.setIdUsuario(rs.getInt(1));
@@ -46,7 +52,7 @@ public class UsuarioDAO implements IDao<Usuario> {
             throw new AppException(-2, "error al consultar datos:" + ex.getMessage());
         } finally {
             try {
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             } catch (Exception ex) {
@@ -74,10 +80,10 @@ public class UsuarioDAO implements IDao<Usuario> {
             cst.setInt(1, vo.getCiudad_idCiudad());
             cst.setString(2, vo.getNombreUsuario());
             cst.setString(3, DigestUtils.sha1Hex(vo.getContrasena()));//encriptación de la clave con sha1
-            System.out.println("clave sin encriptar: " + vo.getContrasena()+ " longitud: " +vo.getContrasena().length());
+            System.out.println("clave sin encriptar: " + vo.getContrasena() + " longitud: " + vo.getContrasena().length());
             String clave = DigestUtils.sha1Hex(vo.getContrasena());
             System.out.println("clave encriptada: " + clave + " longitud: " + clave.length());
-            
+
             cst.setString(4, vo.getNombre());
             cst.setString(5, vo.getApellido());
             cst.setString(6, vo.getTelefono());
@@ -148,28 +154,28 @@ public class UsuarioDAO implements IDao<Usuario> {
      */
     public void Modificar(Usuario vo) throws AppException {
         Conectar conec = new Conectar();
-        String sql = "UPDATE usuario SET Ciudad_idCiudad = ?, nombreUsuario = ?, contrasena = ?, nombre = ?, apellido = ?, telefono = ?, correo = ?, fechaNacimiento = ?, genero = ?, rol = ? WHERE idUsuario = ?;";
-        PreparedStatement ps = null;
+        String sql = "CALL buscaofertas.modificarUsuario(?,?,?,?,?,?,?,?,?,?,?)";
+        CallableStatement cst = null;
         try {
             int i = 1;
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(i++, vo.getCiudad_idCiudad());
-            ps.setString(i++, vo.getNombreUsuario());
-            ps.setString(i++, vo.getContrasena());
-            ps.setString(i++, vo.getNombre());
-            ps.setString(i++, vo.getApellido());
-            ps.setString(i++, vo.getTelefono());
-            ps.setString(i++, vo.getCorreo());
-            ps.setString(i++, vo.getFechaNacimiento());
-            ps.setString(i++, String.valueOf(vo.getGenero()));
-            ps.setString(i++, vo.getRol());
-            ps.setInt(i++, vo.getIdUsuario());
-            ps.executeUpdate();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(i++, vo.getCiudad_idCiudad());
+            cst.setString(i++, vo.getNombreUsuario());
+            cst.setString(i++, DigestUtils.sha1Hex( vo.getContrasena()));
+            cst.setString(i++, vo.getNombre());
+            cst.setString(i++, vo.getApellido());
+            cst.setString(i++, vo.getTelefono());
+            cst.setString(i++, vo.getCorreo());
+            cst.setString(i++, vo.getFechaNacimiento());
+            cst.setString(i++, String.valueOf(vo.getGenero()));
+            cst.setString(i++, vo.getRol());
+            cst.setInt(i++, vo.getIdUsuario());
+            cst.executeUpdate();
         } catch (SQLException ex) {
             throw new AppException(-2, "error al modificar datos:" + ex.getMessage());
         } finally {
             try {
-                ps.close();
+                cst.close();
                 conec.desconectar();
             } catch (Exception ex) {
             }
@@ -178,17 +184,17 @@ public class UsuarioDAO implements IDao<Usuario> {
 
     public void Eliminar(Usuario vo) throws AppException {
         Conectar conec = new Conectar();
-        String sql = "DELETE FROM usuario WHERE idUsuario = ?;";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.eliminarUsuario(?)}";
+        CallableStatement cst = null;
         try {
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdUsuario());
-            ps.executeUpdate();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdUsuario());
+            cst.executeUpdate();
         } catch (SQLException ex) {
             throw new AppException(-2, "error al eliminar datos:" + ex.getMessage());
         } finally {
             try {
-                ps.close();
+                cst.close();
                 conec.desconectar();
             } catch (Exception ex) {
                 throw new AppException(-2, "error al eliminar datos:" + ex.getMessage());
@@ -198,15 +204,15 @@ public class UsuarioDAO implements IDao<Usuario> {
 
     @Override
     public Usuario ObtenerId(Usuario vo) throws AppException {
-        ArrayList<Usuario> list = new ArrayList<Usuario>();
+        
         Conectar conec = new Conectar();
-        String sql = "SELECT idUsuario, Ciudad_idCiudad, nombreUsuario, contrasena, nombre, apellido, telefono, correo, fechaNacimiento, genero, rol FROM usuario where nombreUsuario = ?;";
+        String sql = "{CALL buscaofertas.obtenerIdUsuario(?)}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+        CallableStatement cst = null;
         try {
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setString(1, vo.getNombreUsuario());
-            rs = ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setString(1, vo.getNombreUsuario());
+            rs = cst.executeQuery();
             Usuario voTemp = null;
             if (rs.next()) {
                 voTemp = new Usuario();
@@ -221,24 +227,21 @@ public class UsuarioDAO implements IDao<Usuario> {
                 voTemp.setFechaNacimiento(rs.getString(9));
                 voTemp.setGenero(rs.getString(10).charAt(0));
                 voTemp.setRol(rs.getString(11));
-                list.add(voTemp);
+                return(voTemp);
             }
+            return null;
         } catch (SQLException ex) {
             throw new AppException(-2, "error al consultar datos:" + ex.getMessage());
         } finally {
             try {
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             } catch (Exception ex) {
                 throw new AppException(-2, "error al cerrar conexión:" + ex.getMessage());
             }
         }
-        if (list.size() > 0) {
-            return list.get(0);
-        } else {
-            return null;
-        }
+     
     }
 
     public Usuario validarUsuario(Usuario vo) throws AppException {
@@ -257,8 +260,8 @@ public class UsuarioDAO implements IDao<Usuario> {
             //int i = 1;
             cst.setString(1, vo.getNombreUsuario());
             cst.setString(2, DigestUtils.sha1Hex(vo.getContrasena()));//envía clave encriptada al procedimiento almacenado
-            System.out.println("usuario enviado: "+vo.getNombreUsuario());
-            System.out.println("clave enviada: "+DigestUtils.sha1Hex(vo.getContrasena()));
+            System.out.println("usuario enviado: " + vo.getNombreUsuario());
+            System.out.println("clave enviada: " + DigestUtils.sha1Hex(vo.getContrasena()));
             /*cst.registerOutParameter(3, java.sql.Types.INTEGER);
             cst.registerOutParameter(4, java.sql.Types.INTEGER);
             cst.registerOutParameter(5, java.sql.Types.VARCHAR);
@@ -271,11 +274,10 @@ public class UsuarioDAO implements IDao<Usuario> {
             cst.registerOutParameter(12, java.sql.Types.VARCHAR);
             cst.registerOutParameter(13, java.sql.Types.VARCHAR);*/
 
-            
             ResultSet rs = cst.executeQuery();//cst.getResultSet();
             Usuario voTemp = null;
             if (rs.next()) {
-        //String sql = "SELECT idUsuario, Ciudad_idCiudad, nombreUsuario, contrasena, nombre, apellido, telefono, correo, fechaNacimiento, genero, rol FROM usuario where nombreUsuario = ? and contrasena = ?;";
+                //String sql = "SELECT idUsuario, Ciudad_idCiudad, nombreUsuario, contrasena, nombre, apellido, telefono, correo, fechaNacimiento, genero, rol FROM usuario where nombreUsuario = ? and contrasena = ?;";
                 voTemp = new Usuario();
                 voTemp.setIdUsuario(rs.getInt("idUsuario"));
                 voTemp.setCiudad_idCiudad(rs.getInt("Ciudad_idCiudad"));
@@ -290,7 +292,7 @@ public class UsuarioDAO implements IDao<Usuario> {
                 voTemp.setFechaNacimiento(sdf.format(rs.getDate("fechaNacimiento")));
                 voTemp.setGenero(rs.getString("genero").charAt(0));
                 voTemp.setRol(rs.getString("rol"));
-                System.out.println(" usuvalidado "+voTemp.toString());
+                System.out.println(" usuvalidado " + voTemp.toString());
             }
 
             return voTemp;

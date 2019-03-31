@@ -68,8 +68,8 @@
                     <div class="form-group col-md-6"><label class="control-label ">Género:</label><select class="form-control "id="cbGenero" type="text" onchange="validarGenero()" required><option value="0<%= vo.getGenero() %>">Género</option><option value="m">Masculino</option><option value="f">Femenino</option></select></div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6"><label class="control-label ">Password:</label><input class="form-control "id="txtPassword" type="password" value="<%= vo.getContrasena() %>" maxlength="20" placeholder="Introduzca su contraseña" oninput="validarPassword()" required></div>
-                    <div class="form-group col-md-6"><label class="control-label ">Confirmar Password:</label><input class="form-control "id="txtPasswordConfirmacion" type="password" value="<%= vo.getContrasena() %>" maxlength="20" placeholder="Confirme su contraseña"  oninput="validarPassword()" required></div>
+                    <div class="form-group col-md-6"><label class="control-label ">Password:</label><input class="form-control "id="txtPassword" type="text" value="<%= vo.getContrasena() %>" maxlength="20" placeholder="Introduzca su contraseña" oninput="validarPassword()" required></div>
+                    <div class="form-group col-md-6"><label class="control-label ">Confirmar Password:</label><input class="form-control "id="txtPasswordConfirmacion" type="text" value="<%= vo.getContrasena() %>" maxlength="20" placeholder="Confirme su contraseña"  oninput="validarPassword()" required></div>
                 </div>
                 <div class="row">
                     &nbsp;

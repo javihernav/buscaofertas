@@ -5,7 +5,7 @@ import app.modelo.vo.Imagen;
 import app.utils.AppException;
 import app.utils.interfaces.IDao;
 import java.io.ByteArrayInputStream;
-import java.sql.PreparedStatement;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,12 +17,12 @@ public class ImagenDAO implements IDao<Imagen>{
     public ArrayList<Imagen> Consultar() throws AppException{
         ArrayList<Imagen> list = new ArrayList<Imagen>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM imagen;";
+        String sql = "{CALL buscaofertas.conslutarImagenes}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            rs = ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+            rs = cst.executeQuery();
             while(rs.next()){
                 Imagen vo = new Imagen();
                 vo.setIdImagen(rs.getInt(1));
@@ -36,7 +36,7 @@ public class ImagenDAO implements IDao<Imagen>{
             throw new AppException(-2,"error al acceder a Imagen");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             }catch(Exception ex){}
@@ -49,17 +49,15 @@ public class ImagenDAO implements IDao<Imagen>{
     public int Insertar(Imagen vo) throws AppException{
         Conectar conec = new Conectar();
                                              	
-        String sql = "INSERT INTO imagen (linkImagen,foto) VALUES(?,?);";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.insertImagen}";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
+            cst = conec.getCnn().prepareCall(sql);
             int i=1;
-            ps.setString(i++, vo.getLinkImagen());
-            ps.setBlob(i++, new ByteArrayInputStream(vo.getFoto()));
-            ps.executeUpdate();
-            sql = "SELECT LAST_INSERT_ID();";
-            ps = conec.getCnn().prepareStatement(sql);
-            ResultSet rs= ps.executeQuery();
+            cst.setString(i++, vo.getLinkImagen());
+            cst.setBlob(i++, new ByteArrayInputStream(vo.getFoto()));
+            
+            ResultSet rs= cst.executeQuery();
             int id=0;
             if(rs.next()){
                 id=rs.getInt(1);
@@ -69,7 +67,7 @@ public class ImagenDAO implements IDao<Imagen>{
             throw new AppException(-2,"error al acceder a Imagen");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
@@ -79,44 +77,42 @@ public class ImagenDAO implements IDao<Imagen>{
 
     public void Modificar(Imagen vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "UPDATE imagen SET linkImagen = ? , foto = ? WHERE idImagen = ?;";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.modificarImagen(?,?,?)}";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
+            cst = conec.getCnn().prepareCall(sql);
             int i=1;
-            ps.setString(i++, vo.getLinkImagen());
-            ps.setBinaryStream(i++, new ByteArrayInputStream(vo.getFoto()));
-            ps.setInt(i++, vo.getIdImagen());
-            ps.executeUpdate();
+            cst.setString(i++, vo.getLinkImagen());
+            cst.setBinaryStream(i++, new ByteArrayInputStream(vo.getFoto()));
+            cst.setInt(i++, vo.getIdImagen());
+            cst.executeUpdate();
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a Imagen");
         }catch(Exception ex){
             throw new AppException(-2,"error al acceder a Imagen");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
     }
 
-
-
     public void Eliminar(Imagen vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "DELETE FROM imagen WHERE idImagen = ?;";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.eliminarImagen(?)}";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdImagen());
-            ps.executeUpdate();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdImagen());
+            cst.executeUpdate();
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a Imagen");
         }catch(Exception ex){
             throw new AppException(-2,"error al acceder a Imagen");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
@@ -124,34 +120,34 @@ public class ImagenDAO implements IDao<Imagen>{
 
     @Override
     public Imagen ObtenerId(Imagen vo) throws AppException {
-        ArrayList<Imagen> list = new ArrayList<Imagen>();
+        
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM imagen where idImagen = ?;";
+        String sql = "{CALL buscaofertas.obtenerIdImagen(?)}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdImagen());
-            rs = ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdImagen());
+            rs = cst.executeQuery();
             if(rs.next()){
                 Imagen voTemp = new Imagen();
                 voTemp.setIdImagen(rs.getInt(1));
                 voTemp.setLinkImagen(rs.getString(2));
                 voTemp.setFoto(rs.getBytes(3));
-                list.add(voTemp);
+                return(voTemp);
             }
+            return null;
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a Imagen");
         }catch(Exception ex){
             throw new AppException(-2,"error al acceder a Imagen");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
-        return list.get(0);
     }
 
 

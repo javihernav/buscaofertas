@@ -4,7 +4,8 @@ import app.modelo.Conectar;
 import app.modelo.vo.Ubicacion;
 import app.utils.AppException;
 import app.utils.interfaces.IDao;
-import java.sql.PreparedStatement;
+import java.sql.CallableStatement;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,12 +17,12 @@ public class UbicacionDAO implements IDao<Ubicacion>{
     public ArrayList<Ubicacion> Consultar() throws AppException{
         ArrayList<Ubicacion> list = new ArrayList<Ubicacion>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM ubicacion;";
+        String sql = "{CALL buscaofertas.consultarUbicacion()}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            rs = ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+            rs = cst.executeQuery();
             while(rs.next()){
                 Ubicacion vo = new Ubicacion();
                 vo.setIdUbicacion(rs.getInt(1));
@@ -36,7 +37,7 @@ public class UbicacionDAO implements IDao<Ubicacion>{
             throw new AppException(-2,"error al acceder a ubicación");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             }catch(Exception ex){}
@@ -48,18 +49,15 @@ public class UbicacionDAO implements IDao<Ubicacion>{
 
     public int Insertar(Ubicacion vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "INSERT INTO ubicacion ( nombreTienda, direccion, ciudad) VALUES( ?, ?, ?);";
-        PreparedStatement ps = null;
+        String sql = "CALL buscaofertas.insertUbicacion(?,?,?)";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
+            cst = conec.getCnn().prepareCall(sql);
             int i=1;
-            ps.setString(i++, vo.getNombreTienda());
-            ps.setString(i++, vo.getDireccion());
-            ps.setString(i++, vo.getCiudad());
-            ps.executeUpdate();
-            sql = "SELECT LAST_INSERT_ID();";
-            ps = conec.getCnn().prepareStatement(sql);
-            ResultSet rs= ps.executeQuery();
+            cst.setString(i++, vo.getNombreTienda());
+            cst.setString(i++, vo.getDireccion());
+            cst.setString(i++, vo.getCiudad());
+            ResultSet rs= cst.executeQuery();
             int id=0;
             if(rs.next()){
                 id=rs.getInt(1);
@@ -71,7 +69,7 @@ public class UbicacionDAO implements IDao<Ubicacion>{
             throw new AppException(-2,"error al acceder a ubicación");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
@@ -81,23 +79,23 @@ public class UbicacionDAO implements IDao<Ubicacion>{
 
     public void Modificar(Ubicacion vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "UPDATE ubicacion SET nombreTienda = ?, direccion = ?, ciudad = ? WHERE idUbicacion = ?;";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.modificarUbicacion(?,?,?,?)}";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
+            cst = conec.getCnn().prepareCall(sql);
             int i=1;
-            ps.setString(i++, vo.getNombreTienda());
-            ps.setString(i++, vo.getDireccion());
-            ps.setString(i++, vo.getCiudad());
-            ps.setInt(i++, vo.getIdUbicacion());
-            ps.executeUpdate();
+            cst.setString(i++, vo.getNombreTienda());
+            cst.setString(i++, vo.getDireccion());
+            cst.setString(i++, vo.getCiudad());
+            cst.setInt(i++, vo.getIdUbicacion());
+            cst.executeUpdate();
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a ubicación");
         }catch(Exception ex){
             throw new AppException(-2,"error al acceder a ubicación");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
@@ -107,19 +105,19 @@ public class UbicacionDAO implements IDao<Ubicacion>{
 
     public void Eliminar(Ubicacion vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "DELETE FROM ubicacion WHERE idUbicacion = ?;";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.eliminarUbicacion(?)}";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdUbicacion());
-            ps.executeUpdate();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdUbicacion());
+            cst.executeUpdate();
         }catch(SQLException ex){
             throw new AppException(-2,"error al acceder a ubicación");
         }catch(Exception ex){
             throw new AppException(-2,"error al acceder a ubicación");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
@@ -129,14 +127,14 @@ public class UbicacionDAO implements IDao<Ubicacion>{
     public Ubicacion ObtenerId(Ubicacion vo) throws AppException {
         ArrayList<Ubicacion> list = new ArrayList<Ubicacion>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM ubicacion where idUbicacion = ?;";
+        String sql = "{CALL buscaofertas.obtenerIdUbicacion(?)}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdUbicacion());
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdUbicacion());
             
-            rs = ps.executeQuery();
+            rs = cst.executeQuery();
             if(rs.next()){
                 Ubicacion voTemp = new Ubicacion();
                 voTemp.setIdUbicacion(rs.getInt(1));
@@ -151,7 +149,7 @@ public class UbicacionDAO implements IDao<Ubicacion>{
             throw new AppException(-2,"error al acceder a ubicación");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             }catch(Exception ex){}

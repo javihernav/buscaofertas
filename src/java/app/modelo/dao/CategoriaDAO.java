@@ -5,7 +5,7 @@ import app.modelo.vo.Categoria;
 import app.utils.AppException;
 import app.utils.interfaces.IDao;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,12 +23,12 @@ public class CategoriaDAO implements IDao<Categoria>{
     public ArrayList<Categoria> Consultar() throws AppException{
         ArrayList<Categoria> list = new ArrayList<Categoria>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM categoria;";
+        String sql = "{CALL consultarCategorias()}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            rs = ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+            rs = cst.executeQuery();
             while(rs.next()){
                 Categoria vo = new Categoria();
                 vo.setIdCategoria(rs.getInt(1));
@@ -41,7 +41,7 @@ public class CategoriaDAO implements IDao<Categoria>{
             System.out.println(ex.getMessage());
         }finally{
             try{
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             }catch(Exception ex){}
@@ -53,16 +53,14 @@ public class CategoriaDAO implements IDao<Categoria>{
 
     public int Insertar(Categoria vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "INSERT INTO categoria (nombreCategoria) VALUES(?);";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.insertCategoria(?)}";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            //ps.setInt(1, vo.getIdCategoria());
-            ps.setString(1, vo.getNombreCategoria());
-            ps.executeUpdate();
-            sql = "SELECT LAST_INSERT_ID();";
-            ps = conec.getCnn().prepareStatement(sql);
-            ResultSet rs= ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+      
+            cst.setString(1, vo.getNombreCategoria());
+            
+            ResultSet rs= cst.executeQuery();
             int id=0;
             if(rs.next()){
                 id=rs.getInt(1);
@@ -74,7 +72,7 @@ public class CategoriaDAO implements IDao<Categoria>{
             System.out.println(ex.getMessage());
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
@@ -85,20 +83,20 @@ public class CategoriaDAO implements IDao<Categoria>{
 
     public void Modificar(Categoria vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "UPDATE categoria SET nombreCategoria = ? WHERE idCategoria = ?;";
-        PreparedStatement ps = null;
+        String sql = "{CALL buscaofertas.modificarCategoria(?,?)}";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setString(1, vo.getNombreCategoria());
-            ps.setInt(2, vo.getIdCategoria());
-            ps.executeUpdate();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setString(1, vo.getNombreCategoria());
+            cst.setInt(2, vo.getIdCategoria());
+            cst.executeUpdate();
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
@@ -108,19 +106,19 @@ public class CategoriaDAO implements IDao<Categoria>{
 
     public void Eliminar(Categoria vo) throws AppException{
         Conectar conec = new Conectar();
-        String sql = "DELETE FROM categoria WHERE idCategoria = ?;";
-        PreparedStatement ps = null;
+        String sql = "CALL buscaofertas.eliminarCategoria(?)";
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdCategoria());
-            ps.executeUpdate();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdCategoria());
+            cst.executeUpdate();
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
             try{
-                ps.close();
+                cst.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
@@ -128,31 +126,31 @@ public class CategoriaDAO implements IDao<Categoria>{
 
     @Override
     public Categoria ObtenerId(Categoria vo) throws AppException {
-        ArrayList<Categoria> list = new ArrayList<Categoria>();
+        
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM categoria where idCategoria = ?;";
+        String sql = "{CALL buscaofertas.obtenerIdCategoria(?)}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
+        CallableStatement cst = null;
         try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdCategoria());
-            rs = ps.executeQuery();
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdCategoria());
+            rs = cst.executeQuery();
             if(rs.next()){
                 Categoria vo1 = new Categoria();
                 vo1.setIdCategoria(rs.getInt(1));
                 vo1.setNombreCategoria(rs.getString(2));
-                list.add(vo1);
+                return(vo1);
             }
         }catch(SQLException ex){
             throw new AppException(-2,"error al consultar categoría");
         }finally{
             try{
-                ps.close();
+                cst.close();
                 rs.close();
                 conec.desconectar();
             }catch(Exception ex){}
         }
-        return list.get(0);
+        return null;
     }
 
 

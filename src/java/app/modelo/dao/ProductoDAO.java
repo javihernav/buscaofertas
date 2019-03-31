@@ -4,198 +4,192 @@ import app.modelo.Conectar;
 import app.modelo.vo.Producto;
 import app.utils.AppException;
 import app.utils.interfaces.IDao;
-import java.sql.PreparedStatement;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+public class ProductoDAO implements IDao<Producto> {
 
-public class ProductoDAO implements IDao<Producto>{
-
-
-    public ArrayList<Producto> Consultar() throws AppException{
+    public ArrayList<Producto> Consultar() throws AppException {
         ArrayList<Producto> list = new ArrayList<Producto>();
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM producto;";
+        String sql = "{CALL buscaofertas.consultarProductos()}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
-        try{
-            ps = conec.getCnn().prepareStatement(sql);
-            rs = ps.executeQuery();
-            while(rs.next()){
+        CallableStatement cst = null;
+        try {
+            cst = conec.getCnn().prepareCall(sql);
+            rs = cst.executeQuery();
+            while (rs.next()) {
                 Producto vo = new Producto();
                 vo.setIdProducto(rs.getInt(1));
                 vo.setCategoria_idCategoria(rs.getInt(2));
                 vo.setMarca_idMarca(rs.getInt(3));
                 vo.setNombreProducto(rs.getString(4));
-           
+
                 list.add(vo);
             }
-        }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder aProducto");
-        }catch(Exception ex){
-            throw new AppException(-2,"error al acceder aProducto");
-        }finally{
-            try{
-                ps.close();
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al acceder aProducto");
+        } catch (Exception ex) {
+            throw new AppException(-2, "error al acceder aProducto");
+        } finally {
+            try {
+                cst.close();
                 rs.close();
                 conec.desconectar();
-            }catch(Exception ex){}
+            } catch (Exception ex) {
+            }
         }
         return list;
     }
 
-
-
-    public int Insertar(Producto vo) throws AppException{
+    public int Insertar(Producto vo) throws AppException {
         Conectar conec = new Conectar();
-        String sql = "INSERT INTO producto (Categoria_idCategoria, Marca_idMarca, nombreProducto) VALUES(?, ?, ?);";
-        PreparedStatement ps = null;
-        try{
-            ps = conec.getCnn().prepareStatement(sql);
-            int i=1;
-            ps.setInt(i++, vo.getCategoria_idCategoria());
-            ps.setInt(i++, vo.getMarca_idMarca());
-            ps.setString(i++, vo.getNombreProducto());
-            
-            ps.executeUpdate();
-            sql = "SELECT LAST_INSERT_ID();";
-            ps = conec.getCnn().prepareStatement(sql);
-            ResultSet rs= ps.executeQuery();
-            int id=0;
-            if(rs.next()){
-                id=rs.getInt(1);
+        String sql = "{CALL buscaofertas.insertProducto(?,?,?)}";
+        CallableStatement cst = null;
+        try {
+            cst = conec.getCnn().prepareCall(sql);
+            int i = 1;
+            cst.setInt(i++, vo.getCategoria_idCategoria());
+            cst.setInt(i++, vo.getMarca_idMarca());
+            cst.setString(i++, vo.getNombreProducto());
+
+            ResultSet rs = cst.executeQuery();
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt(1);
             }
             return id;
-        }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder aProducto");
-        }catch(Exception ex){
-            throw new AppException(-2,"error al acceder aProducto");
-        }finally{
-            try{
-                ps.close();
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al acceder aProducto");
+        } catch (Exception ex) {
+            throw new AppException(-2, "error al acceder aProducto");
+        } finally {
+            try {
+                cst.close();
                 conec.desconectar();
-            }catch(Exception ex){}
+            } catch (Exception ex) {
+            }
         }
     }
 
-
-
-    public void Modificar(Producto vo) throws AppException{
+    public void Modificar(Producto vo) throws AppException {
         Conectar conec = new Conectar();
-        String sql = "UPDATE producto SET Categoria_idCategoria = ?, Marca_idMarca = ?, nombreProducto = ? WHERE idProducto = ?;";
-        PreparedStatement ps = null;
-        try{
-            ps = conec.getCnn().prepareStatement(sql);
-            int i=1;
-            ps.setInt(i++, vo.getCategoria_idCategoria());
-            ps.setInt(i++, vo.getMarca_idMarca());
-            ps.setString(i++, vo.getNombreProducto());
-            ps.setInt(i++, vo.getIdProducto());
-            ps.executeUpdate();
-        }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder aProducto");
-        }catch(Exception ex){
-            throw new AppException(-2,"error al acceder aProducto");
-        }finally{
-            try{
-                ps.close();
+        String sql = "{CALL buscaofertas.modificarProducto(?,?,?,?)}";
+        CallableStatement cst = null;
+        try {
+            cst = conec.getCnn().prepareCall(sql);
+            int i = 1;
+            cst.setInt(i++, vo.getCategoria_idCategoria());
+            cst.setInt(i++, vo.getMarca_idMarca());
+            cst.setString(i++, vo.getNombreProducto());
+            cst.setInt(i++, vo.getIdProducto());
+            cst.executeUpdate();
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al acceder aProducto");
+        } catch (Exception ex) {
+            throw new AppException(-2, "error al acceder aProducto");
+        } finally {
+            try {
+                cst.close();
                 conec.desconectar();
-            }catch(Exception ex){}
+            } catch (Exception ex) {
+            }
         }
     }
 
-
-
-    public void Eliminar(Producto vo) throws AppException{
+    public void Eliminar(Producto vo) throws AppException {
         Conectar conec = new Conectar();
-        String sql = "DELETE FROM producto WHERE idProducto = ?;";
-        PreparedStatement ps = null;
-        try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdProducto());
-            ps.executeUpdate();
-        }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder aProducto");
-        }catch(Exception ex){
-            throw new AppException(-2,"error al acceder aProducto");
-        }finally{
-            try{
-                ps.close();
+        String sql = "{CALL buscaofertas.eliminarProducto(?)}";
+        CallableStatement cst = null;
+        try {
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdProducto());
+            cst.executeUpdate();
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al acceder aProducto");
+        } catch (Exception ex) {
+            throw new AppException(-2, "error al acceder aProducto");
+        } finally {
+            try {
+                cst.close();
                 conec.desconectar();
-            }catch(Exception ex){}
+            } catch (Exception ex) {
+            }
         }
     }
 
     @Override
     public Producto ObtenerId(Producto vo) throws AppException {
-        ArrayList<Producto> list = new ArrayList<Producto>();
+
         Conectar conec = new Conectar();
-        
-                                                   
-        String sql = "SELECT * FROM producto where idProducto = ?;";
+
+        String sql = "{CALL buscaofertas.obtenerIdProducto(?)}";
         ResultSet rs = null;
-        PreparedStatement ps = null;
-        try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdProducto());
-            System.out.println("id de producto ingresado: "+vo.getIdProducto());
-            rs = ps.executeQuery();
-            if(rs.next()){
+        CallableStatement cst = null;
+        try {
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdProducto());
+            System.out.println("id de producto ingresado: " + vo.getIdProducto());
+            rs = cst.executeQuery();
+            if (rs.next()) {
                 Producto voTemp = new Producto();
                 voTemp.setIdProducto(rs.getInt(1));
                 voTemp.setCategoria_idCategoria(rs.getInt(2));
                 voTemp.setMarca_idMarca(rs.getInt(3));
                 voTemp.setNombreProducto(rs.getString(4));
-       
-                list.add(voTemp);
+
+                return (voTemp);
             }
-        }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder aProducto");
-        }catch(Exception ex){
-            throw new AppException(-2,"error al acceder aProducto");
-        }finally{
-            try{
-                ps.close();
+            return null;
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al acceder aProducto");
+        } catch (Exception ex) {
+            throw new AppException(-2, "error al acceder aProducto");
+        } finally {
+            try {
+                cst.close();
                 rs.close();
                 conec.desconectar();
-            }catch(Exception ex){}
-        }
-        return list.get(0);
-    }
-    
-    public Producto ObtenerIdConNombre(Producto vo) throws AppException {
-        ArrayList<Producto> list = new ArrayList<Producto>();
-        Conectar conec = new Conectar();
-        String sql = "SELECT * FROM producto where idProducto = ?;";
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-        try{
-            ps = conec.getCnn().prepareStatement(sql);
-            ps.setInt(1, vo.getIdProducto());
-            rs = ps.executeQuery();
-            while(rs.next()){
-                Producto voTemp = new Producto();
-                voTemp.setIdProducto(rs.getInt(1));
-                voTemp.setCategoria_idCategoria(rs.getInt(2));
-                voTemp.setMarca_idMarca(rs.getInt(3));
-                voTemp.setNombreProducto(rs.getString(4));
-              
-                list.add(voTemp);
+            } catch (Exception ex) {
             }
-        }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder aProducto");
-        }catch(Exception ex){
-            throw new AppException(-2,"error al acceder aProducto");
-        }finally{
-            try{
-                ps.close();
-                rs.close();
-                conec.desconectar();
-            }catch(Exception ex){}
         }
-        return list.get(0);
+
     }
 
+    public Producto ObtenerIdConNombre(Producto vo) throws AppException {
+
+        Conectar conec = new Conectar();
+        String sql = "{CALL buscaofertas.obtenerIdConNombreProducto(?)}";
+        ResultSet rs = null;
+        CallableStatement cst = null;
+        try {
+            cst = conec.getCnn().prepareCall(sql);
+            cst.setString(1, vo.getNombreProducto());
+            rs = cst.executeQuery();
+            if (rs.next()) {
+                Producto voTemp = new Producto();
+                voTemp.setIdProducto(rs.getInt(1));
+                voTemp.setCategoria_idCategoria(rs.getInt(2));
+                voTemp.setMarca_idMarca(rs.getInt(3));
+                voTemp.setNombreProducto(rs.getString(4));
+
+                return (voTemp);
+            }
+            return null;
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al acceder aProducto");
+        } catch (Exception ex) {
+            throw new AppException(-2, "error al acceder aProducto");
+        } finally {
+            try {
+                cst.close();
+                rs.close();
+                conec.desconectar();
+            } catch (Exception ex) {
+            }
+        }
+    }
 
 }
