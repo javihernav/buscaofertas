@@ -42,5 +42,10 @@ public DetalleProducto(){}
         this.precio = precio;
     }
 
+    @Override
+    public String toString() {
+        return "DetalleProducto [" + "getOferta_idOferta " + getOferta_idOferta() + " " + "getPrecio " + getPrecio() + " " + "getProducto_idProducto " + getProducto_idProducto() + "]";
+    }
+
 
 }

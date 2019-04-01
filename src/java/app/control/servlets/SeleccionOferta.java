@@ -46,12 +46,12 @@ public class SeleccionOferta extends HttpServlet {
             mensaje = "";
             if (idOfertaString != null) {
                 
-                System.out.println("OK");
+                System.out.println("idOfertaString != null");
                 
                 sesion.setAttribute("idOferta", idOfertaString);
                 RespuestaServer resp = new RespuestaServer();
                 resp.setCodigo(1);
-                resp.setMensaje("id cargado a la sesión");
+                resp.setMensaje("id cargado a la sesión en servlet seleccionOferta");
                 out.println(new Gson().toJson(resp));
                 
 
@@ -60,7 +60,7 @@ public class SeleccionOferta extends HttpServlet {
                 
                 RespuestaServer resp = new RespuestaServer();
                 resp.setCodigo(0);
-                resp.setMensaje("id NO cargado a la sesión");
+                resp.setMensaje("id NO cargado a la sesión en servlet seleccionOferta");
                 out.println(new Gson().toJson(resp));
 
             }

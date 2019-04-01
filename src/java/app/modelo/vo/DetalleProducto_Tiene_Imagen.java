@@ -47,4 +47,9 @@ public DetalleProducto_Tiene_Imagen(){}
         this.DetalleProducto_Producto_idProducto = DetalleProducto_Producto_idProducto;
     }
 
+    @Override
+    public String toString() {
+        return "DetalleProducto_Tiene_Imagen [" + "getDetalleProducto_Oferta_idOferta " + getDetalleProducto_Oferta_idOferta() + " " + "getDetalleProducto_Producto_idProducto " + getDetalleProducto_Producto_idProducto() + " " + "getId_DetalleProducto_tiene_Imagen " + getId_DetalleProducto_tiene_Imagen() + " " + "getImagen_idImagen " + getImagen_idImagen() + "]";
+    }
+
 }

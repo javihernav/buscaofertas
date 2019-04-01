@@ -34,4 +34,9 @@ public Tipo(){}
         this.nombreTipo = nombreTipo;
     }
 
+    @Override
+    public String toString() {
+        return "Tipo [" + "getCategoria_idCategoria " + getCategoria_idCategoria() + " " + "getIdTipo " + getIdTipo() + " " + "getNombreTipo " + getNombreTipo() + "]";
+    }
+
 }

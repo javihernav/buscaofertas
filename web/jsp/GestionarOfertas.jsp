@@ -65,7 +65,7 @@
                             for (Oferta oferta : ofertas) {
                         %>
 
-                        <div class="radio btn-outline-danger form-control">
+                        <div class="btn-outline-danger form-control">
                             <input type="radio" name="oferta" value=<%= oferta.getIdOferta()%>><%= oferta.toString()%><br>
                         </div>
                         <div>

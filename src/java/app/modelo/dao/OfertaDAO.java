@@ -86,7 +86,7 @@ public class OfertaDAO implements IDao<Oferta> {
     public Oferta consultarPorIdOferta(int idOferta) throws AppException {
 
         Conectar conec = new Conectar();
-        String sql = "SELECT * FROM oferta where idOferta = ?;";
+        String sql = "CALL buscaofertas.consultarOfertasPorIdOferta(?)";
         ResultSet rs = null;
         CallableStatement cst = null;
 
@@ -106,6 +106,7 @@ public class OfertaDAO implements IDao<Oferta> {
                 vo.setVecesCompartida(rs.getInt(7));
 
             }
+            if(vo==null)System.out.println("No se encontro la oferta con id = "+idOferta);
             return vo;
         } catch (SQLException ex) {
             throw new AppException(-2, "error al acceder a Oferta");

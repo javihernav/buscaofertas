@@ -160,7 +160,7 @@ public class Oferta_Tiene_UbicacionDAO implements IDao<Oferta_Tiene_Ubicacion>{
         CallableStatement cst = null;
         try{
             cst = conec.getCnn().prepareCall(sql);
-            cst.setInt(1, vo.getId_Oferta_tiene_Ubicacion());
+            cst.setInt(1, vo.getOferta_idOferta());
             rs = cst.executeQuery();
             if(rs.next()){
                 Oferta_Tiene_Ubicacion voTemp = new Oferta_Tiene_Ubicacion();

@@ -57,4 +57,9 @@ public class Imagen implements IVo {
         this.linkImagen = linkImagen;
     }
 
+    @Override
+    public String toString() {
+        return "Imagen [" + "getFoto " + getFoto() + " " + "getFoto2 " + getFoto2() + " " + "getIdImagen " + getIdImagen() + " " + "getLinkImagen " + getLinkImagen() + "]";
+    }
+
 }

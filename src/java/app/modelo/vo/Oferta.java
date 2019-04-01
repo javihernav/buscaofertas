@@ -75,7 +75,7 @@ public Oferta(){}
     
     @Override
     public String toString(){
-        return "Nombre Oferta: "+this.getNombreOferta()+" Fecha Inicio: "+this.getFechaInicio().toString()+" Fecha Final: "+this.getFechaFin().toString();
+        return "idUsuario: "+this.getUsuario_idUsuario()+ " idOferta: "+this.getIdOferta()+" Nombre Oferta: "+this.getNombreOferta()+" Fecha Inicio: "+this.getFechaInicio().toString()+" Fecha Final: "+this.getFechaFin().toString();
     }
-
+   
 }

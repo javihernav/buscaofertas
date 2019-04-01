@@ -34,4 +34,9 @@ public Ciudad(){}
         this.departamentoCiudad = departamentoCiudad;
     }
 
+    @Override
+    public String toString() {
+        return "Ciudad [" + "getDepartamentoCiudad " + getDepartamentoCiudad() + " " + "getIdCiudad " + getIdCiudad() + " " + "getNombreCiudad " + getNombreCiudad() + "]";
+    }
+
 }

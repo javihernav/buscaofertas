@@ -47,4 +47,9 @@ public Ubicacion(){}
         this.ciudad = ciudad;
     }
 
+    @Override
+    public String toString() {
+        return "Ubicacion [" + "getCiudad " + getCiudad() + " " + "getDireccion " + getDireccion() + " " + "getIdUbicacion " + getIdUbicacion() + " " + "getNombreTienda " + getNombreTienda() + "]";
+    }
+
 }

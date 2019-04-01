@@ -48,4 +48,9 @@ public Producto(){}
         this.nombreProducto = nombreProducto;
     }
 
+    @Override
+    public String toString() {
+        return "Producto [" + "getCategoria_idCategoria " + getCategoria_idCategoria() + " " + "getIdProducto " + getIdProducto() + " " + "getMarca_idMarca " + getMarca_idMarca() + " " + "getNombreProducto " + getNombreProducto() + "]";
+    }
+
 }

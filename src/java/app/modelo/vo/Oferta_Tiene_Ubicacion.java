@@ -39,4 +39,9 @@ public Oferta_Tiene_Ubicacion(){}
         this.Ubicacion_idUbicacion = Ubicacion_idUbicacion;
     }
 
+    @Override
+    public String toString() {
+        return "Oferta_Tiene_Ubicacion [" + "getId_Oferta_tiene_Ubicacion " + getId_Oferta_tiene_Ubicacion() + " " + "getOferta_idOferta " + getOferta_idOferta() + " " + "getUbicacion_idUbicacion " + getUbicacion_idUbicacion() + "]";
+    }
+
 }

@@ -27,4 +27,9 @@ public Categoria(){}
         this.nombreCategoria = nombreCategoria;
     }
 
+    @Override
+    public String toString() {
+        return "Categoria [" + "getIdCategoria " + getIdCategoria() + " " + "getNombreCategoria " + getNombreCategoria() + "]";
+    }
+
 }
