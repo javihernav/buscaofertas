@@ -124,23 +124,27 @@ public class RegistrarOfertas extends HttpServlet {
                     idUsuario = controlUsuario.ObtenerId(usuarioVo).getIdUsuario();
                     SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
                     Oferta ofertaVo = new Oferta(0, idUsuario, nombreOferta, formatoFecha.parse(fechaCreacion.get(Calendar.YEAR)+"-"+(fechaCreacion.get(Calendar.MONTH)+1)+"-"+fechaCreacion.get(Calendar.DAY_OF_MONTH)+"-"), formatoFecha.parse(fechaInicio), formatoFecha.parse(fechaFinalizacion), 0);
-
+                    System.out.println("linea 127 servlet RegistrarOfertas"+ofertaVo);
                     idOferta = controlOferta.insertar(ofertaVo);
                     Ciudad ciudadVo = new Ciudad();
                     ciudadVo.setNombreCiudad(ciudadOferta);
                     //nombreCiudad = controlCiudad.ObtenerId(ciudadVo).getNombreCiudad();
                     Ubicacion ubicacionVo = new Ubicacion(nombreTienda, direccionTienda, ciudadOferta);
+                    System.out.println("linea 133 servlet RegistrarOfertas"+ubicacionVo);
                     idUbicacion=controlUbicacion.insertar(ubicacionVo);
                     Oferta_Tiene_Ubicacion otu=new Oferta_Tiene_Ubicacion(idOferta,idUbicacion);
+                    System.out.println("linea 136 servlet RegistrarOfertas"+otu);
                     controlOferta_Tiene_Ubicacion.insertar(otu);
                     
                     Marca marca = new Marca();
                     marca.setNombreMarca(marcaProducto);
                     int idMarca = controlMarca.insertar(marca);
+                    System.out.println("linea 142 servlet RegistrarOfertas"+idMarca);
                     
-                    Categoria Categoria = new Categoria();
-                    Categoria.setNombreCategoria(categoriaProducto);
-                    int idCategoria = controlCategoria.insertar(Categoria);
+                    Categoria categoria = new Categoria();
+                    categoria.setNombreCategoria(categoriaProducto);
+                    int idCategoria = controlCategoria.insertar(categoria);
+                    System.out.println("linea 147 servlet RegistrarOfertas"+categoria);
                     
                     
                     Producto productoVo=new Producto();
@@ -148,6 +152,7 @@ public class RegistrarOfertas extends HttpServlet {
                     productoVo.setCategoria_idCategoria(idCategoria);
                     productoVo.setMarca_idMarca(idMarca);
                     idProducto=controlProducto.insertar(productoVo);
+                    System.out.println("linea 155 servlet RegistrarOfertas"+productoVo);
                     
                     
                     
@@ -155,15 +160,18 @@ public class RegistrarOfertas extends HttpServlet {
                     DetalleProducto detalleProductoVo=new DetalleProducto(idOferta, idProducto, Double.parseDouble(precioOferta));
                     
                     controlDetalleProducto.insertar(detalleProductoVo);
+                    System.out.println("linea 163 servlet RegistrarOfertas"+detalleProductoVo);
                     Imagen imgVo= new Imagen(); 
                     imgVo.setLinkImagen(imagenProducto);
-                    byte [] foto={00000000};
+                    byte [] foto={00000101};
                     imgVo.setFoto(foto);
+                    System.out.println("linea 168 servlet RegistrarOfertas"+imgVo);
                     
                     
-                    idImagen=controlImagen.insertar(imgVo);
+                    idImagen=controlImagen.insertar(imgVo); System.out.println("linea 171 servlet RegistrarOfertas idImagen,idOferta,idProducto "+idImagen+", "+idOferta+", "+idProducto);
                     DetalleProducto_Tiene_Imagen dPTIVo=new DetalleProducto_Tiene_Imagen(idImagen,idOferta,idProducto);
                     controlDetalleProducto_Tiene_Imagen.insertar(dPTIVo);
+                    System.out.println("linea 174 servlet RegistrarOfertas"+dPTIVo);
                     
                 } catch (AppException ex) {
                     RespuestaServer resp = new RespuestaServer();
@@ -174,6 +182,7 @@ public class RegistrarOfertas extends HttpServlet {
                 System.out.println("OK");
                 
                 sesion.setAttribute("usuario", usuarioVo);
+                System.out.println("linea 185 servlet RegistrarOfertas"+usuarioVo);
                 RespuestaServer resp = new RespuestaServer();
                 resp.setCodigo(1);
                 resp.setMensaje("Datos Correctos");

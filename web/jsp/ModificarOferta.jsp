@@ -75,24 +75,25 @@
             System.out.println("oferta "+oferta+" asignada como atributo de request en modificarOferta.jsp");
 
             Oferta_Tiene_Ubicacion otu = new Oferta_Tiene_Ubicacion();
-            otu.setOferta_idOferta(oferta.getIdOferta());
+            otu.setOferta_idOferta(oferta.getIdOferta());System.out.println("linea: "+78+otu);
             ControlOferta_Tiene_Ubicacion controlOferta_Tiene_Ubicacion = new ControlOferta_Tiene_Ubicacion(cnn);
             Oferta_Tiene_Ubicacion oferta_Tiene_Ubicacion = controlOferta_Tiene_Ubicacion.consultarPorIdOferta(otu);
-            System.out.println("linea: "+81);
+            System.out.println("linea: "+81+oferta);
+            System.out.println("linea: "+82+oferta_Tiene_Ubicacion);
 
             ControlUbicacion controlUbicacion = new ControlUbicacion(cnn);
             Ubicacion ubicacionVo = new Ubicacion();
             ubicacionVo.setIdUbicacion(oferta_Tiene_Ubicacion.getUbicacion_idUbicacion());
             Ubicacion ubicacion = controlUbicacion.ObtenerId(ubicacionVo);
             request.setAttribute("ubicacion", ubicacion);
-            System.out.println("linea: "+88);
+            System.out.println("linea: "+88+ubicacion);
 
             ControlDetalleProducto controlDetalleProducto = new ControlDetalleProducto(cnn);
             DetalleProducto detalleProductoVo = new DetalleProducto();
             detalleProductoVo.setOferta_idOferta(oferta.getIdOferta());
             DetalleProducto detalleProductoExtraido = controlDetalleProducto.ObtenerId(detalleProductoVo);
             request.setAttribute("detalleProducto", detalleProductoExtraido);
-            System.out.println("linea: "+95);
+            System.out.println("linea: "+95+detalleProductoExtraido);
 
             Producto productoVo = new Producto();
             productoVo.setIdProducto(detalleProductoExtraido.getProducto_idProducto());
@@ -100,21 +101,21 @@
             Producto productoExtraido = controlProducto.ObtenerId(productoVo);
             System.out.println("\nId de producto: " + productoExtraido.getIdProducto());
             request.setAttribute("producto", productoExtraido);
-            System.out.println("linea: "+103);
+            System.out.println("linea: "+103+productoExtraido);
 
             Marca marcaVo = new Marca();
             marcaVo.setIdMarca(productoExtraido.getMarca_idMarca());
             ControlMarca controlMarca = new ControlMarca(cnn);
             Marca marcaExtraida = controlMarca.ObtenerId(marcaVo);
             request.setAttribute("marca", marcaExtraida);
-            System.out.println("linea: "+110);
+            System.out.println("linea: "+110+marcaExtraida);
 
             Categoria CategoriaVo = new Categoria();
             CategoriaVo.setIdCategoria(productoExtraido.getCategoria_idCategoria());
             ControlCategoria controlCategoria = new ControlCategoria(cnn);
             Categoria categoriaExtraido = controlCategoria.ObtenerId(CategoriaVo);
             request.setAttribute("categoria", categoriaExtraido);
-            System.out.println("linea: "+117);
+            System.out.println("linea: "+117+categoriaExtraido);
 
             DetalleProducto_Tiene_Imagen detalleProducto_Tiene_ImagenVo = new DetalleProducto_Tiene_Imagen();
             detalleProducto_Tiene_ImagenVo.setDetalleProducto_Oferta_idOferta(oferta.getIdOferta());
@@ -122,7 +123,7 @@
             ControlDetalleProducto_Tiene_Imagen controlDetalleProducto_Tiene_Imagen = new ControlDetalleProducto_Tiene_Imagen(cnn);
             DetalleProducto_Tiene_Imagen detalleProducto_Tiene_ImagenExtraido = controlDetalleProducto_Tiene_Imagen.ObtenerId(detalleProducto_Tiene_ImagenVo);
             System.out.println("\nId de imagen buscada: " + detalleProducto_Tiene_ImagenExtraido.getImagen_idImagen());
-            System.out.println("linea: "+126);
+            System.out.println("linea: "+126+detalleProducto_Tiene_ImagenExtraido);
 
             Imagen imagenVo = new Imagen();
             imagenVo.setIdImagen(detalleProducto_Tiene_ImagenExtraido.getImagen_idImagen());
@@ -130,7 +131,7 @@
             Imagen imagenExtraida = controlImagen.ObtenerId(imagenVo);
             System.out.println("\nId de imagen: " + imagenExtraida.getIdImagen());
             request.setAttribute("imagen", imagenExtraida);
-            System.out.println("linea: "+133);
+            System.out.println("linea: "+133+imagenExtraida);
             
 
         %>

@@ -29,9 +29,9 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
                 list.add(vo);
             }
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto_Tiene_Imagen");
+            throw new AppException(-2, "error al consultar a DetalleProducto_Tiene_Imagen");
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto_Tiene_Imagen");
+            throw new AppException(-2, "error al consultar a DetalleProducto_Tiene_Imagen");
         } finally {
             try {
                 cst.close();
@@ -45,7 +45,7 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
 
     public int Insertar(DetalleProducto_Tiene_Imagen vo) throws AppException {
         Conectar conec = new Conectar();
-        String sql = "{CALL buscaofetas.insertDetalleProductoTieneImagen(?,?,?)}";
+        String sql = "{CALL buscaofertas.insertDetalleProductoTieneImagen(?,?,?)}";
         CallableStatement cst = null;
         try {
             cst = conec.getCnn().prepareCall(sql);
@@ -60,9 +60,9 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
             }
             return id;
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto_Tiene_Imagen");
+            throw new AppException(-2, "error al insertar a DetalleProducto_Tiene_Imagen SQLException"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto_Tiene_Imagen");
+            throw new AppException(-2, "error al insertar a DetalleProducto_Tiene_Imagen"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -84,9 +84,9 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
             cst.setInt(4, vo.getId_DetalleProducto_tiene_Imagen());
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto_Tiene_Imagen");
+            throw new AppException(-2, "error al actualizar a DetalleProducto_Tiene_Imagen");
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto_Tiene_Imagen");
+            throw new AppException(-2, "error al actualizar a DetalleProducto_Tiene_Imagen");
         } finally {
             try {
                 cst.close();
@@ -105,9 +105,9 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
             cst.setInt(1, vo.getId_DetalleProducto_tiene_Imagen());
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto_Tiene_Imagen");
+            throw new AppException(-2, "error al eliminar a DetalleProducto_Tiene_Imagen");
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto_Tiene_Imagen");
+            throw new AppException(-2, "error al eliminar a DetalleProducto_Tiene_Imagen");
         } finally {
             try {
                 cst.close();
@@ -139,9 +139,9 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
                 list.add(voTemp);
             }
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto_Tiene_Imagen");
+            throw new AppException(-2, "error al obtenerid a DetalleProducto_Tiene_Imagen");
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto_Tiene_Imagen");
+            throw new AppException(-2, "error al obtenerid a DetalleProducto_Tiene_Imagen");
         } finally {
             try {
                 cst.close();
@@ -151,6 +151,9 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
             }
         }
         return list.get(0);
+    }
+
+    public DetalleProducto_Tiene_ImagenDAO() {
     }
 
 }

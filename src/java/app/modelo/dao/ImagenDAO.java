@@ -31,9 +31,9 @@ public class ImagenDAO implements IDao<Imagen>{
                 list.add(vo);
             }
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Imagen");
+            throw new AppException(-2,"error al consultar Imagen");
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Imagen");
+            throw new AppException(-2,"error al consultar a Imagen");
         }finally{
             try{
                 cst.close();
@@ -49,7 +49,7 @@ public class ImagenDAO implements IDao<Imagen>{
     public int Insertar(Imagen vo) throws AppException{
         Conectar conec = new Conectar();
                                              	
-        String sql = "{CALL buscaofertas.insertImagen}";
+        String sql = "{CALL buscaofertas.insertImagen(?,?)}";
         CallableStatement cst = null;
         try{
             cst = conec.getCnn().prepareCall(sql);
@@ -64,7 +64,7 @@ public class ImagenDAO implements IDao<Imagen>{
             }
             return id;
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Imagen");
+            throw new AppException(-2,"error al insertar a Imagen");
         }finally{
             try{
                 cst.close();
