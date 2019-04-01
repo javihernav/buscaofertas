@@ -35,9 +35,9 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
                 list.add(vo);
             }
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto");
+            throw new AppException(-2, "error al acceder a DetalleProducto"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto");
+            throw new AppException(-2, "error al acceder a DetalleProducto"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -66,9 +66,9 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
             }
             return id;
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto");
+            throw new AppException(-2, "error al acceder a DetalleProducto"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto");
+            throw new AppException(-2, "error al acceder a DetalleProducto"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -90,9 +90,9 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
 
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto");
+            throw new AppException(-2, "error al acceder a DetalleProducto"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto");
+            throw new AppException(-2, "error al acceder a DetalleProducto"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -112,9 +112,9 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
             cst.setInt(2, vo.getProducto_idProducto());
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto");
+            throw new AppException(-2, "error al acceder a DetalleProducto"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto");
+            throw new AppException(-2, "error al acceder a DetalleProducto"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -148,9 +148,9 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
             }
             return null;
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto");
+            throw new AppException(-2, "error al acceder a DetalleProducto"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto");
+            throw new AppException(-2, "error al acceder a DetalleProducto"+ex.getMessage());
         } finally {
             try {
                 cst.close();

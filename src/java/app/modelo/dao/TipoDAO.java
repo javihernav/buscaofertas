@@ -30,9 +30,9 @@ public class TipoDAO implements IDao<Tipo>{
                 list.add(vo);
             }
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Tipo");
+            throw new AppException(-2,"error al acceder a Tipo"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Tipo");
+            throw new AppException(-2,"error al acceder a Tipo"+ex.getMessage());
         }finally{
             try{
                 ps.close();
@@ -64,9 +64,9 @@ public class TipoDAO implements IDao<Tipo>{
             }
             return id;
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Tipo");
+            throw new AppException(-2,"error al acceder a Tipo"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Tipo");
+            throw new AppException(-2,"error al acceder a Tipo"+ex.getMessage());
         }finally{
             try{
                 ps.close();
@@ -88,9 +88,9 @@ public class TipoDAO implements IDao<Tipo>{
             ps.setInt(3, vo.getIdTipo());
             ps.executeUpdate();
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Tipo");
+            throw new AppException(-2,"error al acceder a Tipo"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Tipo");
+            throw new AppException(-2,"error al acceder a Tipo"+ex.getMessage());
         }finally{
             try{
                 ps.close();
@@ -110,9 +110,9 @@ public class TipoDAO implements IDao<Tipo>{
             ps.setInt(1, vo.getIdTipo());
             ps.executeUpdate();
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Tipo");
+            throw new AppException(-2,"error al acceder a Tipo"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Tipo");
+            throw new AppException(-2,"error al acceder a Tipo"+ex.getMessage());
         }finally{
             try{
                 ps.close();
@@ -140,14 +140,14 @@ public class TipoDAO implements IDao<Tipo>{
                 list.add(voTemp);
             }
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Tipo");
+            throw new AppException(-2,"error al acceder a Tipo"+ex.getMessage());
         
         }finally{
             try{
                 ps.close();
                 rs.close();
                 conec.desconectar();
-            }catch(SQLException ex){throw new AppException(-2,"error al cerrar conexion a bd");}
+            }catch(SQLException ex){throw new AppException(-2,"error al cerrar conexion a bd"+ex.getMessage());}
         }
         return list.get(0);
     }

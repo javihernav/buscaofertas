@@ -30,9 +30,9 @@ public class ProductoDAO implements IDao<Producto> {
                 list.add(vo);
             }
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder aProducto");
+            throw new AppException(-2, "error al acceder aProducto"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder aProducto");
+            throw new AppException(-2, "error al acceder aProducto"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -62,9 +62,9 @@ public class ProductoDAO implements IDao<Producto> {
             }
             return id;
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder aProducto");
+            throw new AppException(-2, "error al acceder aProducto"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder aProducto");
+            throw new AppException(-2, "error al acceder aProducto"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -87,9 +87,9 @@ public class ProductoDAO implements IDao<Producto> {
             cst.setInt(i++, vo.getIdProducto());
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder aProducto");
+            throw new AppException(-2, "error al acceder aProducto"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder aProducto");
+            throw new AppException(-2, "error al acceder aProducto"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -108,9 +108,9 @@ public class ProductoDAO implements IDao<Producto> {
             cst.setInt(1, vo.getIdProducto());
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder aProducto");
+            throw new AppException(-2, "error al acceder aProducto"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder aProducto");
+            throw new AppException(-2, "error al acceder aProducto"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -144,9 +144,9 @@ public class ProductoDAO implements IDao<Producto> {
             }
             return null;
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder aProducto");
+            throw new AppException(-2, "error al acceder aProducto"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder aProducto");
+            throw new AppException(-2, "error al acceder aProducto"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -179,9 +179,9 @@ public class ProductoDAO implements IDao<Producto> {
             }
             return null;
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder aProducto");
+            throw new AppException(-2, "error al acceder aProducto"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder aProducto");
+            throw new AppException(-2, "error al acceder aProducto"+ex.getMessage());
         } finally {
             try {
                 cst.close();

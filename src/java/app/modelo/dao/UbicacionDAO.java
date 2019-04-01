@@ -32,9 +32,9 @@ public class UbicacionDAO implements IDao<Ubicacion> {
                 list.add(vo);
             }
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a ubicación");
+            throw new AppException(-2, "error al acceder a ubicación"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a ubicación");
+            throw new AppException(-2, "error al acceder a ubicación"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -63,9 +63,9 @@ public class UbicacionDAO implements IDao<Ubicacion> {
             }
             return id;
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al agregar ubicación");
+            throw new AppException(-2, "error al agregar ubicación"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al agregar ubicación");
+            throw new AppException(-2, "error al agregar ubicación"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -88,9 +88,9 @@ public class UbicacionDAO implements IDao<Ubicacion> {
             cst.setInt(i++, vo.getIdUbicacion());
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a ubicación");
+            throw new AppException(-2, "error al acceder a ubicación"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a ubicación");
+            throw new AppException(-2, "error al acceder a ubicación"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -109,9 +109,9 @@ public class UbicacionDAO implements IDao<Ubicacion> {
             cst.setInt(1, vo.getIdUbicacion());
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a ubicación");
+            throw new AppException(-2, "error al acceder a ubicación"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a ubicación");
+            throw new AppException(-2, "error al acceder a ubicación"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -142,9 +142,9 @@ public class UbicacionDAO implements IDao<Ubicacion> {
                 list.add(voTemp);
             }
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a ubicación");
+            throw new AppException(-2, "error al acceder a ubicación"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a ubicación");
+            throw new AppException(-2, "error al acceder a ubicación"+ex.getMessage());
         } finally {
             try {
                 cst.close();

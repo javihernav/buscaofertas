@@ -32,9 +32,9 @@ public class OfertaDAO implements IDao<Oferta> {
                 list.add(vo);
             }
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -69,9 +69,9 @@ public class OfertaDAO implements IDao<Oferta> {
                 list.add(vo);
             }
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -109,9 +109,9 @@ public class OfertaDAO implements IDao<Oferta> {
             if(vo==null)System.out.println("No se encontro la oferta con id = "+idOferta);
             return vo;
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -143,9 +143,9 @@ public class OfertaDAO implements IDao<Oferta> {
             }
             return id;
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -171,9 +171,9 @@ public class OfertaDAO implements IDao<Oferta> {
             cst.setInt(i++, vo.getIdOferta());
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -192,9 +192,9 @@ public class OfertaDAO implements IDao<Oferta> {
             cst.setInt(1, vo.getIdOferta());
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -228,9 +228,9 @@ public class OfertaDAO implements IDao<Oferta> {
             }
             return null;
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a Oferta");
+            throw new AppException(-2, "error al acceder a Oferta"+ex.getMessage());
         } finally {
             try {
                 cst.close();

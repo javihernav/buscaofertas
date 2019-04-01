@@ -31,9 +31,9 @@ public class ImagenDAO implements IDao<Imagen>{
                 list.add(vo);
             }
         }catch(SQLException ex){
-            throw new AppException(-2,"error al consultar Imagen");
+            throw new AppException(-2,"error al consultar Imagen"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al consultar a Imagen");
+            throw new AppException(-2,"error al consultar a Imagen"+ex.getMessage());
         }finally{
             try{
                 cst.close();
@@ -64,7 +64,7 @@ public class ImagenDAO implements IDao<Imagen>{
             }
             return id;
         }catch(SQLException ex){
-            throw new AppException(-2,"error al insertar a Imagen");
+            throw new AppException(-2,"error al insertar a Imagen"+ex.getMessage());
         }finally{
             try{
                 cst.close();
@@ -87,9 +87,9 @@ public class ImagenDAO implements IDao<Imagen>{
             cst.setInt(i++, vo.getIdImagen());
             cst.executeUpdate();
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Imagen");
+            throw new AppException(-2,"error al acceder a Imagen"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Imagen");
+            throw new AppException(-2,"error al acceder a Imagen"+ex.getMessage());
         }finally{
             try{
                 cst.close();
@@ -107,9 +107,9 @@ public class ImagenDAO implements IDao<Imagen>{
             cst.setInt(1, vo.getIdImagen());
             cst.executeUpdate();
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Imagen");
+            throw new AppException(-2,"error al acceder a Imagen"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Imagen");
+            throw new AppException(-2,"error al acceder a Imagen"+ex.getMessage());
         }finally{
             try{
                 cst.close();
@@ -138,9 +138,9 @@ public class ImagenDAO implements IDao<Imagen>{
             }
             return null;
         }catch(SQLException ex){
-            throw new AppException(-2,"error al obtenerid a Imagen");
+            throw new AppException(-2,"error al obtenerid a Imagen"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al obtenerid a Imagen");
+            throw new AppException(-2,"error al obtenerid a Imagen"+ex.getMessage());
         }finally{
             try{
                 cst.close();

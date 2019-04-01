@@ -28,9 +28,9 @@ public class Oferta_Tiene_UbicacionDAO implements IDao<Oferta_Tiene_Ubicacion> {
                 list.add(vo);
             }
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a OTubicación");
+            throw new AppException(-2, "error al acceder a OTubicación"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a OTubicación");
+            throw new AppException(-2, "error al acceder a OTubicación"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -58,9 +58,9 @@ public class Oferta_Tiene_UbicacionDAO implements IDao<Oferta_Tiene_Ubicacion> {
             }
             return id;
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a OTubicación");
+            throw new AppException(-2, "error al acceder a OTubicación"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a OTubicación");
+            throw new AppException(-2, "error al acceder a OTubicación"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -81,9 +81,9 @@ public class Oferta_Tiene_UbicacionDAO implements IDao<Oferta_Tiene_Ubicacion> {
             cst.setInt(3, vo.getId_Oferta_tiene_Ubicacion());
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a OTubicación");
+            throw new AppException(-2, "error al acceder a OTubicación"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a OTubicación");
+            throw new AppException(-2, "error al acceder a OTubicación"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -102,9 +102,9 @@ public class Oferta_Tiene_UbicacionDAO implements IDao<Oferta_Tiene_Ubicacion> {
             cst.setInt(1, vo.getId_Oferta_tiene_Ubicacion());
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a OTubicación");
+            throw new AppException(-2, "error al acceder a OTubicación"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a OTubicación");
+            throw new AppException(-2, "error al acceder a OTubicación"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -136,9 +136,9 @@ public class Oferta_Tiene_UbicacionDAO implements IDao<Oferta_Tiene_Ubicacion> {
             }
             return null;
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a OTubicación");
+            throw new AppException(-2, "error al acceder a OTubicación"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a OTubicación");
+            throw new AppException(-2, "error al acceder a OTubicación"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -171,9 +171,9 @@ public class Oferta_Tiene_UbicacionDAO implements IDao<Oferta_Tiene_Ubicacion> {
             return (voTemp);
             
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a OTubicación");
+            throw new AppException(-2, "error al acceder a OTubicación"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a OTubicación");
+            throw new AppException(-2, "error al acceder a OTubicación"+ex.getMessage());
         } finally {
             try {
                 cst.close();

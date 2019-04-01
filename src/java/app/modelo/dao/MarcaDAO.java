@@ -29,9 +29,9 @@ public class MarcaDAO implements IDao<Marca>{
                 list.add(vo);
             }
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Marca");
+            throw new AppException(-2,"error al acceder a Marca"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Marca");
+            throw new AppException(-2,"error al acceder a Marca"+ex.getMessage());
         }finally{
             try{
                 cst.close();
@@ -60,9 +60,9 @@ public class MarcaDAO implements IDao<Marca>{
             }
             return id;
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Marca");
+            throw new AppException(-2,"error al acceder a Marca"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Marca");
+            throw new AppException(-2,"error al acceder a Marca"+ex.getMessage());
         }finally{
             try{
                 cst.close();
@@ -83,9 +83,9 @@ public class MarcaDAO implements IDao<Marca>{
             cst.setInt(2, vo.getIdMarca());
             cst.executeUpdate();
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Marca");
+            throw new AppException(-2,"error al acceder a Marca"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Marca");
+            throw new AppException(-2,"error al acceder a Marca"+ex.getMessage());
         }finally{
             try{
                 cst.close();
@@ -105,9 +105,9 @@ public class MarcaDAO implements IDao<Marca>{
             cst.setInt(1, vo.getIdMarca());
             cst.executeUpdate();
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Marca");
+            throw new AppException(-2,"error al acceder a Marca"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Marca");
+            throw new AppException(-2,"error al acceder a Marca"+ex.getMessage());
         }finally{
             try{
                 cst.close();
@@ -135,9 +135,9 @@ public class MarcaDAO implements IDao<Marca>{
             }
             return null;
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Marca");
+            throw new AppException(-2,"error al acceder a Marca"+ex.getMessage());
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Marca");
+            throw new AppException(-2,"error al acceder a Marca"+ex.getMessage());
         }finally{
             try{
                 cst.close();
