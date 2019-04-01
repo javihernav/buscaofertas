@@ -138,9 +138,9 @@ public class ImagenDAO implements IDao<Imagen>{
             }
             return null;
         }catch(SQLException ex){
-            throw new AppException(-2,"error al acceder a Imagen");
+            throw new AppException(-2,"error al obtenerid a Imagen");
         }catch(Exception ex){
-            throw new AppException(-2,"error al acceder a Imagen");
+            throw new AppException(-2,"error al obtenerid a Imagen");
         }finally{
             try{
                 cst.close();

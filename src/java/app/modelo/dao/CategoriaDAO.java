@@ -142,7 +142,7 @@ public class CategoriaDAO implements IDao<Categoria>{
                 return(vo1);
             }
         }catch(SQLException ex){
-            throw new AppException(-2,"error al consultar categoría");
+            throw new AppException(-2,"error al consultar categoría"+ex.getMessage());
         }finally{
             try{
                 cst.close();
