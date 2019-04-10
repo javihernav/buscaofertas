@@ -119,7 +119,7 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
 
     @Override
     public DetalleProducto_Tiene_Imagen ObtenerId(DetalleProducto_Tiene_Imagen vo) throws AppException {
-        ArrayList<DetalleProducto_Tiene_Imagen> list = new ArrayList<DetalleProducto_Tiene_Imagen>();
+        
         Conectar conec = new Conectar();
         String sql = "{CALL buscaofertas.obtenerIdDetalleProductoTieneImagen(?,?)}";
         ResultSet rs = null;
@@ -136,7 +136,7 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
                 voTemp.setImagen_idImagen(rs.getInt(2));
                 voTemp.setDetalleProducto_Oferta_idOferta(rs.getInt(3));
                 voTemp.setDetalleProducto_Producto_idProducto(rs.getInt(4));
-                list.add(voTemp);
+                return(voTemp);
             }
         } catch (SQLException ex) {
             throw new AppException(-2, "error al obtenerid a DetalleProducto_Tiene_Imagen"+ex.getMessage());
@@ -150,7 +150,7 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
             } catch (Exception ex) {
             }
         }
-        return list.get(0);
+        return null;
     }
 
     public DetalleProducto_Tiene_ImagenDAO() {

@@ -3,8 +3,11 @@ package app.modelo.dao;
 import app.modelo.Conectar;
 import app.modelo.vo.Usuario;
 import app.utils.AppException;
+import app.utils.EncriptacionAES;
 import app.utils.interfaces.IDao;
 import app.utils.interfaces.IVo;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +17,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class UsuarioDAO implements IDao<Usuario> {
@@ -79,9 +86,10 @@ public class UsuarioDAO implements IDao<Usuario> {
             // cst.setInt(1, vo.getIdUsuario());
             cst.setInt(1, vo.getCiudad_idCiudad());
             cst.setString(2, vo.getNombreUsuario());
-            cst.setString(3, DigestUtils.sha1Hex(vo.getContrasena()));//encriptación de la clave con sha1
+            //cst.setString(3, DigestUtils.sha1Hex(vo.getContrasena()));//encriptación de la clave con sha1
+            cst.setString(3, EncriptacionAES.encriptar("buscaofertas1234","1234567890abcdef",vo.getContrasena()));//encriptación de la clave con AES
             System.out.println("clave sin encriptar: " + vo.getContrasena() + " longitud: " + vo.getContrasena().length());
-            String clave = DigestUtils.sha1Hex(vo.getContrasena());
+            String clave = EncriptacionAES.encriptar("buscaofertas1234","1234567890abcdef",vo.getContrasena());
             System.out.println("clave encriptada: " + clave + " longitud: " + clave.length());
 
             cst.setString(4, vo.getNombre());
@@ -104,6 +112,8 @@ public class UsuarioDAO implements IDao<Usuario> {
             return id;
         } catch (SQLException ex) {
             throw new AppException(-2, "error al insertar datos:" + ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 cst.close();
@@ -111,6 +121,7 @@ public class UsuarioDAO implements IDao<Usuario> {
             } catch (Exception ex) {
             }
         }
+        return 0;
     }
 
     /*
@@ -161,7 +172,7 @@ public class UsuarioDAO implements IDao<Usuario> {
             cst = conec.getCnn().prepareCall(sql);
             cst.setInt(i++, vo.getCiudad_idCiudad());
             cst.setString(i++, vo.getNombreUsuario());
-            cst.setString(i++, DigestUtils.sha1Hex( vo.getContrasena()));
+            cst.setString(i++, EncriptacionAES.encriptar("buscaofertas1234","1234567890abcdef",vo.getContrasena()));
             cst.setString(i++, vo.getNombre());
             cst.setString(i++, vo.getApellido());
             cst.setString(i++, vo.getTelefono());
@@ -173,6 +184,8 @@ public class UsuarioDAO implements IDao<Usuario> {
             cst.executeUpdate();
         } catch (SQLException ex) {
             throw new AppException(-2, "error al modificar datos:" + ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 cst.close();
@@ -204,7 +217,7 @@ public class UsuarioDAO implements IDao<Usuario> {
 
     @Override
     public Usuario ObtenerId(Usuario vo) throws AppException {
-        
+//vo es un usuario que solo tiene nombreUsuario
         Conectar conec = new Conectar();
         String sql = "{CALL buscaofertas.obtenerIdUsuario(?)}";
         ResultSet rs = null;
@@ -227,7 +240,7 @@ public class UsuarioDAO implements IDao<Usuario> {
                 voTemp.setFechaNacimiento(rs.getString(9));
                 voTemp.setGenero(rs.getString(10).charAt(0));
                 voTemp.setRol(rs.getString(11));
-                return(voTemp);
+                return (voTemp);
             }
             return null;
         } catch (SQLException ex) {
@@ -241,11 +254,11 @@ public class UsuarioDAO implements IDao<Usuario> {
                 throw new AppException(-2, "error al cerrar conexión:" + ex.getMessage());
             }
         }
-     
+
     }
 
     public Usuario validarUsuario(Usuario vo) throws AppException {
-        //ArrayList<Usuario> list = new ArrayList<Usuario>();
+        //usuario vo solo trae el nombreUsuario y la contraseña sin encriptar
         Conectar conec = new Conectar();
 
         CallableStatement cst;
@@ -259,20 +272,9 @@ public class UsuarioDAO implements IDao<Usuario> {
         try {
             //int i = 1;
             cst.setString(1, vo.getNombreUsuario());
-            cst.setString(2, DigestUtils.sha1Hex(vo.getContrasena()));//envía clave encriptada al procedimiento almacenado
+            cst.setString(2, EncriptacionAES.encriptar("buscaofertas1234","1234567890abcdef",vo.getContrasena()));//envía clave encriptada al procedimiento almacenado
             System.out.println("usuario enviado: " + vo.getNombreUsuario());
-            System.out.println("clave enviada: " + DigestUtils.sha1Hex(vo.getContrasena()));
-            /*cst.registerOutParameter(3, java.sql.Types.INTEGER);
-            cst.registerOutParameter(4, java.sql.Types.INTEGER);
-            cst.registerOutParameter(5, java.sql.Types.VARCHAR);
-            cst.registerOutParameter(6, java.sql.Types.VARCHAR);//recibe la contraseña encriptada de la base de datos
-            cst.registerOutParameter(7, java.sql.Types.VARCHAR);
-            cst.registerOutParameter(8, java.sql.Types.VARCHAR);
-            cst.registerOutParameter(9, java.sql.Types.VARCHAR);
-            cst.registerOutParameter(10, java.sql.Types.VARCHAR);
-            cst.registerOutParameter(11, java.sql.Types.DATE);
-            cst.registerOutParameter(12, java.sql.Types.VARCHAR);
-            cst.registerOutParameter(13, java.sql.Types.VARCHAR);*/
+            System.out.println("clave enviada: " + EncriptacionAES.encriptar("buscaofertas1234","1234567890abcdef",vo.getContrasena()));
 
             ResultSet rs = cst.executeQuery();//cst.getResultSet();
             Usuario voTemp = null;
@@ -282,7 +284,8 @@ public class UsuarioDAO implements IDao<Usuario> {
                 voTemp.setIdUsuario(rs.getInt("idUsuario"));
                 voTemp.setCiudad_idCiudad(rs.getInt("Ciudad_idCiudad"));
                 voTemp.setNombreUsuario(rs.getString("nombreUsuario"));
-                voTemp.setContrasena(rs.getString("contrasena"));//recibe la contraseña encriptada de la base de datos
+                voTemp.setContrasena(rs.getString("contrasena"));
+                
                 System.out.println("Usuario encontrado, usuario: " + voTemp.getNombreUsuario() + " clave: " + voTemp.getContrasena());
                 voTemp.setNombre(rs.getString("nombre"));
                 voTemp.setApellido(rs.getString("apellido"));
@@ -298,6 +301,8 @@ public class UsuarioDAO implements IDao<Usuario> {
             return voTemp;
         } catch (SQLException ex) {
             throw new AppException(-2, "error al consultar datos:" + ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 cst.close();
@@ -306,6 +311,7 @@ public class UsuarioDAO implements IDao<Usuario> {
             } catch (Exception ex) {
             }
         }
+        return null;
     }
 
 }

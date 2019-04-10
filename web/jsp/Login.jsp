@@ -105,6 +105,70 @@
                 </div>
             </form>
         </div>
+        <div class="container">
+        <br>
+        <!--se saca con a.btn y enter
+        <a href="#ventana1" class="btn btn-primary btn-lg" data-toggle="modal">Boton 1</a>
+        <a href="#ventana2" class="btn btn-success btn-lg" data-toggle="modal">Boton 2</a>-->
+        <!--se saca con .modal.fade y enter-->
+        <div class="modal fade" id="ventana1">
+            <!--se saca con .modal-dialog y enter-->
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!--header de la ventana-->
+                    <div class="modal-header">
+                        <!--&times es para que salga la x de cerrar la ventana como botón-->
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">
+                            Bienvenido a Bivioteca
+                        </h4>
+                    </div>
+                    <!--Contenido de la ventana-->
+                    <!--se saca con .modal-body y enter-->
+                    <div class="modal-body">
+                        <p>El lugar para administrar todos sus tutoriales en pdf y video</p>
+
+                    </div>
+                    <!--Footer de la ventana-->
+                    <!--se saca con .modal-footer y enter-->
+                    <div class="modal-footer">
+                        <!--con data-dismiss le damos la funcionalidad de cerrar-->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="ventana2">
+            <!--se saca con .modal-dialog y enter-->
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!--header de la ventana-->
+                    <div class="modal-header">
+                        <!--&times es para que salga la x de cerrar la ventana como botón-->
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">
+                            Error de autenticación
+                        </h4>
+                    </div>
+                    <!--Contenido de la ventana-->
+                    <!--se saca con .modal-body y enter-->
+                    <div class="modal-body">
+                        <p>Usted ha ingresado nombre de usuario o contraseña incorrectos.
+                        </p>
+
+                    </div>
+                    <!--Footer de la ventana-->
+                    <!--se saca con .modal-footer y enter-->
+                    <div class="modal-footer">
+                        <!--con data-dismiss le damos la funcionalidad de cerrar-->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-success">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
         <script src="../_js/validacion.js"></script>
         <script src="../_js/loginLogica.js"></script>
         <script src="../_js/jquery-3.3.1.js"></script>

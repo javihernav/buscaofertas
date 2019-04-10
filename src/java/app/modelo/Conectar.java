@@ -4,8 +4,15 @@ import app.utils.AppException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 public class Conectar {
+
+    @Resource(mappedName = "jdbc/senaPool")
+    private static DataSource dspool;
 
     static String baseDeDatos = "buscaofertas";
     static String usuario = "usuario";
@@ -21,10 +28,10 @@ public class Conectar {
                 System.out.println("Conexión a base de datos " + baseDeDatos + " OK\n");
             }
         } catch (SQLException ex) {
-            throw new AppException(-2,"Base de datos no disponible"+ex.getMessage());
+            throw new AppException(-2, "Base de datos no disponible" + ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            throw new AppException(-2,"Driver de Base de datos no encontrado"+ex.getMessage());
-            
+            throw new AppException(-2, "Driver de Base de datos no encontrado" + ex.getMessage());
+
         }
     }
 
@@ -36,8 +43,22 @@ public class Conectar {
         cnn = null;
     }
 
-    public static void main(String[] args) throws AppException {
-        Conectar con = new Conectar();
-        Connection conexion=con.getCnn();
+    public static void main(String[] args) {
+        //Conectar con = new Conectar();
+        try {
+            Connection conexion = dspool.getConnection("usuario", "123456");
+            System.out.println("Conexión correcta");
+            conexion.close();
+        } catch (SQLException ex) {
+           System.out.println("error de pool: "+ex.getMessage());
+        }
+    }
+
+    public DataSource getDspool() {
+        return dspool;
+    }
+
+    public void setDspool(DataSource dspool) {
+        this.dspool = dspool;
     }
 }

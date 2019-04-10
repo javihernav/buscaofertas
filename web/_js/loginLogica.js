@@ -8,9 +8,9 @@ function accionEnviarDatos() {
     if (validarFormularioLogin()) {
         var objDatos = {
             usuario: $('#txtUsuario').val(),
-            clave: $('#txtPassword').val() 
+            clave: $('#txtPassword').val()
         };
-        
+
         console.log(objDatos);
 
         $.ajax({
@@ -20,13 +20,21 @@ function accionEnviarDatos() {
             data: (objDatos),
             //dataType:'json',
             success: function (data, textStatus, jqXHR) {
-                alert(data.mensaje);
+                //alert(data.mensaje);
                 if (data.codigo !== 0) {
-                    $(location).attr('href', '/BuscaOfertas/jsp/PaginaPrincipal.jsp');
+                    $('#ventana1').modal('show'); // abrir
+                    window.setTimeout(ocultarModal1(), 5000);
+                    window.setTimeout(redireccionar(), 5000);
+                } else {
+                    $('#ventana2').modal('show'); // abrir
+                    window.setTimeout(ocultarModal2(), 5000);
                 }
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert('Datos Incorrectos ' + JSON.stringify(jqXHR));
+                $('#ventana2').modal('show'); // abrir
+                window.setTimeout(ocultarModal2(), 5000);
+                //alert('Datos Incorrectos ' + JSON.stringify(jqXHR));
             }
 
 
@@ -36,3 +44,13 @@ function accionEnviarDatos() {
     }
 }
 
+function ocultarModal1() {
+    $('#ventana1').modal('hide');
+}
+function ocultarModal2() {
+    $('#ventana2').modal('hide');
+}
+function redireccionar() {
+    $(location).attr('href', '/BuscaOfertas/jsp/PaginaPrincipal.jsp');
+
+}
