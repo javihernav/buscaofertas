@@ -17,23 +17,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-import org.apache.commons.codec.digest.DigestUtils;
+import javax.sql.DataSource;
+
 
 public class UsuarioDAO implements IDao<Usuario> {
 
+  
+
     public ArrayList<Usuario> Consultar() throws AppException {
         ArrayList<Usuario> list = new ArrayList<>();
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.consultarUsuarios()}";
         ResultSet rs = null;
 
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             rs = cst.executeQuery();
         } catch (SQLException ex) {
             throw new AppException(-2, "error al ejecutar el procedimiento almacenado consultarUsuarios:" + ex.getMessage());
@@ -61,7 +60,7 @@ public class UsuarioDAO implements IDao<Usuario> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+               
             } catch (Exception ex) {
             }
         }
@@ -69,14 +68,14 @@ public class UsuarioDAO implements IDao<Usuario> {
     }
 
     public int Insertar(Usuario vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         //String sql = "INSERT INTO usuario (Ciudad_idCiudad, nombreUsuario, contrasena, nombre, apellido, telefono, correo, fechaNacimiento, genero, rol) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         // Llamada al procedimiento almacenado
         CallableStatement cst;
         try {
 
-            cst = conec.getCnn().prepareCall("{CALL buscaofertas.insertUsuario (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+            cst = Conectar.getCnn().prepareCall("{CALL buscaofertas.insertUsuario (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
         } catch (SQLException ex) {
             throw new AppException(-2, "error al preparar el procedimiento almacenado insertUsuario:" + ex.getMessage());
         }
@@ -117,7 +116,7 @@ public class UsuarioDAO implements IDao<Usuario> {
         } finally {
             try {
                 cst.close();
-                conec.getCnn().close();
+                Conectar.getCnn().close();
             } catch (Exception ex) {
             }
         }
@@ -126,12 +125,12 @@ public class UsuarioDAO implements IDao<Usuario> {
 
     /*
     public int Insertar(Usuario vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "INSERT INTO usuario (Ciudad_idCiudad, nombreUsuario, contrasena, nombre, apellido, telefono, correo, fechaNacimiento, genero, rol) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = null;
         try {
             int i = 1;
-            ps = conec.getCnn().prepareStatement(sql);
+            ps = Conectar.getCnn().prepareStatement(sql);
             // ps.setInt(1, vo.getIdUsuario());
             ps.setInt(i++, vo.getCiudad_idCiudad());
             ps.setString(i++, vo.getNombreUsuario());
@@ -145,7 +144,7 @@ public class UsuarioDAO implements IDao<Usuario> {
             ps.setString(i++, vo.getRol());
             ps.executeUpdate();
             sql = "SELECT LAST_INSERT_ID();";
-            ps = conec.getCnn().prepareStatement(sql);
+            ps = Conectar.getCnn().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             int id = 0;
             if (rs.next()) {
@@ -157,19 +156,19 @@ public class UsuarioDAO implements IDao<Usuario> {
         } finally {
             try {
                 ps.close();
-                conec.desconectar();
+               
             } catch (Exception ex) {
             }
         }
     }
      */
     public void Modificar(Usuario vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "CALL buscaofertas.modificarUsuario(?,?,?,?,?,?,?,?,?,?,?)";
         CallableStatement cst = null;
         try {
             int i = 1;
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(i++, vo.getCiudad_idCiudad());
             cst.setString(i++, vo.getNombreUsuario());
             cst.setString(i++, EncriptacionAES.encriptar("buscaofertas1234","1234567890abcdef",vo.getContrasena()));
@@ -189,18 +188,18 @@ public class UsuarioDAO implements IDao<Usuario> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+               
             } catch (Exception ex) {
             }
         }
     }
 
     public void Eliminar(Usuario vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.eliminarUsuario(?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getIdUsuario());
             cst.executeUpdate();
         } catch (SQLException ex) {
@@ -208,7 +207,7 @@ public class UsuarioDAO implements IDao<Usuario> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+               
             } catch (Exception ex) {
                 throw new AppException(-2, "error al eliminar datos:" + ex.getMessage());
             }
@@ -218,12 +217,12 @@ public class UsuarioDAO implements IDao<Usuario> {
     @Override
     public Usuario ObtenerId(Usuario vo) throws AppException {
 //vo es un usuario que solo tiene nombreUsuario
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.obtenerIdUsuario(?)}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setString(1, vo.getNombreUsuario());
             rs = cst.executeQuery();
             Usuario voTemp = null;
@@ -249,7 +248,7 @@ public class UsuarioDAO implements IDao<Usuario> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+               
             } catch (Exception ex) {
                 throw new AppException(-2, "error al cerrar conexión:" + ex.getMessage());
             }
@@ -259,12 +258,12 @@ public class UsuarioDAO implements IDao<Usuario> {
 
     public Usuario validarUsuario(Usuario vo) throws AppException {
         //usuario vo solo trae el nombreUsuario y la contraseña sin encriptar
-        Conectar conec = new Conectar();
+        
 
         CallableStatement cst;
         try {
 
-            cst = conec.getCnn().prepareCall("{CALL buscaofertas.validarUsuario (?, ?)}");
+            cst = Conectar.getCnn().prepareCall("{CALL buscaofertas.validarUsuario (?, ?)}");
         } catch (SQLException ex) {
             throw new AppException(-2, "error al preparar el procedimiento almacenado insertUsuario:" + ex.getMessage());
         }
@@ -307,7 +306,7 @@ public class UsuarioDAO implements IDao<Usuario> {
             try {
                 cst.close();
 
-                conec.desconectar();
+               
             } catch (Exception ex) {
             }
         }

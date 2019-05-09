@@ -5,8 +5,10 @@
  */
 package app.control.servlets;
 
+import app.control.ControlCategoria;
 import app.control.ControlCiudad;
 import app.modelo.Conectar;
+import app.modelo.vo.Categoria;
 import app.modelo.vo.Ciudad;
 import app.utils.AppException;
 import app.utils.RespuestaServer;
@@ -27,8 +29,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author JAVIER
  */
-@WebServlet(name = "ServiciosCiudad", urlPatterns = {"/usus/consultarCiudad"}) //urlPatterns = {"/ServiciosCiudad"}
-public class ServiciosCiudad extends HttpServlet {
+@WebServlet(name = "ServiciosCategoria", urlPatterns = {"/usus/consultarCategoria"}) //urlPatterns = {"/ServiciosCiudad"}
+public class ServiciosCategoria extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,22 +46,22 @@ public class ServiciosCiudad extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             Connection cnn=Conectar.getCnn();
-            ControlCiudad control=new ControlCiudad(cnn);
-                List<Ciudad> listaCiudades = null;
+            ControlCategoria control=new ControlCategoria(cnn);
+                List<Categoria> listaCategorias = null;
             try {
-                listaCiudades = control.consultar();
+                listaCategorias = control.consultar();
             } catch (AppException ex) {
                 Logger.getLogger(ServiciosCiudad.class.getName()).log(Level.SEVERE, null, ex);
             }
             RespuestaServer respuesta = new RespuestaServer();
-            if(listaCiudades==null||listaCiudades.isEmpty()){
+            if(listaCategorias==null||listaCategorias.isEmpty()){
                 respuesta.setCodigo(0);
-                respuesta.setMensaje("no hay datos");
+                respuesta.setMensaje("no hay datos de categoría");
                 respuesta.setData(null);
             }else{
             respuesta.setCodigo(1);
-                respuesta.setMensaje("datos consultados");
-                respuesta.setData(listaCiudades);
+                respuesta.setMensaje("datos de categoria consultados");
+                respuesta.setData(listaCategorias);
             }
             out.print(new Gson().toJson(respuesta));
         } catch (AppException ex) {

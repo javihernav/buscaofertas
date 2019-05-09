@@ -131,7 +131,7 @@
             Imagen imagenExtraida = controlImagen.ObtenerId(imagenVo);
             System.out.println("\nId de imagen: " + imagenExtraida.getIdImagen());
             request.setAttribute("imagen", imagenExtraida);
-            System.out.println("linea: "+133+imagenExtraida);
+            System.out.println("linea: "+134+imagenExtraida+" ModificarOferta.jsp");
             
 
         %>
@@ -147,7 +147,7 @@
 
         <div class="container">
 
-            <form class="form-check" autocomplete="on" method="post" action="" enctype="multipart/form-data" >
+            <form id="formOferta" class="form-check" autocomplete="on" method="post" action="" enctype="multipart/form-data" >
 
                 <div class="container">
 

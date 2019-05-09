@@ -16,12 +16,12 @@ public class UbicacionDAO implements IDao<Ubicacion> {
 
     public ArrayList<Ubicacion> Consultar() throws AppException {
         ArrayList<Ubicacion> list = new ArrayList<Ubicacion>();
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.consultarUbicacion()}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             rs = cst.executeQuery();
             while (rs.next()) {
                 Ubicacion vo = new Ubicacion();
@@ -39,7 +39,7 @@ public class UbicacionDAO implements IDao<Ubicacion> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
@@ -47,11 +47,11 @@ public class UbicacionDAO implements IDao<Ubicacion> {
     }
 
     public int Insertar(Ubicacion vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "CALL buscaofertas.insertUbicacion(?,?,?)";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             int i = 1;
             cst.setString(i++, vo.getNombreTienda());
             cst.setString(i++, vo.getDireccion());
@@ -69,18 +69,18 @@ public class UbicacionDAO implements IDao<Ubicacion> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
     }
 
     public void Modificar(Ubicacion vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.modificarUbicacion(?,?,?,?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             int i = 1;
             cst.setString(i++, vo.getNombreTienda());
             cst.setString(i++, vo.getDireccion());
@@ -94,18 +94,18 @@ public class UbicacionDAO implements IDao<Ubicacion> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
     }
 
     public void Eliminar(Ubicacion vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.eliminarUbicacion(?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getIdUbicacion());
             cst.executeUpdate();
         } catch (SQLException ex) {
@@ -115,7 +115,7 @@ public class UbicacionDAO implements IDao<Ubicacion> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
@@ -124,12 +124,12 @@ public class UbicacionDAO implements IDao<Ubicacion> {
     @Override
     public Ubicacion ObtenerId(Ubicacion vo) throws AppException {
         ArrayList<Ubicacion> list = new ArrayList<Ubicacion>();
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.obtenerIdUbicacion(?)}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getIdUbicacion());
 
             rs = cst.executeQuery();
@@ -149,7 +149,7 @@ public class UbicacionDAO implements IDao<Ubicacion> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }

@@ -2,34 +2,42 @@ package app.modelo.vo;
 
 import app.utils.interfaces.IVo;
 
-public class Categoria  implements IVo {
-
+public class Categoria implements IVo {
 
     int idCategoria;
     String nombreCategoria;
+    String categoriaPrincipal;
 
-public Categoria(){}
+    public String getCategoriaPrincipal() {
+        return categoriaPrincipal;
+    }
 
+    public void setCategoriaPrincipal(String categoriaPrincipal) {
+        this.categoriaPrincipal = categoriaPrincipal;
+    }
 
-    public int getIdCategoria(){
+    public Categoria() {
+    }
+
+    public int getIdCategoria() {
         return idCategoria;
     }
-    public String getNombreCategoria(){
+
+    public String getNombreCategoria() {
         return nombreCategoria;
     }
 
-
-
-    public void setIdCategoria(int idCategoria){
+    public void setIdCategoria(int idCategoria) {
         this.idCategoria = idCategoria;
     }
-    public void setNombreCategoria(String nombreCategoria){
+
+    public void setNombreCategoria(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
     }
 
     @Override
     public String toString() {
-        return "Categoria [" + "getIdCategoria " + getIdCategoria() + " " + "getNombreCategoria " + getNombreCategoria() + "]";
+        return "Categoria [" + "getCategoriaPrincipal " + getCategoriaPrincipal() + " " + "getIdCategoria " + getIdCategoria() + " " + "getNombreCategoria " + getNombreCategoria() + "]";
     }
 
 }

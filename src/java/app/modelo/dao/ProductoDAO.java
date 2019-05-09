@@ -13,12 +13,12 @@ public class ProductoDAO implements IDao<Producto> {
 
     public ArrayList<Producto> Consultar() throws AppException {
         ArrayList<Producto> list = new ArrayList<Producto>();
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.consultarProductos()}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             rs = cst.executeQuery();
             while (rs.next()) {
                 Producto vo = new Producto();
@@ -37,7 +37,7 @@ public class ProductoDAO implements IDao<Producto> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
@@ -45,11 +45,11 @@ public class ProductoDAO implements IDao<Producto> {
     }
 
     public int Insertar(Producto vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.insertProducto(?,?,?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             int i = 1;
             cst.setInt(i++, vo.getCategoria_idCategoria());
             cst.setInt(i++, vo.getMarca_idMarca());
@@ -68,18 +68,18 @@ public class ProductoDAO implements IDao<Producto> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
     }
 
     public void Modificar(Producto vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.modificarProducto(?,?,?,?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             int i = 1;
             cst.setInt(i++, vo.getCategoria_idCategoria());
             cst.setInt(i++, vo.getMarca_idMarca());
@@ -93,18 +93,18 @@ public class ProductoDAO implements IDao<Producto> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
     }
 
     public void Eliminar(Producto vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.eliminarProducto(?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getIdProducto());
             cst.executeUpdate();
         } catch (SQLException ex) {
@@ -114,7 +114,7 @@ public class ProductoDAO implements IDao<Producto> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
@@ -123,13 +123,13 @@ public class ProductoDAO implements IDao<Producto> {
     @Override
     public Producto ObtenerId(Producto vo) throws AppException {
 
-        Conectar conec = new Conectar();
+        
 
         String sql = "{CALL buscaofertas.obtenerIdProducto(?)}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getIdProducto());
             System.out.println("id de producto ingresado: " + vo.getIdProducto());
             rs = cst.executeQuery();
@@ -151,7 +151,7 @@ public class ProductoDAO implements IDao<Producto> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
@@ -160,12 +160,12 @@ public class ProductoDAO implements IDao<Producto> {
 
     public Producto ObtenerIdConNombre(Producto vo) throws AppException {
 
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.obtenerIdConNombreProducto(?)}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setString(1, vo.getNombreProducto());
             rs = cst.executeQuery();
             if (rs.next()) {
@@ -186,7 +186,7 @@ public class ProductoDAO implements IDao<Producto> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }

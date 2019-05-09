@@ -62,6 +62,8 @@ public class ServiciosUsuario extends HttpServlet {
                 respuesta.setData(listaUsuarios);
             }
             out.print(new Gson().toJson(respuesta));
+        } catch (AppException ex) {
+            Logger.getLogger(ServiciosUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

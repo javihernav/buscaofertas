@@ -16,12 +16,12 @@ public class ImagenDAO implements IDao<Imagen>{
 
     public ArrayList<Imagen> Consultar() throws AppException{
         ArrayList<Imagen> list = new ArrayList<Imagen>();
-        Conectar conec = new Conectar();
-        String sql = "{CALL buscaofertas.conslutarImagenes}";
+        
+        String sql = "{CALL buscaofertas.consultarImagenes}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try{
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             rs = cst.executeQuery();
             while(rs.next()){
                 Imagen vo = new Imagen();
@@ -38,7 +38,7 @@ public class ImagenDAO implements IDao<Imagen>{
             try{
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             }catch(Exception ex){}
         }
         return list;
@@ -47,15 +47,16 @@ public class ImagenDAO implements IDao<Imagen>{
 
 
     public int Insertar(Imagen vo) throws AppException{
-        Conectar conec = new Conectar();
+        
                                              	
         String sql = "{CALL buscaofertas.insertImagen(?,?)}";
         CallableStatement cst = null;
         try{
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             int i=1;
             cst.setString(i++, vo.getLinkImagen());
-            cst.setBlob(i++, new ByteArrayInputStream(vo.getFoto()));
+//            cst.setBlob(i++, new ByteArrayInputStream(vo.getFoto()));
+            cst.setBlob(i++, (vo.getFoto2()));
             
             ResultSet rs= cst.executeQuery();
             int id=0;
@@ -68,7 +69,7 @@ public class ImagenDAO implements IDao<Imagen>{
         }finally{
             try{
                 cst.close();
-                conec.desconectar();
+                
             }catch(Exception ex){}
         }
     }
@@ -76,14 +77,15 @@ public class ImagenDAO implements IDao<Imagen>{
 
 
     public void Modificar(Imagen vo) throws AppException{
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.modificarImagen(?,?,?)}";
         CallableStatement cst = null;
         try{
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             int i=1;
             cst.setString(i++, vo.getLinkImagen());
-            cst.setBinaryStream(i++, new ByteArrayInputStream(vo.getFoto()));
+//            cst.setBinaryStream(i++, new ByteArrayInputStream(vo.getFoto()));
+            cst.setBlob(i++, (vo.getFoto2()));
             cst.setInt(i++, vo.getIdImagen());
             cst.executeUpdate();
         }catch(SQLException ex){
@@ -93,17 +95,17 @@ public class ImagenDAO implements IDao<Imagen>{
         }finally{
             try{
                 cst.close();
-                conec.desconectar();
+                
             }catch(Exception ex){}
         }
     }
 
     public void Eliminar(Imagen vo) throws AppException{
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.eliminarImagen(?)}";
         CallableStatement cst = null;
         try{
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getIdImagen());
             cst.executeUpdate();
         }catch(SQLException ex){
@@ -113,7 +115,7 @@ public class ImagenDAO implements IDao<Imagen>{
         }finally{
             try{
                 cst.close();
-                conec.desconectar();
+                
             }catch(Exception ex){}
         }
     }
@@ -121,12 +123,12 @@ public class ImagenDAO implements IDao<Imagen>{
     @Override
     public Imagen ObtenerId(Imagen vo) throws AppException {
         
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.obtenerIdImagen(?)}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try{
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getIdImagen());
             rs = cst.executeQuery();
             if(rs.next()){
@@ -145,7 +147,7 @@ public class ImagenDAO implements IDao<Imagen>{
             try{
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             }catch(Exception ex){}
         }
     }

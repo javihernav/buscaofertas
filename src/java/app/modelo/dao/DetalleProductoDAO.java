@@ -20,12 +20,12 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
 
     public ArrayList<DetalleProducto> Consultar() throws AppException {
         ArrayList<DetalleProducto> list = new ArrayList<DetalleProducto>();
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.consultarDetalleProducto()}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             rs = cst.executeQuery();
             while (rs.next()) {
                 DetalleProducto vo = new DetalleProducto();
@@ -42,7 +42,7 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
@@ -50,11 +50,11 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
     }
 
     public int Insertar(DetalleProducto vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.insertDetalleProducto(?,?,?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getOferta_idOferta());
             cst.setInt(2, vo.getProducto_idProducto());
             cst.setDouble(3, vo.getPrecio());
@@ -72,18 +72,18 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
     }
 
     public void Modificar(DetalleProducto vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.modificarDetalleProducto(?,?,?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setDouble(1, vo.getPrecio());
             cst.setInt(2, vo.getOferta_idOferta());
             cst.setInt(3, vo.getProducto_idProducto());
@@ -96,18 +96,18 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
     }
 
     public void Eliminar(DetalleProducto vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.eliminarDetalleProducto(?,?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getOferta_idOferta());
             cst.setInt(2, vo.getProducto_idProducto());
             cst.executeUpdate();
@@ -118,7 +118,7 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
@@ -127,14 +127,14 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
     @Override
     public DetalleProducto ObtenerId(DetalleProducto vo) throws AppException {
 
-        Conectar conec = new Conectar();
+        
 
         String sql = "{CALL buscaofertas.obtenerIdDetalleProducto(?)}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try {
 
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getOferta_idOferta());
             rs = cst.executeQuery();
             DetalleProducto voTemp = null;
@@ -155,7 +155,7 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }

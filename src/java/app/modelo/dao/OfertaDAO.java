@@ -13,12 +13,12 @@ public class OfertaDAO implements IDao<Oferta> {
 
     public ArrayList<Oferta> Consultar() throws AppException {
         ArrayList<Oferta> list = new ArrayList<Oferta>();
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.consultarOfertas()}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             rs = cst.executeQuery();
             while (rs.next()) {
                 Oferta vo = new Oferta();
@@ -39,7 +39,7 @@ public class OfertaDAO implements IDao<Oferta> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
@@ -48,13 +48,13 @@ public class OfertaDAO implements IDao<Oferta> {
 
     public ArrayList<Oferta> consultarPorIdUsuario(int idUsuario) throws AppException {
         ArrayList<Oferta> list = new ArrayList<Oferta>();
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.consultarOfertasPorIdUsuario(?)}";
         ResultSet rs = null;
         CallableStatement cst = null;
 
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, idUsuario);
             rs = cst.executeQuery();
             while (rs.next()) {
@@ -76,7 +76,7 @@ public class OfertaDAO implements IDao<Oferta> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
@@ -85,13 +85,13 @@ public class OfertaDAO implements IDao<Oferta> {
 
     public Oferta consultarPorIdOferta(int idOferta) throws AppException {
 
-        Conectar conec = new Conectar();
+        
         String sql = "CALL buscaofertas.consultarOfertasPorIdOferta(?)";
         ResultSet rs = null;
         CallableStatement cst = null;
 
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, idOferta);
             rs = cst.executeQuery();
             Oferta vo = null;
@@ -116,18 +116,18 @@ public class OfertaDAO implements IDao<Oferta> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
     }
 
     public int Insertar(Oferta vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.insertOferta(?,?,?,?,?,?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             int i = 1;
             cst.setInt(i++, vo.getUsuario_idUsuario());
             cst.setString(i++, vo.getNombreOferta());
@@ -149,18 +149,18 @@ public class OfertaDAO implements IDao<Oferta> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
     }
 
     public void Modificar(Oferta vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL modificarOferta(?,?,?,?,?,?,?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             int i = 1;
             cst.setInt(i++, vo.getUsuario_idUsuario());
             cst.setString(i++, vo.getNombreOferta());
@@ -177,18 +177,18 @@ public class OfertaDAO implements IDao<Oferta> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
     }
 
     public void Eliminar(Oferta vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.eliminarOferta(?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getIdOferta());
             cst.executeUpdate();
         } catch (SQLException ex) {
@@ -198,7 +198,7 @@ public class OfertaDAO implements IDao<Oferta> {
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
@@ -207,12 +207,12 @@ public class OfertaDAO implements IDao<Oferta> {
     @Override
     public Oferta ObtenerId(Oferta vo) throws AppException {
         
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.obtenerIdOferta(?)}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getIdOferta());
             rs = cst.executeQuery();
             while (rs.next()) {
@@ -235,7 +235,7 @@ public class OfertaDAO implements IDao<Oferta> {
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }

@@ -21,7 +21,11 @@ public class Tabla_Categoria{
         dt.addColumn("idCategoria");
         dt.addColumn("nombreCategoria");
 
-        dao = new CategoriaDAO(Conectar.getCnn());
+       try {
+           dao = new CategoriaDAO(Conectar.getCnn());
+       } catch (AppException ex) {
+           Logger.getLogger(Tabla_Categoria.class.getName()).log(Level.SEVERE, null, ex);
+       }
         Categoria vo = new Categoria();
         ArrayList<Categoria> list = null;
        try {

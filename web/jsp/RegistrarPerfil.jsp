@@ -22,7 +22,7 @@
         <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
     </head>
 
-    <body onload="cargarComboBoxDatos()">
+    <body >
         <header>  
             <%@include file="/jsp/Barra.jsp" %>
         </header>
@@ -33,7 +33,7 @@
         </figure>-->
 
         <div class="container">
-            <form class="form-check" autocomplete="on"  >
+            <form id="formulario" class="form-check" autocomplete="on"  >
                 <div class="row">
                     &nbsp;
                 </div>
@@ -44,25 +44,73 @@
                     &nbsp;
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6"><label class="control-label ">Nombres:</label><input autofocus="on" class="form-control "id="txtNombres" type="text" value="" maxlength="45" placeholder="Introduzca sus nombres " oninput="validarNombres()" required></div>
-                    <div class="form-group col-md-6"><label class="control-label ">Apellidos:</label><input class="form-control "id="txtApellidos" type="text" value="" maxlength="45" placeholder="Introduzca sus apellidos " oninput="validarApellidos()" required></div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label " for="txtNombres">Nombres:</label>
+                        <input autofocus="on" class="form-control required"id="txtNombres" type="text" value="" maxlength="45" placeholder="Introduzca sus nombres " oninput="validarNombres()" required>
+                        <label id="errorNombres" class="error" for="txtNombres"></label>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label " for="txtApellidos">Apellidos:</label>                        
+                        <input class="form-control required"id="txtApellidos" type="text" value="" maxlength="45" placeholder="Introduzca sus apellidos " oninput="validarApellidos()" required>
+                        <label id="errorApellidos" class="error " for="txtApellidos"></label>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-4"><label class="control-label ">Email:</label><input class="form-control "id="txtCorreo" type="email" value="" maxlength="45" placeholder="Introduzca su e-mail " oninput="validarCorreo()" required></div>
-                    <div class="form-group col-md-4"><label class="control-label ">Confirmar:</label><input class="form-control "id="txtConfirmarCorreo" type="email" value="" maxlength="45" placeholder="Introduzca su e-mail " oninput="validarCorreo()" required></div>
-                    <div class="form-group col-md-4"><label class="control-label ">Teléfono:</label><input class="form-control "id="txtTelefono" type="text" value="" maxlength="20" placeholder="Introduzca su teléfono " oninput="validarTelefono()" required></div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label ">Email:</label>
+                        <input class="form-control required" id="txtCorreo" type="email" value="" maxlength="45" placeholder="Introduzca su e-mail " oninput="validarCorreo()" required>
+                        <label id="errorCorreo" class="error " for="txtCorreo"></label>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label ">Confirmar:</label>
+                        <input class="form-control required" id="txtConfirmarCorreo" type="email" value="" maxlength="45" placeholder="Introduzca su e-mail " oninput="validarCorreoConf()" required>
+                        <label id="errorCorreoConf" class="error " for="txtConfirmarCorreo"></label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label ">Teléfono:</label>
+                        <input class="form-control required" id="txtTelefono" type="text" value="" maxlength="20" placeholder="Introduzca su teléfono " oninput="validarTelefono()" required>
+                        <label id="errorTelefono" class="error " for="txtTelefono"></label>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6"><label class="control-label ">Ciudad:</label><select class="form-control "id="cbCiudadUsuario" type="text" required><option value="0">Seleccione Ciudad</option></select></div>
-                    <div class="form-group col-md-6"><label class="control-label ">Fecha de Nacimiento:</label><input class="form-control "id="txtFechaDeNacimiento" type="date" value="" maxlength="45"  oninput="validarFecha()" required></div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label ">Ciudad:</label>
+                        <select class="form-control required"id="cbCiudadUsuario" type="text" onchange="validarCiudad()" required>
+                            <option value="0">Seleccione Ciudad</option>
+                        </select>
+                        <label id="errorCiudad" class="error " for="cbCiudadUsuario"></label>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label ">Fecha de Nacimiento:</label>
+                        <input class="form-control required" id="txtFechaDeNacimiento" type="date" value="" max="2001-05-07"  oninput="validarFecha()" required>
+                        <label id="errorFecha" class="error " for="txtFechaDeNacimiento"></label>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6"><label class="control-label ">Usuario:</label><input class="form-control "id="txtUsuario" type="text" value="" maxlength="20" placeholder="Nombre de usuario para su cuenta" oninput="validarNombreUsuario()" required></div>
-                    <div class="form-group col-md-6"><label class="control-label ">Género:</label><select class="form-control "id="cbGenero" type="text" onchange="validarGenero()" required><option value="0">Género</option><option value="m">Masculino</option><option value="f">Femenino</option></select></div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label ">Usuario:</label>
+                        <input class="form-control required"id="txtUsuario" type="text" value="" maxlength="20" placeholder="Nombre de usuario para su cuenta" oninput="validarNombreUsuario()" required>
+                        <label id="errorUsuario" class="error " for="txtUsuairo"></label>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label ">Género:</label>
+                        <select class="form-control required"id="cbGenero" type="text" onchange="validarGenero()" required>
+                            <option value="0">Género</option><option value="m">Masculino</option>
+                            <option value="f">Femenino</option></select>
+                        <label id="errorGenero" class="error " for="cbGenero"></label>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6"><label class="control-label ">Password:</label><input class="form-control "id="txtPassword" type="password" value="" maxlength="20" placeholder="Introduzca su contraseña" oninput="validarPassword()" required></div>
-                    <div class="form-group col-md-6"><label class="control-label ">Confirmar Password:</label><input class="form-control "id="txtPasswordConfirmacion" type="password" value="" maxlength="20" placeholder="Confirme su contraseña"  oninput="validarPassword()" required></div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label ">Password:</label>
+                        <input class="form-control required"id="txtPassword" type="password" value="" maxlength="20" placeholder="Introduzca su contraseña" oninput="validarPassword()" required>
+                        <label id="errorPassword" class="error " for="txtPassword"></label>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label ">Confirmar Password:</label>
+                        <input class="form-control required"id="txtPasswordConfirmacion" type="password" value="" maxlength="20" placeholder="Confirme su contraseña"  oninput="validarPassword()" required>
+                        <label id="errorPassword2" class="error " for="txtPasswordConfirmacion"></label>
+                    </div>
                 </div>
                 <div class="row">
                     &nbsp;
@@ -92,5 +140,18 @@
         <script type="text/javascript" src="../_js/popper.min.js"></script>
         <link rel="stylesheet" href="../_css/bootstrap.min.css">
         <link href="../_css/styles.css" rel="stylesheet" type="text/css" />
+        <script src="../_js/registrarPerfilFechaLogica.js" type="text/javascript"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js" type="text/javascript"></script>-->
+        <script type='text/javascript'>
+                            function cambiarColorOption() {
+                                var opciones = document.getElementsByTagName("option");
+
+                                for (var opcion in opciones) {
+                                    console.log('opcion: ' + opcion);
+                                    opcion.style.color = "red";
+                                }
+
+                            });
+        </script>
     </body>
 </html>

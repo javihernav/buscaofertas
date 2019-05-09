@@ -13,12 +13,12 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
 
     public ArrayList<DetalleProducto_Tiene_Imagen> Consultar() throws AppException {
         ArrayList<DetalleProducto_Tiene_Imagen> list = new ArrayList<DetalleProducto_Tiene_Imagen>();
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.consultarDetalleProductoTieneImagen}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             rs = cst.executeQuery();
             while (rs.next()) {
                 DetalleProducto_Tiene_Imagen vo = new DetalleProducto_Tiene_Imagen();
@@ -36,7 +36,7 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
@@ -44,11 +44,11 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
     }
 
     public int Insertar(DetalleProducto_Tiene_Imagen vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.insertDetalleProductoTieneImagen(?,?,?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getImagen_idImagen());
             cst.setInt(2, vo.getDetalleProducto_Oferta_idOferta());
             cst.setInt(3, vo.getDetalleProducto_Producto_idProducto());
@@ -66,18 +66,18 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
     }
 
     public void Modificar(DetalleProducto_Tiene_Imagen vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.modificarDetalleProductoTieneImagen(?,?,?,?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getImagen_idImagen());
             cst.setInt(2, vo.getDetalleProducto_Oferta_idOferta());
             cst.setInt(3, vo.getDetalleProducto_Producto_idProducto());
@@ -90,18 +90,18 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
     }
 
     public void Eliminar(DetalleProducto_Tiene_Imagen vo) throws AppException {
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.eliminarDetalleProductoTieneImagen(?)}";
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getId_DetalleProducto_tiene_Imagen());
             cst.executeUpdate();
         } catch (SQLException ex) {
@@ -111,7 +111,7 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
         } finally {
             try {
                 cst.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }
@@ -120,12 +120,12 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
     @Override
     public DetalleProducto_Tiene_Imagen ObtenerId(DetalleProducto_Tiene_Imagen vo) throws AppException {
         
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.obtenerIdDetalleProductoTieneImagen(?,?)}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try {
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getDetalleProducto_Oferta_idOferta());
             cst.setInt(2, vo.getDetalleProducto_Producto_idProducto());
             rs = cst.executeQuery();
@@ -146,7 +146,7 @@ public class DetalleProducto_Tiene_ImagenDAO implements IDao<DetalleProducto_Tie
             try {
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             } catch (Exception ex) {
             }
         }

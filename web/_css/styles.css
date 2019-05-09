@@ -301,6 +301,8 @@ body {
 .dropdown-content a {
   float: none;
   color: black;
+  background: #ddd;
+  
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -329,4 +331,13 @@ body {
     padding: 1vw;
     /*background: #343a40;
     border-radius: 10px;*/
+}
+.error{
+    
+    color: #FF0000;
+}
+select option{
+    background: #abdde5;
+    color: #FF0000 !important;
+    overflow: visible;
 }

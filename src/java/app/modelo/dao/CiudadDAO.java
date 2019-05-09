@@ -21,12 +21,12 @@ Connection cnn;
 
     public ArrayList<Ciudad> Consultar() throws AppException{
         ArrayList<Ciudad> list = new ArrayList<Ciudad>();
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.consultarCiudad()}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try{
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             rs = cst.executeQuery();
             while(rs.next()){
                 Ciudad vo = new Ciudad();
@@ -43,7 +43,7 @@ Connection cnn;
             try{
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             }catch(Exception ex){throw new AppException(-2,"error al Consultar datos:"+ex.getMessage());}
         }
         return list;
@@ -52,11 +52,11 @@ Connection cnn;
 
 
     public int Insertar(Ciudad vo) throws AppException{
-        Conectar conec = new Conectar();
+        
         String sql = "CALL buscaofertas.insertCiudad(?,?,?)";
         CallableStatement cst = null;
         try{
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
            
             cst.setInt(1, vo.getIdCiudad());
             cst.setString(2, vo.getNombreCiudad());
@@ -75,7 +75,7 @@ Connection cnn;
         }finally{
             try{
                 cst.close();
-                conec.desconectar();
+                
             }catch(Exception ex){throw new AppException(-2,"error al Insertar datos:"+ex.getMessage());}
         }
     }
@@ -83,11 +83,11 @@ Connection cnn;
 
 
     public void Modificar(Ciudad vo) throws AppException{
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.modificarCiudad(?,?,?)}";
         CallableStatement cst = null;
         try{
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getIdCiudad());
             cst.setString(2, vo.getNombreCiudad());
             cst.setString(3, vo.getDepartamentoCiudad());
@@ -99,7 +99,7 @@ Connection cnn;
         }finally{
             try{
                 cst.close();
-                conec.desconectar();
+                
             }catch(Exception ex){throw new AppException(-2,"error al Modificar datos:"+ex.getMessage());}
         }
     }
@@ -107,11 +107,11 @@ Connection cnn;
 
 
     public void Eliminar(Ciudad vo) throws AppException{
-        Conectar conec = new Conectar();
+        
         String sql = "CALL buscaofertas.eliminarCiudad(?)";
         CallableStatement cst = null;
         try{
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getIdCiudad());
             cst.executeUpdate();
         }catch(SQLException ex){
@@ -121,7 +121,7 @@ Connection cnn;
         }finally{
             try{
                 cst.close();
-                conec.desconectar();
+                
             }catch(Exception ex){throw new AppException(-2,"error al eliminar datos:"+ex.getMessage());}
         }
     }
@@ -129,12 +129,12 @@ Connection cnn;
     @Override
     public Ciudad ObtenerId(Ciudad vo) throws AppException {
         
-        Conectar conec = new Conectar();
+        
         String sql = "{CALL buscaofertas.obtenerIdCiudad(?)}";
         ResultSet rs = null;
         CallableStatement cst = null;
         try{
-            cst = conec.getCnn().prepareCall(sql);
+            cst = Conectar.getCnn().prepareCall(sql);
             cst.setString(1, vo.getNombreCiudad());
             rs = cst.executeQuery();
             if(rs.next()){
@@ -153,7 +153,7 @@ Connection cnn;
             try{
                 cst.close();
                 rs.close();
-                conec.desconectar();
+                
             }catch(Exception ex){throw new AppException(-2,"error al Consultar datos:"+ex.getMessage());}
         }
     }

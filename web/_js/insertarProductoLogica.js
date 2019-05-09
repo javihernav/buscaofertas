@@ -1,33 +1,33 @@
 window.onload = function () {
-    cargarComboBoxDatos();
-
-    $('#botonRegistrar').on('click', accionEnviarDatos);
+    cargarComboBoxCategorias();
+    $('#botonAgregar').on('click', accionEnviarDatos);
+    $('#botonCancelar').on('click', volver);
 };
 
-function accionEnviarDatos() {
-    //debugger;
-    if (validarFormulario()) {
-        var objDatos = {
-            nombres: $('#txtNombres').val(),
-            apellidos: $('#txtApellidos').val(),
-            correo: $('#txtCorreo').val(),
-            telefono: $('#txtTelefono').val(),
-            ciudad: $('#cbCiudadUsuario option:selected').attr("value"),
-            fechaDeNacimiento: $('#txtFechaDeNacimiento').val(),
-            usuario: $('#txtUsuario').val(),
-            clave: $('#txtPassword').val(),
-            genero: $('#cbGenero option:selected').attr("value")
 
-        };
+function accionEnviarDatos() {
+    if (validarFormularioProducto()) {
         
+        
+         var objDatos = {
+         
+         nombreProducto: $('#txtNombreProducto').val(),
+         categoriaProducto: $('#cbCategoria option:selected').attr("value"),
+         marcaProducto: $('#txtMarca').val()
+         
+         };
+
         console.log(objDatos);
 
         $.ajax({
             type: 'POST',
-            url: '/BuscaOfertas/ActualizarUsuario',
+            url: '/BuscaOfertas/RegistrarProducto',
             //contentType:'application/json',
             data: (objDatos),
-            //dataType:'json',
+            //dataType: 'html',
+            //cache: false,
+            //contentType: false,
+            //processData: false,
             success: function (data, textStatus, jqXHR) {
                 alert(data.mensaje);
                 if (data.codigo !== 0) {
@@ -45,3 +45,10 @@ function accionEnviarDatos() {
     }
 }
 
+
+
+
+function volver() {
+    $(location).attr('href', '/BuscaOfertas/jsp/PaginaPrincipal.jsp');
+
+}

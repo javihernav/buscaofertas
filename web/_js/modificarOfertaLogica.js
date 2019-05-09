@@ -6,6 +6,8 @@ window.onload = function () {
 
 function accionEnviarDatos() {
     if (true) {
+        var formData = new FormData(document.getElementById("formOferta"))
+        /*
         var objDatos = {
 
             nombreProducto: $('#txtNombreProducto').val(),
@@ -19,16 +21,19 @@ function accionEnviarDatos() {
             precioOferta: $('#txtPrecio').val(),
             fechaInicio: $('#txtFechaDeInicio').val(),
             fechaFinalizacion: $('#txtFechaDeFinalizacion').val()
-        };
+        };*/
 
-        console.log(objDatos);
+        console.log(formData);
 
         $.ajax({
             type: 'POST',
             url: '/BuscaOfertas/ModificarOferta',
             //contentType:'application/json',
-            data: (objDatos),
-            //dataType:'json',
+            data: (formData),
+            dataType:'html',
+            cache: false,
+            contentType: false,
+            processData: false,
             success: function (data, textStatus, jqXHR) {
                 alert(data.mensaje);
                 if (data.codigo !== 0) {
@@ -42,7 +47,7 @@ function accionEnviarDatos() {
 
         });
     } else {
-        alert("Los datos en el formulario son erroneos!!!");
+        alert("Los datos ingresados tienen errores o están incompletos!!!");
     }
 }
 

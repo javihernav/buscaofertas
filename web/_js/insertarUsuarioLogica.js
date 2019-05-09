@@ -1,13 +1,17 @@
 window.onload = function () {
     cargarComboBoxDatos();
+    cargarFechaNacimiento();
+       // $('#formulario').validate();
 
     $('#botonRegistrar').on('click', accionEnviarDatos);
 };
 
 function accionEnviarDatos() {
     //debugger;
-    if (validarFormulario()) {
-        
+    
+                
+    if (validarFormularioPerfil()) {
+        $('#formulario').validate();
         var objDatos = {
             nombres: $('#txtNombres').val(),
             apellidos: $('#txtApellidos').val(),
@@ -42,7 +46,7 @@ function accionEnviarDatos() {
 
         });
     } else {
-        alert("Los datos en el formulario son erroneos!!!");
+        alert("Los datos ingresados tienen errores o están incompletos!!!");
     }
 }
 

@@ -64,6 +64,7 @@
                             </div>
                         </div>
                         <input autofocus="on" class="form-control col-md-8 offset-3" id="txtUsuario" type="text" name="usuario" placeholder="ingrese nombre de usuario" oninput="validarUsuario()"><br/>
+                        <label id="errorUsuario" for="txtUsuario" class=" col-md-8 error"></label>
 
                     </div>
                 </div>
@@ -82,6 +83,7 @@
                             </div>
                         </div>
                         <input class="form-control col-md-8 offset-3" id="txtPassword" type="password" name="clave" placeholder="ingrese password"value="" oninput="validarPasswd()"><br/><br/>
+                        <label id="errorPassword" for="txtPassword" class=" col-md-8 error"></label>
 
                     </div>
                 </div>
@@ -120,20 +122,20 @@
                         <!--&times es para que salga la x de cerrar la ventana como botón-->
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">
-                            Bienvenido a Bivioteca
+                            Bienvenido a BuscaOfertas
                         </h4>
                     </div>
                     <!--Contenido de la ventana-->
                     <!--se saca con .modal-body y enter-->
                     <div class="modal-body">
-                        <p>El lugar para administrar todos sus tutoriales en pdf y video</p>
+                        <p>El lugar para encontrar las mejores ofertas</p>
 
                     </div>
                     <!--Footer de la ventana-->
                     <!--se saca con .modal-footer y enter-->
                     <div class="modal-footer">
                         <!--con data-dismiss le damos la funcionalidad de cerrar-->
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="redireccionar()">Aceptar</button>
 
                     </div>
                 </div>
@@ -162,8 +164,8 @@
                     <!--se saca con .modal-footer y enter-->
                     <div class="modal-footer">
                         <!--con data-dismiss le damos la funcionalidad de cerrar-->
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-success">Guardar Cambios</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
+                      
                     </div>
                 </div>
             </div>

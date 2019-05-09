@@ -35,7 +35,7 @@ function accionModificarOferta() {
 
         });
     } else {
-        alert("Los datos en el formulario son erroneos!!!");
+        alert("Los datos ingresados tienen errores o están incompletos!!!");
     }
 }
 function accionEliminarOferta() {
@@ -65,7 +65,7 @@ function accionEliminarOferta() {
 
         });
     } else {
-        alert("Los datos en el formulario son erroneos!!!");
+        alert("Los datos ingresados tienen errores o están incompletos!!!");
     }
 }
 

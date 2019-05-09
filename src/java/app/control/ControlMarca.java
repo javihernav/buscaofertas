@@ -7,6 +7,7 @@ package app.control;
 
 import app.modelo.dao.MarcaDAO;
 import app.modelo.vo.Marca;
+import app.utils.AppException;
 import java.sql.Connection;
 
 /**
@@ -18,5 +19,7 @@ public class ControlMarca extends ControlGenerico<MarcaDAO,Marca>{
     public ControlMarca(Connection cnn) {
         super(cnn, new MarcaDAO());
     }
-    
+    public Marca buscarMarcaPorNombre(Marca marca) throws AppException{
+        return this.getDao().buscarMarcaPorNombre(marca);
+    }
 }

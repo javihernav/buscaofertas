@@ -24,7 +24,11 @@ public class Tabla_Detalleproducto{
         dt.addColumn("Producto_idProducto1");
         dt.addColumn("Oferta_idOferta1");
 
-        dao = new DetalleProductoDAO(Conectar.getCnn());
+       try {
+           dao = new DetalleProductoDAO(Conectar.getCnn());
+       } catch (AppException ex) {
+           Logger.getLogger(Tabla_Detalleproducto.class.getName()).log(Level.SEVERE, null, ex);
+       }
         DetalleProducto vo = new DetalleProducto();
         ArrayList<DetalleProducto> list = null;
        try {

@@ -1,34 +1,40 @@
 window.onload = function () {
     cargarComboBoxCiudad();
+    cargarComboBoxCategorias();
     $('#botonRegistrar').on('click', accionEnviarDatos);
     $('#botonCancelar').on('click', volver);
 };
 
 function accionEnviarDatos() {
     if (true) {
-        var objDatos = {
+        var formData = new FormData(document.getElementById("formOferta"));
+        /*
+         * var objDatos = {
+         
+         nombreProducto: $('#txtNombreProducto').val(),
+         categoriaProducto: $('#txtCategoria').val(),
+         marcaProducto: $('#txtMarca').val(),
+         nombreOferta: $('#txtNombreOferta').val(),
+         ciudadOferta: $('#cbCiudadOferta option:selected').attr("value"),
+         nombreTienda: $('#txtNombreTienda').val(),
+         imagenProducto: $('#imgProducto').files[0],
+         direccionTienda: $('#txtDireccionTienda').val(),
+         precioOferta: $('#txtPrecio').val(),
+         fechaInicio: $('#txtFechaDeInicio').val(),
+         fechaFinalizacion: $('#txtFechaDeFinalizacion').val()
+         };*/
 
-            nombreProducto: $('#txtNombreProducto').val(),
-            categoriaProducto: $('#txtCategoria').val(),
-            marcaProducto: $('#txtMarca').val(),
-            nombreOferta: $('#txtNombreOferta').val(),
-            ciudadOferta: $('#cbCiudadOferta option:selected').attr("value"),
-            nombreTienda: $('#txtNombreTienda').val(),
-            imagenProducto: $('#imgProducto').val(),
-            direccionTienda: $('#txtDireccionTienda').val(),
-            precioOferta: $('#txtPrecio').val(),
-            fechaInicio: $('#txtFechaDeInicio').val(),
-            fechaFinalizacion: $('#txtFechaDeFinalizacion').val()
-        };
-
-        console.log(objDatos);
+        console.log(formData);
 
         $.ajax({
             type: 'POST',
             url: '/BuscaOfertas/RegistrarOfertas',
             //contentType:'application/json',
-            data: (objDatos),
-            //dataType:'json',
+            data: (formData),
+            dataType: 'html',
+            cache: false,
+            contentType: false,
+            processData: false,
             success: function (data, textStatus, jqXHR) {
                 alert(data.mensaje);
                 if (data.codigo !== 0) {
@@ -42,7 +48,7 @@ function accionEnviarDatos() {
 
         });
     } else {
-        alert("Los datos en el formulario son erroneos!!!");
+        alert("Los datos ingresados tienen errores o están incompletos!!!");
     }
 }
 

@@ -4,14 +4,14 @@ import app.utils.interfaces.IVo;
 
 public class Marca  implements IVo {
 
+    int idMarca;
+    String nombreMarca;
+
+
     @Override
     public String toString() {
         return "Marca [" + "getIdMarca " + getIdMarca() + " " + "getNombreMarca " + getNombreMarca() + " " + "idMarca " + idMarca + " " + "nombreMarca " + nombreMarca + "]";
     }
-
-
-    int idMarca;
-    String nombreMarca;
 
 public Marca(){}
 

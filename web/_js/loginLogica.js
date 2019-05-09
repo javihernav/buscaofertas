@@ -23,11 +23,11 @@ function accionEnviarDatos() {
                 //alert(data.mensaje);
                 if (data.codigo !== 0) {
                     $('#ventana1').modal('show'); // abrir
-                    window.setTimeout(ocultarModal1(), 5000);
-                    window.setTimeout(redireccionar(), 5000);
+                    setTimeout(ocultarModal1(), 5000);
+                    //setTimeout(redireccionar(), 5000);
                 } else {
                     $('#ventana2').modal('show'); // abrir
-                    window.setTimeout(ocultarModal2(), 5000);
+                    setTimeout(ocultarModal2(), 5000);
                 }
 
             },
@@ -40,7 +40,7 @@ function accionEnviarDatos() {
 
         });
     } else {
-        alert("Los datos en el formulario son erroneos!!!");
+        alert("Los datos ingresados tienen errores o están incompletos!!!");
     }
 }
 

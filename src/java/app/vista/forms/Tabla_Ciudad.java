@@ -22,7 +22,11 @@ public class Tabla_Ciudad{
         dt.addColumn("nombreCiudad");
         dt.addColumn("departamentoCiudad");
 
-        dao = new CiudadDAO(Conectar.getCnn());
+       try {
+           dao = new CiudadDAO(Conectar.getCnn());
+       } catch (AppException ex) {
+           Logger.getLogger(Tabla_Ciudad.class.getName()).log(Level.SEVERE, null, ex);
+       }
         Ciudad vo = new Ciudad();
         ArrayList<Ciudad> list=null;
        try {

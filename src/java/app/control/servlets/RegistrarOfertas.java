@@ -34,6 +34,7 @@ import app.utils.AppException;
 import app.utils.RespuestaServer;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.text.ParseException;
@@ -43,17 +44,25 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author JAVIER
  */
 @WebServlet(name = "RegistrarOfertas", urlPatterns = {"/RegistrarOfertas"})
+@MultipartConfig(
+        fileSizeThreshold   = 1024 * 1024 * 1,  // 1 MB
+        maxFileSize         = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize      = 1024 * 1024 * 15, // 15 MB
+        location            = "./temp"
+)
 public class RegistrarOfertas extends HttpServlet {
 
     /**
@@ -71,23 +80,22 @@ public class RegistrarOfertas extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession sesion = request.getSession();
-            Usuario usuarioVo = (Usuario)sesion.getAttribute("usuario");
-            
-            
-            String nombreProducto = request.getParameter("nombreProducto");
-            
-            String categoriaProducto = request.getParameter("categoriaProducto");
-            String marcaProducto = request.getParameter("marcaProducto");
-            String nombreOferta = request.getParameter("nombreOferta");
-            String ciudadOferta = request.getParameter("ciudadOferta");
-            String nombreTienda = request.getParameter("nombreTienda");
-            String imagenProducto = request.getParameter("imagenProducto");
-            String direccionTienda = request.getParameter("direccionTienda");
-            String precioOferta = request.getParameter("precioOferta");
+            Usuario usuarioVo = (Usuario) sesion.getAttribute("usuario");
+
+            String nombreProducto = request.getParameter("txtNombreProducto");
+
+            String categoriaProducto = request.getParameter("cbCategoria");
+            String marcaProducto = request.getParameter("txtMarca");
+            String nombreOferta = request.getParameter("txtNombreOferta");
+            String ciudadOferta = request.getParameter("cbCiudadOferta");
+            String nombreTienda = request.getParameter("txtNombreTienda");
+            Part imagenProducto = request.getPart("selectorImagen");
+            String direccionTienda = request.getParameter("txtDireccionTienda");
+            String precioOferta = request.getParameter("txtPrecio");
 
             Calendar fechaCreacion = Calendar.getInstance();
-            String fechaInicio = request.getParameter("fechaInicio");
-            String fechaFinalizacion = request.getParameter("fechaFinalizacion");
+            String fechaInicio = request.getParameter("txtFechaDeInicio");
+            String fechaFinalizacion = request.getParameter("txtFechaDeFinalizacion");
             String mensaje;
             mensaje = "";
             if (nombreProducto != null
@@ -102,77 +110,77 @@ public class RegistrarOfertas extends HttpServlet {
                 cnn = Conectar.getCnn();
                 ControlUsuario controlUsuario = new ControlUsuario(cnn);
                 ControlUbicacion controlUbicacion = new ControlUbicacion(cnn);
-                
+
                 ControlImagen controlImagen = new ControlImagen(cnn);
                 ControlOferta controlOferta = new ControlOferta(cnn);
                 ControlOferta_Tiene_Ubicacion controlOferta_Tiene_Ubicacion = new ControlOferta_Tiene_Ubicacion(cnn);
                 ControlProducto controlProducto = new ControlProducto(cnn);
-                ControlTipo controlTipo = new ControlTipo(cnn);
+
                 ControlCategoria controlCategoria = new ControlCategoria(cnn);
                 ControlMarca controlMarca = new ControlMarca(cnn);
-                
+
                 ControlDetalleProducto controlDetalleProducto = new ControlDetalleProducto(cnn);
                 ControlDetalleProducto_Tiene_Imagen controlDetalleProducto_Tiene_Imagen = new ControlDetalleProducto_Tiene_Imagen(cnn);
 
                 int idUsuario = 0;
                 int idOferta = 0;
-                int idUbicacion=0;
-                int idProducto=0;
-                int idImagen=0;
+                int idUbicacion = 0;
+                int idProducto = 0;
+                int idImagen = 0;
                 String nombreCiudad = "";
                 try {
                     idUsuario = controlUsuario.ObtenerId(usuarioVo).getIdUsuario();
                     SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                    Oferta ofertaVo = new Oferta(0, idUsuario, nombreOferta, formatoFecha.parse(fechaCreacion.get(Calendar.YEAR)+"-"+(fechaCreacion.get(Calendar.MONTH)+1)+"-"+fechaCreacion.get(Calendar.DAY_OF_MONTH)+"-"), formatoFecha.parse(fechaInicio), formatoFecha.parse(fechaFinalizacion), 0);
-                    System.out.println("linea 127 servlet RegistrarOfertas"+ofertaVo);
+                    Oferta ofertaVo = new Oferta(0, idUsuario, nombreOferta, formatoFecha.parse(fechaCreacion.get(Calendar.YEAR) + "-" + (fechaCreacion.get(Calendar.MONTH) + 1) + "-" + fechaCreacion.get(Calendar.DAY_OF_MONTH) + "-"), formatoFecha.parse(fechaInicio), formatoFecha.parse(fechaFinalizacion), 0);
+                    System.out.println("linea 135 servlet RegistrarOfertas" + ofertaVo);
                     idOferta = controlOferta.insertar(ofertaVo);
                     Ciudad ciudadVo = new Ciudad();
                     ciudadVo.setNombreCiudad(ciudadOferta);
                     //nombreCiudad = controlCiudad.ObtenerId(ciudadVo).getNombreCiudad();
                     Ubicacion ubicacionVo = new Ubicacion(nombreTienda, direccionTienda, ciudadOferta);
-                    System.out.println("linea 133 servlet RegistrarOfertas"+ubicacionVo);
-                    idUbicacion=controlUbicacion.insertar(ubicacionVo);
-                    Oferta_Tiene_Ubicacion otu=new Oferta_Tiene_Ubicacion(idOferta,idUbicacion);
-                    System.out.println("linea 136 servlet RegistrarOfertas"+otu);
+                    System.out.println("linea 133 servlet RegistrarOfertas" + ubicacionVo);
+                    idUbicacion = controlUbicacion.insertar(ubicacionVo);
+                    Oferta_Tiene_Ubicacion otu = new Oferta_Tiene_Ubicacion(idOferta, idUbicacion);
+                    System.out.println("linea 144 servlet RegistrarOfertas" + otu);
                     controlOferta_Tiene_Ubicacion.insertar(otu);
-                    
+
                     Marca marca = new Marca();
                     marca.setNombreMarca(marcaProducto);
                     int idMarca = controlMarca.insertar(marca);
-                    System.out.println("linea 142 servlet RegistrarOfertas"+idMarca);
-                    
+                    System.out.println("linea 150 servlet RegistrarOfertas" + idMarca);
+
                     Categoria categoria = new Categoria();
-                    categoria.setNombreCategoria(categoriaProducto);
-                    int idCategoria = controlCategoria.insertar(categoria);
-                    System.out.println("linea 147 servlet RegistrarOfertas"+categoria);
-                    
-                    
-                    Producto productoVo=new Producto();
+                    Categoria categoriaVo=controlCategoria.ObtenerId(categoria);
+                    int idCategoria = Integer.parseInt(categoriaProducto);
+                    System.out.println("linea 155 servlet RegistrarOfertas" + categoriaVo);
+
+                    Producto productoVo = new Producto();
                     productoVo.setNombreProducto(nombreProducto);
                     productoVo.setCategoria_idCategoria(idCategoria);
                     productoVo.setMarca_idMarca(idMarca);
-                    idProducto=controlProducto.insertar(productoVo);
-                    System.out.println("linea 155 servlet RegistrarOfertas"+productoVo);
-                    
-                    
-                    
-                    
-                    DetalleProducto detalleProductoVo=new DetalleProducto(idOferta, idProducto, Double.parseDouble(precioOferta));
-                    
+                    idProducto = controlProducto.insertar(productoVo);
+                    System.out.println("linea 162 servlet RegistrarOfertas" + productoVo);
+
+                    DetalleProducto detalleProductoVo = new DetalleProducto(idOferta, idProducto, Double.parseDouble(precioOferta));
+
                     controlDetalleProducto.insertar(detalleProductoVo);
-                    System.out.println("linea 163 servlet RegistrarOfertas"+detalleProductoVo);
-                    Imagen imgVo= new Imagen(); 
-                    imgVo.setLinkImagen(imagenProducto);
-                    byte [] foto={00000101};
-                    imgVo.setFoto(foto);
-                    System.out.println("linea 168 servlet RegistrarOfertas"+imgVo);
-                    
-                    
-                    idImagen=controlImagen.insertar(imgVo); System.out.println("linea 171 servlet RegistrarOfertas idImagen,idOferta,idProducto "+idImagen+", "+idOferta+", "+idProducto);
-                    DetalleProducto_Tiene_Imagen dPTIVo=new DetalleProducto_Tiene_Imagen(idImagen,idOferta,idProducto);
+                    System.out.println("linea 167 servlet RegistrarOfertas" + detalleProductoVo);
+                    Imagen imgVo = new Imagen();
+
+                    InputStream imgInputStream = imagenProducto.getInputStream();
+                    imgVo.setFoto2(imgInputStream);
+
+                    imgVo.setLinkImagen(imagenProducto.getSubmittedFileName());
+                    //byte[] foto = {00000101};
+                    //imgVo.setFoto(foto);
+                    System.out.println("linea 176 servlet RegistrarOfertas" + imgVo);
+
+                    idImagen = controlImagen.insertar(imgVo);
+                    System.out.println("linea 179 servlet RegistrarOfertas idImagen,idOferta,idProducto " + idImagen + ", " + idOferta + ", " + idProducto);
+                    DetalleProducto_Tiene_Imagen dPTIVo = new DetalleProducto_Tiene_Imagen(idImagen, idOferta, idProducto);
                     controlDetalleProducto_Tiene_Imagen.insertar(dPTIVo);
-                    System.out.println("linea 174 servlet RegistrarOfertas"+dPTIVo);
-                    
+                    System.out.println("linea 182 servlet RegistrarOfertas" + dPTIVo);
+
                 } catch (AppException ex) {
                     RespuestaServer resp = new RespuestaServer();
                     resp.setCodigo(0);
@@ -180,15 +188,17 @@ public class RegistrarOfertas extends HttpServlet {
                     out.println(new Gson().toJson(resp));
                 }
                 System.out.println("OK");
-                
+
                 sesion.setAttribute("usuario", usuarioVo);
-                System.out.println("linea 185 servlet RegistrarOfertas"+usuarioVo);
+                System.out.println("linea 193 servlet RegistrarOfertas" + usuarioVo);
                 RespuestaServer resp = new RespuestaServer();
                 resp.setCodigo(1);
                 resp.setMensaje("Datos Correctos");
                 out.println(new Gson().toJson(resp));
 
             }
+        } catch (AppException ex) {
+            System.out.println("excepcion en servlet RegistrarOfertas:"+ex.getMensaje()+ex.getMessage());
         }
     }
 
@@ -207,7 +217,7 @@ public class RegistrarOfertas extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
-            Logger.getLogger(RegistrarOfertas.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("excepcion en servlet RegistrarOfertas:"+ex.getMessage());
         }
     }
 
@@ -225,7 +235,7 @@ public class RegistrarOfertas extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
-            Logger.getLogger(RegistrarOfertas.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("excepcion en servlet RegistrarOfertas:"+ex.getMessage());
         }
     }
 

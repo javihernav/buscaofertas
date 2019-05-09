@@ -34,6 +34,7 @@ import app.utils.AppException;
 import app.utils.RespuestaServer;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.text.ParseException;
@@ -42,17 +43,25 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author JAVIER
  */
 @WebServlet(name = "ModificarOferta", urlPatterns = {"/ModificarOferta"})
+@MultipartConfig(
+        fileSizeThreshold   = 1024 * 1024 * 1,  // 1 MB
+        maxFileSize         = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize      = 1024 * 1024 * 15, // 15 MB
+        location            = "./temp"
+)
 public class ModificarOferta extends HttpServlet {
 
     /**
@@ -80,20 +89,20 @@ public class ModificarOferta extends HttpServlet {
             Producto productoVo = (Producto) sesion.getAttribute("producto");
             Marca marcaVo = (Marca) sesion.getAttribute("marca");
 
-            String nombreProducto = request.getParameter("nombreProducto");
-            String tipoProducto = request.getParameter("tipoProducto");
-            String categoriaProducto = request.getParameter("categoriaProducto");
-            String marcaProducto = request.getParameter("marcaProducto");
-            String nombreOferta = request.getParameter("nombreOferta");
-            String ciudadOferta = request.getParameter("ciudadOferta");
-            String nombreTienda = request.getParameter("nombreTienda");
-            String imagenProducto = request.getParameter("imagenProducto");
-            String direccionTienda = request.getParameter("direccionTienda");
-            String precioOferta = request.getParameter("precioOferta");
+            String nombreProducto = request.getParameter("txtNombreProducto");
+           
+            String categoriaProducto = request.getParameter("txtCategoria");
+            String marcaProducto = request.getParameter("txtMarca");
+            String nombreOferta = request.getParameter("txtNombreOferta");
+            String ciudadOferta = request.getParameter("cbCiudadOferta");
+            String nombreTienda = request.getParameter("txtNombreTienda");
+            Part imagenProducto = request.getPart("selectorImagen");
+            String direccionTienda = request.getParameter("txtDireccionTienda");
+            String precioOferta = request.getParameter("txtPrecio");
 
             Calendar fechaCreacion = Calendar.getInstance();
-            String fechaInicio = request.getParameter("fechaInicio");
-            String fechaFinalizacion = request.getParameter("fechaFinalizacion");
+            String fechaInicio = request.getParameter("txtFechaInicio");
+            String fechaFinalizacion = request.getParameter("txtFechaFinalizacion");
             String mensaje;
             mensaje = "";
             if (ofertaVo != null
@@ -108,12 +117,12 @@ public class ModificarOferta extends HttpServlet {
                 cnn = Conectar.getCnn();
                 ControlUsuario controlUsuario = new ControlUsuario(cnn);
                 ControlUbicacion controlUbicacion = new ControlUbicacion(cnn);
-                ControlCiudad controlCiudad = new ControlCiudad(cnn);
+                
                 ControlImagen controlImagen = new ControlImagen(cnn);
                 ControlOferta controlOferta = new ControlOferta(cnn);
                 //ControlOferta_Tiene_Ubicacion controlOferta_Tiene_Ubicacion = new ControlOferta_Tiene_Ubicacion(cnn);
                 ControlProducto controlProducto = new ControlProducto(cnn);
-                ControlTipo controlTipo = new ControlTipo(cnn);
+                
                 ControlCategoria controlCategoria = new ControlCategoria(cnn);
                 ControlMarca controlMarca = new ControlMarca(cnn);
 
@@ -161,7 +170,10 @@ public class ModificarOferta extends HttpServlet {
                     detalleProductoVo.setPrecio(Double.parseDouble(precioOferta));
                     controlDetalleProducto.modificar(detalleProductoVo);
 
-                    imagenVo.setLinkImagen(imagenProducto);
+                    InputStream imgInputStream = imagenProducto.getInputStream();
+                    imagenVo.setFoto2(imgInputStream);
+                    imagenVo.setLinkImagen(imagenProducto.getSubmittedFileName());
+                    System.out.println("linea 176 servlet ModificarOferta modificando con imagenVo: "+imagenVo);
                     controlImagen.modificar(imagenVo);
 
                 } catch (AppException ex) {
@@ -179,6 +191,8 @@ public class ModificarOferta extends HttpServlet {
                 out.println(new Gson().toJson(resp));
 
             }
+        } catch (AppException ex) {
+            Logger.getLogger(ModificarOferta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
