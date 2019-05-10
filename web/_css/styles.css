@@ -338,6 +338,10 @@ body {
 }
 select option{
     background: #abdde5;
-    color: #FF0000 !important;
+    color: #000000 !important;
     overflow: visible;
+}
+.dropdown-item{
+    background: #FFFFFF;
+    color: #000000 !important;
 }

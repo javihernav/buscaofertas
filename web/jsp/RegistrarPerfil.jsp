@@ -76,7 +76,7 @@
                     <div class="form-group col-md-6">
                         <label class="control-label ">Ciudad:</label>
                         <select class="form-control required"id="cbCiudadUsuario" type="text" onchange="validarCiudad()" required>
-                            <option value="0">Seleccione Ciudad</option>
+                            <option style="color: #000; background: #fff;"value="0">Seleccione Ciudad</option>
                         </select>
                         <label id="errorCiudad" class="error " for="cbCiudadUsuario"></label>
                     </div>
@@ -95,7 +95,8 @@
                     <div class="form-group col-md-6">
                         <label class="control-label ">Género:</label>
                         <select class="form-control required"id="cbGenero" type="text" onchange="validarGenero()" required>
-                            <option value="0">Género</option><option value="m">Masculino</option>
+                            <option value="0">Género</option>
+                            <option value="m">Masculino</option>
                             <option value="f">Femenino</option></select>
                         <label id="errorGenero" class="error " for="cbGenero"></label>
                     </div>

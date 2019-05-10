@@ -207,6 +207,7 @@ function validarNombreUsuario() {
 
 }
 function validarCiudad() {
+    
     var retorno = 1;
 
     var numCiudad = $('#cbCiudadUsuario option:selected').attr("value");
@@ -218,6 +219,22 @@ function validarCiudad() {
     } else {
         document.getElementById("cbCiudadUsuario").style.borderColor = "#000000";
         document.getElementById("errorCiudad").innerHTML = "";
+    }
+    return retorno === 1;
+
+}
+function validarGenero() {
+    var retorno = 1;
+
+    var genero = $('#cbGenero option:selected').attr("value");
+    console.log("genero: " + genero);
+    if (genero !== "m" && genero !== "f") {
+        document.getElementById("cbGenero").style.borderColor = "#FF0000";
+        document.getElementById("errorGenero").innerHTML = "Debe seleccionar un género de la lista! ";
+        retorno = 0;
+    } else {
+        document.getElementById("cbGenero").style.borderColor = "#000000";
+        document.getElementById("errorGenero").innerHTML = "";
     }
     return retorno === 1;
 

@@ -32,6 +32,7 @@ function cargarComboBoxCiudad() {
             var item = datosComboBox[i];
             var opcion = document.createElement("option");
             opcion.setAttribute("value", item.idCiudad);
+            //opcion.setAttribute("style", "style='color: #000; background: #fff;'");
             opcion.setAttribute("label", item.nombreCiudad + " | " + item.departamentoCiudad);
 
             comboBox.appendChild(opcion);

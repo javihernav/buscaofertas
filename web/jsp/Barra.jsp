@@ -11,9 +11,6 @@
     <head>
         <title>Barra</title>
 
-
-
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
     </head>
@@ -72,8 +69,10 @@
                         <a class="dropdown-item" href="#">Resumen</a>
                         <a  class="dropdown-item" href="./GestionarOfertas.jsp">Mis Ofertas</a>
                         <a  class="dropdown-item" href="./ActualizarDatosPersonales.jsp">Mis Datos</a>
+                        <% if (user.getRol() != null) {%>
                         <% if (user.getRol().equals("admin")) {%>
                         <a  class="dropdown-item" href="./AgregarProducto.jsp">Agregar Productos</a>
+                        <% }%>
                         <% }%>
                         <a  class="dropdown-item" href="../CerrarSesion" >Cerrar Sesión</a>
                     </div>

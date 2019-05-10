@@ -164,7 +164,7 @@ public class UsuarioDAO implements IDao<Usuario> {
      */
     public void Modificar(Usuario vo) throws AppException {
         
-        String sql = "CALL buscaofertas.modificarUsuario(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "CALL buscaofertas.modificarUsuario(?,?,?,?,?,?,?,?,?,?)";
         CallableStatement cst = null;
         try {
             int i = 1;
@@ -178,7 +178,7 @@ public class UsuarioDAO implements IDao<Usuario> {
             cst.setString(i++, vo.getCorreo());
             cst.setString(i++, vo.getFechaNacimiento());
             cst.setString(i++, String.valueOf(vo.getGenero()));
-            cst.setString(i++, vo.getRol());
+            //cst.setString(i++, vo.getRol());
             cst.setInt(i++, vo.getIdUsuario());
             cst.executeUpdate();
         } catch (SQLException ex) {
