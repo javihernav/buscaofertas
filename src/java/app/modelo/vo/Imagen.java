@@ -2,40 +2,41 @@ package app.modelo.vo;
 
 import app.utils.interfaces.IVo;
 import java.io.InputStream;
+import java.util.Arrays;
 
 public class Imagen implements IVo {
 
     int idImagen;
-    String linkImagen;
-    private InputStream foto2;
-    private byte[] foto;
+    String nombreImagen;
+    private InputStream fotoInputStream;
+    private byte[] fotoByteArray;
 
     /**
      * @return the foto2
      */
-    public InputStream getFoto2() {
-        return foto2;
+    public InputStream getFotoInputStream() {
+        return fotoInputStream;
     }
 
     /**
      * @param foto2 the foto2 to set
      */
-    public void setFoto2(InputStream foto2) {
-        this.foto2 = foto2;
+    public void setFotoInputStream(InputStream foto2) {
+        this.fotoInputStream = foto2;
     }
 
     /**
      * @return the foto
      */
-    public byte[] getFoto() {
-        return foto;
+    public byte[] getFotoByteArray() {
+        return fotoByteArray;
     }
 
     /**
      * @param foto the foto to set
      */
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
+    public void setFotoByteArray(byte[] foto) {
+        this.fotoByteArray = foto;
     }
 
     public Imagen() {
@@ -45,21 +46,23 @@ public class Imagen implements IVo {
         return idImagen;
     }
 
-    public String getLinkImagen() {
-        return linkImagen;
+    public String getNombreImagen() {
+        return nombreImagen;
     }
 
     public void setIdImagen(int idImagen) {
         this.idImagen = idImagen;
     }
 
-    public void setLinkImagen(String linkImagen) {
-        this.linkImagen = linkImagen;
+    public void setNombreImagen(String linkImagen) {
+        this.nombreImagen = linkImagen;
     }
 
     @Override
     public String toString() {
-        return "Imagen [" + "getFoto " + getFoto() + " " + "getFoto2 " + getFoto2() + " " + "getIdImagen " + getIdImagen() + " " + "getLinkImagen " + getLinkImagen() + "]";
+        return "Imagen [" + "fotoByteArray " + Arrays.toString(fotoByteArray) + " " + "fotoInputStream " + fotoInputStream + " " + "idImagen " + idImagen + " " + "nombreImagen " + nombreImagen + "]";
     }
+
+
 
 }

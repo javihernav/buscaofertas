@@ -34,7 +34,7 @@ public class Tabla_Imagen{
                 Object fila[] = new Object[2];
                 vo = list.get(i);
                 fila[0] = vo.getIdImagen();
-                fila[1] = vo.getLinkImagen();
+                fila[1] = vo.getNombreImagen();
                 dt.addRow(fila);
             }
             tabla.setModel(dt);

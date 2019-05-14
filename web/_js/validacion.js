@@ -207,7 +207,7 @@ function validarNombreUsuario() {
 
 }
 function validarCiudad() {
-    
+
     var retorno = 1;
 
     var numCiudad = $('#cbCiudadUsuario option:selected').attr("value");
@@ -368,4 +368,49 @@ function validarFormularioLogin() {
 function mostrarFecha() {
     var retorno = 1;
     alert(document.getElementById("txtFechaDeNacimiento").value);
+}
+// Vaidaciones para registrar oferta
+function validarProducto() {
+    var retorno = 1;
+    return retorno === 1;
+}
+function validarCategoria() {
+    var retorno = 1;
+    return retorno === 1;
+}
+function validarMarca() {
+    var retorno = 1;
+    return retorno === 1;
+}
+function validarCiudadOferta() {
+    var retorno = 1;
+    return retorno === 1;
+}
+function validarNombreTienda() {
+    var retorno = 1;
+    return retorno === 1;
+}
+function validarDireccionTienda() {
+    var retorno = 1;
+    return retorno === 1;
+}
+function validarImagen() {
+    var retorno = 1;
+    return retorno === 1;
+}
+function validarNombreOferta() {
+    var retorno = 1;
+    return retorno === 1;
+}
+function validarPrecioDeOferta() {
+    var retorno = 1;
+    return retorno === 1;
+}
+function validarFechaInicio() {
+    var retorno = 1;
+    return retorno === 1;
+}
+function validarFechaFinalizacion() {
+    var retorno = 1;
+    return retorno === 1;
 }

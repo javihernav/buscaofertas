@@ -217,7 +217,7 @@ public class UsuarioDAO implements IDao<Usuario> {
     @Override
     public Usuario ObtenerId(Usuario vo) throws AppException {
 //vo es un usuario que solo tiene nombreUsuario
-        
+        if(vo==null)return null;
         String sql = "{CALL buscaofertas.obtenerIdUsuario(?)}";
         ResultSet rs = null;
         CallableStatement cst = null;
@@ -246,8 +246,8 @@ public class UsuarioDAO implements IDao<Usuario> {
             throw new AppException(-2, "error al consultar datos:" + ex.getMessage());
         } finally {
             try {
-                cst.close();
-                rs.close();
+                //cst.close();
+                //rs.close();
                
             } catch (Exception ex) {
                 throw new AppException(-2, "error al cerrar conexión:" + ex.getMessage());

@@ -1,5 +1,6 @@
 window.onload = function () {
     cargarComboBoxCiudad();
+    cargarComboBoxCategorias();
     $('#botonActualizar').on('click', accionEnviarDatos);
     $('#botonCancelar').on('click', volver);
 };

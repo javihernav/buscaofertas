@@ -171,8 +171,8 @@ public class ModificarOferta extends HttpServlet {
                     controlDetalleProducto.modificar(detalleProductoVo);
 
                     InputStream imgInputStream = imagenProducto.getInputStream();
-                    imagenVo.setFoto2(imgInputStream);
-                    imagenVo.setLinkImagen(imagenProducto.getSubmittedFileName());
+                    imagenVo.setFotoInputStream(imgInputStream);
+                    imagenVo.setNombreImagen(imagenProducto.getSubmittedFileName());
                     System.out.println("linea 176 servlet ModificarOferta modificando con imagenVo: "+imagenVo);
                     controlImagen.modificar(imagenVo);
 

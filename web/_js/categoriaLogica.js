@@ -35,7 +35,7 @@ function cargarComboBoxCategorias() {
             var opcion = document.createElement("option");
             opcion.setAttribute("value", item.idCategoria);
             opcion.setAttribute("label", item.nombreCategoria + " | " + item.categoriaPrincipal);
-
+            opcion.innerHTML = ""+item.nombreCategoria + " | " + item.categoriaPrincipal;
             comboBox.appendChild(opcion);
         }
     }

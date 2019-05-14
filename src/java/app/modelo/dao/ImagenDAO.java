@@ -4,7 +4,6 @@ import app.modelo.Conectar;
 import app.modelo.vo.Imagen;
 import app.utils.AppException;
 import app.utils.interfaces.IDao;
-import java.io.ByteArrayInputStream;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,8 +25,8 @@ public class ImagenDAO implements IDao<Imagen>{
             while(rs.next()){
                 Imagen vo = new Imagen();
                 vo.setIdImagen(rs.getInt(1));
-                vo.setLinkImagen(rs.getString(2));
-                vo.setFoto(rs.getBytes(3));
+                vo.setNombreImagen(rs.getString(2));
+                vo.setFotoByteArray(rs.getBytes(3));
                 list.add(vo);
             }
         }catch(SQLException ex){
@@ -54,9 +53,9 @@ public class ImagenDAO implements IDao<Imagen>{
         try{
             cst = Conectar.getCnn().prepareCall(sql);
             int i=1;
-            cst.setString(i++, vo.getLinkImagen());
+            cst.setString(i++, vo.getNombreImagen());
 //            cst.setBlob(i++, new ByteArrayInputStream(vo.getFoto()));
-            cst.setBlob(i++, (vo.getFoto2()));
+            cst.setBlob(i++, (vo.getFotoInputStream()));
             
             ResultSet rs= cst.executeQuery();
             int id=0;
@@ -83,9 +82,9 @@ public class ImagenDAO implements IDao<Imagen>{
         try{
             cst = Conectar.getCnn().prepareCall(sql);
             int i=1;
-            cst.setString(i++, vo.getLinkImagen());
+            cst.setString(i++, vo.getNombreImagen());
 //            cst.setBinaryStream(i++, new ByteArrayInputStream(vo.getFoto()));
-            cst.setBlob(i++, (vo.getFoto2()));
+            cst.setBlob(i++, (vo.getFotoInputStream()));
             cst.setInt(i++, vo.getIdImagen());
             cst.executeUpdate();
         }catch(SQLException ex){
@@ -134,8 +133,38 @@ public class ImagenDAO implements IDao<Imagen>{
             if(rs.next()){
                 Imagen voTemp = new Imagen();
                 voTemp.setIdImagen(rs.getInt(1));
-                voTemp.setLinkImagen(rs.getString(2));
-                voTemp.setFoto(rs.getBytes(3));
+                voTemp.setNombreImagen(rs.getString(2));
+                voTemp.setFotoByteArray(rs.getBytes(3));
+                return(voTemp);
+            }
+            return null;
+        }catch(SQLException ex){
+            throw new AppException(-2,"error al obtenerid a Imagen"+ex.getMessage());
+        }catch(Exception ex){
+            throw new AppException(-2,"error al obtenerid a Imagen"+ex.getMessage());
+        }finally{
+            try{
+                cst.close();
+                rs.close();
+                
+            }catch(Exception ex){}
+        }
+    }
+    public Imagen ObtenerConNombre(Imagen vo) throws AppException {
+        
+        
+        String sql = "{CALL buscaofertas.obtenerConNombreImagen(?)}";
+        ResultSet rs = null;
+        CallableStatement cst = null;
+        try{
+            cst = Conectar.getCnn().prepareCall(sql);
+            cst.setString(1, vo.getNombreImagen());
+            rs = cst.executeQuery();
+            if(rs.next()){
+                Imagen voTemp = new Imagen();
+                voTemp.setIdImagen(rs.getInt(1));
+                voTemp.setNombreImagen(rs.getString(2));
+                voTemp.setFotoByteArray(rs.getBytes(3));
                 return(voTemp);
             }
             return null;

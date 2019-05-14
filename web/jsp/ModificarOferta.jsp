@@ -44,7 +44,7 @@
         <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
     </head>
 
-    <body onload="cargarComboBoxCiudad()">
+    <body>
         <%
 
             String idOfertaString = null;

@@ -1,7 +1,8 @@
-function cargarComboBoxDatos() {
+function cargarComboBoxProducto() {
+
     $.ajax({
         type: 'POST',
-        url: '/BuscaOfertas/usus/consultarCiudad',//nombre url del servlet
+        url: '/BuscaOfertas/usus/consultarProductos', //nombre url del servlet
         //contentType:'application/json',
         //data:(objDatos),
         //dataType:'json',
@@ -9,10 +10,10 @@ function cargarComboBoxDatos() {
             if (data.codigo === -1) {
                 alert("Error crítico: " + data.mensaje);
             } else if (data.codigo === 0) {
-                alert("No hay datos para mostrar");
+                alert("No hay datos de productos para mostrar");
             } else if (data.codigo === 1) {
                 //alert("Si hay datos: "+data.data);
-                llenarComboBox(data.data);
+                llenarComboBoxProductos(data.data);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -21,22 +22,19 @@ function cargarComboBoxDatos() {
 
 
     });
-    function llenarComboBox(datosComboBox) {
+    function llenarComboBoxProductos(datosComboBox) {
         //debugger;
         //var comboBox = $("#tablaDatos");
-        var comboBox = document.getElementById("cbCiudadUsuario");
+        var comboBox = document.getElementById("cbProducto");
         //var tablita = $("table");
 
         for (var i = 0; i < datosComboBox.length; i++) {
             var item = datosComboBox[i];
             var opcion = document.createElement("option");
-            opcion.setAttribute("value", item.idCiudad);
-            //opcion.setAttribute("style", "style='color: #000000; background: #FFEEEE;'");
-            opcion.setAttribute("label", item.nombreCiudad + " | " + item.departamentoCiudad);
-            opcion.innerHTML=""+item.nombreCiudad + " | " + item.departamentoCiudad;
-            //var texto = document.createTextNode("<option value='"+item.idCiudad+"' label='"+item.nombreCiudad+"'></option>");
-            //opcion.appendChild(document.createTextNode(texto));
-            //comboBox.appendChild(opcion);
+            opcion.setAttribute("value", item.idProducto);
+            //opcion.setAttribute("style", "style='color: #000; background: #fff;'");
+            opcion.setAttribute("label", item.nombreProducto);
+            opcion.innerHTML = "" + item.nombreProducto;
             comboBox.appendChild(opcion);
         }
     }

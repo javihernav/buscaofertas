@@ -1,8 +1,6 @@
 window.onload = function () {
     cargarComboBoxDatos();
     cargarFechaNacimiento();
-       // $('#formulario').validate();
-
     $('#botonRegistrar').on('click', accionEnviarDatos);
 };
 
@@ -11,7 +9,6 @@ function accionEnviarDatos() {
     
                 
     if (validarFormularioPerfil()) {
-        $('#formulario').validate();
         var objDatos = {
             nombres: $('#txtNombres').val(),
             apellidos: $('#txtApellidos').val(),

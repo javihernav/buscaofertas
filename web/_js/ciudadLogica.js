@@ -23,7 +23,7 @@ function cargarComboBoxCiudad() {
 
     });
     function llenarComboBoxCiudad(datosComboBox) {
-        //debugger;
+            //debugger;
         //var comboBox = $("#tablaDatos");
         var comboBox = document.getElementById("cbCiudadOferta");
         //var tablita = $("table");
@@ -32,9 +32,12 @@ function cargarComboBoxCiudad() {
             var item = datosComboBox[i];
             var opcion = document.createElement("option");
             opcion.setAttribute("value", item.idCiudad);
-            //opcion.setAttribute("style", "style='color: #000; background: #fff;'");
+            //opcion.setAttribute("style", "style='color: #000000; background: #FFEEEE;'");
             opcion.setAttribute("label", item.nombreCiudad + " | " + item.departamentoCiudad);
-
+            opcion.innerHTML=""+item.nombreCiudad + " | " + item.departamentoCiudad;
+            //var texto = document.createTextNode("<option value='"+item.idCiudad+"' label='"+item.nombreCiudad+"'></option>");
+            //opcion.appendChild(document.createTextNode(texto));
+            //comboBox.appendChild(opcion);
             comboBox.appendChild(opcion);
         }
     }

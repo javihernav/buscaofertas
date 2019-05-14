@@ -1,8 +1,10 @@
 window.onload = function () {
     cargarComboBoxCiudad();
     cargarComboBoxCategorias();
+    cargarComboBoxProducto();
     $('#botonRegistrar').on('click', accionEnviarDatos);
     $('#botonCancelar').on('click', volver);
+    //location.reload();
 };
 
 function accionEnviarDatos() {
