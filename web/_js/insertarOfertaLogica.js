@@ -8,7 +8,7 @@ window.onload = function () {
 };
 
 function accionEnviarDatos() {
-    if (true) {
+    if (validarFormularioOferta()) {
         var formData = new FormData(document.getElementById("formOferta"));
         /*
          * var objDatos = {
@@ -38,7 +38,8 @@ function accionEnviarDatos() {
             contentType: false,
             processData: false,
             success: function (data, textStatus, jqXHR) {
-                alert(data.mensaje);
+//                alert(data.mensaje);
+                alert("Oferta creada exitosamente!");
                 if (data.codigo !== 0) {
                     $(location).attr('href', '/BuscaOfertas/jsp/GestionarOfertas.jsp');
                 }

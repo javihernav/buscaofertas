@@ -52,7 +52,6 @@ public class MarcaDAO implements IDao<Marca>{
             cst = Conectar.getCnn().prepareCall(sql);
            
             cst.setString(1, vo.getNombreMarca());
-            cst.executeUpdate();
             ResultSet rs= cst.executeQuery();
             int id=0;
             if(rs.next()){

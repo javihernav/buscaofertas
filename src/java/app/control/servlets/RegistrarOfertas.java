@@ -56,10 +56,10 @@ import javax.servlet.http.Part;
  */
 @WebServlet(name = "RegistrarOfertas", urlPatterns = {"/RegistrarOfertas"})
 @MultipartConfig(
-        fileSizeThreshold   = 1024 * 1024 * 1,  // 1 MB
-        maxFileSize         = 1024 * 1024 * 10, // 10 MB
-        maxRequestSize      = 1024 * 1024 * 15, // 15 MB
-        location            = "./temp"
+        fileSizeThreshold = 1024 * 1024 * 100, // 100 MB
+        maxFileSize = 1024 * 1024 * 100, // 100 MB
+        maxRequestSize = 1024 * 1024 * 150, // 150 MB
+        location = "./temp"
 )
 public class RegistrarOfertas extends HttpServlet {
 
@@ -81,10 +81,10 @@ public class RegistrarOfertas extends HttpServlet {
             Usuario usuarioVo = (Usuario) sesion.getAttribute("usuario");
 
             String idProductoString = request.getParameter("cbProducto");
-            System.out.println("linea 84 servlet RegistrarOfertas nombreProducto: "+idProductoString);
+            System.out.println("linea 84 servlet RegistrarOfertas nombreProducto: " + idProductoString);
 
             String idCategoriaProductoString = request.getParameter("cbCategoria");
-            System.out.println("linea 89 servlet RegistrarOfertas cbCategoria: "+idCategoriaProductoString);
+            System.out.println("linea 89 servlet RegistrarOfertas cbCategoria: " + idCategoriaProductoString);
             String marcaProducto = request.getParameter("txtMarca");
             String nombreOferta = request.getParameter("txtNombreOferta");
             String idCiudadOfertaString = request.getParameter("cbCiudadOferta");
@@ -99,17 +99,17 @@ public class RegistrarOfertas extends HttpServlet {
             String mensaje;
             mensaje = "";
             System.out.println("linea 101 servlet RegistrarOfertas antes del if: ");
-            System.out.println("usuarioVo= "+ usuarioVo + "\n" +
-            "idCategoriaProducto= "+ idCategoriaProductoString + "\n" +
-            "marcaProducto= "+ marcaProducto + "\n" +
-            "nombreOferta= "+ nombreOferta + "\n" +
-            "idCiudadOferta= "+ idCiudadOfertaString + "\n" +
-            "nombreTienda= "+ nombreTienda + "\n" +
-            "imagenProducto= "+ imagenProductoPart +  "\n" +
-            "direccionTienda= "+ direccionTienda + "\n" +
-            "precioOferta= "+ precioOfertaString +  "\n" +
-            "fechaInicio= "+ fechaInicio + "\n" +
-            "fechaFinalizacion= "+fechaFinalizacion+"\n");
+            System.out.println("usuarioVo= " + usuarioVo + "\n"
+                    + "idCategoriaProducto= " + idCategoriaProductoString + "\n"
+                    + "marcaProducto= " + marcaProducto + "\n"
+                    + "nombreOferta= " + nombreOferta + "\n"
+                    + "idCiudadOferta= " + idCiudadOfertaString + "\n"
+                    + "nombreTienda= " + nombreTienda + "\n"
+                    + "imagenProducto= " + imagenProductoPart + "\n"
+                    + "direccionTienda= " + direccionTienda + "\n"
+                    + "precioOferta= " + precioOfertaString + "\n"
+                    + "fechaInicio= " + fechaInicio + "\n"
+                    + "fechaFinalizacion= " + fechaFinalizacion + "\n");
             if (idProductoString != null
                     && nombreOferta != null
                     && idCiudadOfertaString != null
@@ -118,34 +118,34 @@ public class RegistrarOfertas extends HttpServlet {
                     && precioOfertaString != null
                     && fechaInicio != null
                     && fechaFinalizacion != null) {
-            System.out.println("linea 121 servlet RegistrarOfertas entrada al if: ");
-                
+                System.out.println("linea 121 servlet RegistrarOfertas entrada al if: ");
+
                 Connection cnn;
                 cnn = Conectar.getCnn();
                 ControlUsuario controlUsuario = new ControlUsuario(cnn);
-                ControlUbicacion controlUbicacion = new ControlUbicacion(cnn);
+                ControlUbicacion controlUbicacion = new ControlUbicacion(cnn);System.out.println("linea 126 servlet RegistrarOfertas ");
 
                 ControlImagen controlImagen = new ControlImagen(cnn);
                 ControlOferta controlOferta = new ControlOferta(cnn);
                 ControlOferta_Tiene_Ubicacion controlOferta_Tiene_Ubicacion = new ControlOferta_Tiene_Ubicacion(cnn);
-                ControlProducto controlProducto = new ControlProducto(cnn);
+                ControlProducto controlProducto = new ControlProducto(cnn); System.out.println("linea 131 servlet RegistrarOfertas");
 
                 ControlCategoria controlCategoria = new ControlCategoria(cnn);
                 ControlMarca controlMarca = new ControlMarca(cnn);
 
                 ControlDetalleProducto controlDetalleProducto = new ControlDetalleProducto(cnn);
-                ControlDetalleProducto_Tiene_Imagen controlDetalleProducto_Tiene_Imagen = new ControlDetalleProducto_Tiene_Imagen(cnn);
+                ControlDetalleProducto_Tiene_Imagen controlDetalleProducto_Tiene_Imagen = new ControlDetalleProducto_Tiene_Imagen(cnn);System.out.println("linea 137 servlet RegistrarOfertas");
 
                 int idUsuario = 0;
                 int idOferta = 0;
                 int idUbicacion = 0;
                 int idProducto = Integer.parseInt(idProductoString);
                 int idImagen = 0;
-                
-                try {
-                    idUsuario = controlUsuario.ObtenerId(usuarioVo).getIdUsuario();
+
+                try {System.out.println("linea 145 servlet RegistrarOfertas obtener usuario");
+                    idUsuario = controlUsuario.ObtenerId(usuarioVo).getIdUsuario();System.out.println("linea 146 servlet RegistrarOfertas");
                     SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                    Oferta ofertaVo = new Oferta(0, idUsuario,         nombreOferta, formatoFecha.parse(fechaCreacion.get(Calendar.YEAR) + "-" + (fechaCreacion.get(Calendar.MONTH) + 1) + "-" + fechaCreacion.get(Calendar.DAY_OF_MONTH) + "-"), formatoFecha.parse(fechaInicio), formatoFecha.parse(fechaFinalizacion), 0);
+                    Oferta ofertaVo = new Oferta(0, idUsuario, nombreOferta, formatoFecha.parse(fechaCreacion.get(Calendar.YEAR) + "-" + (fechaCreacion.get(Calendar.MONTH) + 1) + "-" + fechaCreacion.get(Calendar.DAY_OF_MONTH) + "-"), formatoFecha.parse(fechaInicio), formatoFecha.parse(fechaFinalizacion), 0);
                     //                    (idOferta,Usuario_idUsuario, nombreOferta, Date fechaCreacion,                                                                                                                                          Date fechaInicio,                Date fechaFin,                        vecesCompartida);
                     System.out.println("linea 150 servlet RegistrarOfertas" + ofertaVo);
                     idOferta = controlOferta.insertar(ofertaVo);
@@ -166,7 +166,7 @@ public class RegistrarOfertas extends HttpServlet {
 
                     Categoria categoria = new Categoria();
                     categoria.setIdCategoria(Integer.parseInt(idCategoriaProductoString));
-                    Categoria categoriaVo=controlCategoria.ObtenerId(categoria);
+                    Categoria categoriaVo = controlCategoria.ObtenerId(categoria);
                     int idCategoria = Integer.parseInt(idCategoriaProductoString);
                     System.out.println("linea 170 servlet RegistrarOfertas categoriaVo: " + categoriaVo);
 
@@ -200,6 +200,7 @@ public class RegistrarOfertas extends HttpServlet {
                     resp.setCodigo(0);
                     resp.setMensaje("Fallo al insertar Datos" + ex.getMensaje());
                     out.println(new Gson().toJson(resp));
+                    System.out.println("linea 203 servlet RegistrarOfertas respuestaServer: " + resp);
                 }
                 System.out.println("OK");
 
@@ -208,11 +209,13 @@ public class RegistrarOfertas extends HttpServlet {
                 RespuestaServer resp = new RespuestaServer();
                 resp.setCodigo(1);
                 resp.setMensaje("Datos Correctos");
+                //resp.setData("data is ok");
                 out.println(new Gson().toJson(resp));
+                System.out.println("linea 213 servlet RegistrarOfertas respuestaServer: " + resp);
 
             }
         } catch (AppException ex) {
-            System.out.println("excepcion en servlet RegistrarOfertas:"+ex.getMensaje()+ex.getMessage());
+            System.out.println("excepcion en servlet RegistrarOfertas:" + ex.getMensaje() + ex.getMessage());
         }
     }
 
@@ -231,7 +234,7 @@ public class RegistrarOfertas extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
-            System.out.println("excepcion en servlet RegistrarOfertas:"+ex.getMessage());
+            System.out.println("excepcion en servlet RegistrarOfertas:" + ex.getMessage());
         }
     }
 
@@ -249,7 +252,7 @@ public class RegistrarOfertas extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
-            System.out.println("excepcion en servlet RegistrarOfertas:"+ex.getMessage());
+            System.out.println("excepcion en servlet RegistrarOfertas:" + ex.getMessage());
         }
     }
 

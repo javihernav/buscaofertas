@@ -127,7 +127,7 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
     @Override
     public DetalleProducto ObtenerId(DetalleProducto vo) throws AppException {
 
-        
+        //obitiene el detalleproducto con idOferta
 
         String sql = "{CALL buscaofertas.obtenerIdDetalleProducto(?)}";
         ResultSet rs = null;

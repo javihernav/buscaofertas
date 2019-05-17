@@ -171,14 +171,14 @@
             </div>
         </div>
     </div>
-        <script src="../_js/validacion.js"></script>
-        <script src="../_js/loginLogica.js"></script>
-        <script src="../_js/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="../_js/validacion.js"></script>
+        <script type="text/javascript" src="../_js/loginLogica.js"></script>
+        <script type="text/javascript" src="../_js/jquery-3.3.1.js"></script>
         <link href="../_css/styles.css" rel="stylesheet" type="text/css" />
+     
         <script type="text/javascript" src="../_js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../_js/popper.min.js"></script>
         <link rel="stylesheet" href="../_css/bootstrap.min.css">
-        <link href="../_css/styles.css" rel="stylesheet" type="text/css" />
     </body>
 
 </html>

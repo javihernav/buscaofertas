@@ -8,6 +8,8 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OfertaDAO implements IDao<Oferta> {
 
@@ -135,7 +137,6 @@ public class OfertaDAO implements IDao<Oferta> {
             cst.setDate(i++, new java.sql.Date(vo.getFechaInicio().getTime()));
             cst.setDate(i++, new java.sql.Date(vo.getFechaFin().getTime()));
             cst.setInt(i++, vo.getVecesCompartida());
-            cst.executeUpdate();
             ResultSet rs = cst.executeQuery();
             int id = 0;
             if (rs.next()) {
@@ -240,5 +241,15 @@ public class OfertaDAO implements IDao<Oferta> {
             }
         }
     }
-
+public static void main(String[] args){
+OfertaDAO ofertaDAO = new OfertaDAO();
+Oferta oferta = new Oferta();
+oferta.setIdOferta(57);
+        try {
+            oferta = ofertaDAO.consultarPorIdOferta(oferta.getIdOferta());
+        } catch (AppException ex) {
+            Logger.getLogger(OfertaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("oferta: "+ oferta);
+}
 }

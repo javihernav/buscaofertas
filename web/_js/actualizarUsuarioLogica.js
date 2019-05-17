@@ -1,9 +1,22 @@
 window.onload = function () {
     cargarComboBoxDatos();
-
+    seleccionarOption();
     $('#botonRegistrar').on('click', accionEnviarDatos);
 };
-
+function seleccionarOption() {
+    var combo = document.getElementById('cbCiudadUsuario');
+    var seleccion = combo.getAttribute("selectedindex");
+    console.log('seleccion: ' + seleccion);
+//    $("#cbCiudadUsuario option[value = '" + seleccion + "']").attr("selected", 'selected');
+    document.getElementById('cbCiudadUsuario').options[document.getElementById('cbCiudadUsuario').selectedIndex].text = seleccion.text;
+//   var cantidad = combo.length;
+//    for (i = 0; i < cantidad; i++) {
+//
+//        if (combo[i].value == seleccion) {
+//            combo[i].selected="selected";
+//        }
+//    }
+}
 function accionEnviarDatos() {
     //debugger;
     if (validarFormularioPerfil()) {
@@ -19,7 +32,7 @@ function accionEnviarDatos() {
             genero: $('#cbGenero option:selected').attr("value")
 
         };
-        
+
         console.log(objDatos);
 
         $.ajax({

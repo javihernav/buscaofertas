@@ -101,11 +101,13 @@ public class UsuarioDAO implements IDao<Usuario> {
             cst.registerOutParameter(11, java.sql.Types.INTEGER);
 
             // Ejecuta el procedimiento almacenado
-            cst.execute();
+            ResultSet rs = cst.executeQuery();
 
             // Se obtiene la salida del procedimineto almacenado
             int id = 0;
-            id = cst.getInt(11);
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
             System.out.println("id del usuario: " + id);
 
             return id;

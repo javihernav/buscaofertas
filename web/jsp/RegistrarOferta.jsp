@@ -41,10 +41,10 @@
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label  class="custom-control-label" for="cbProducto">Nombre del producto:</label>
-                            <select class="form-control" name="cbProducto" id="cbProducto" placeholder="Nombre del producto " onchange="validarProducto()" tabindex="1" required>
+                            <select class="form-control" name="cbProducto" id="cbProducto" placeholder="Nombre del producto " onchange="validarProducto()" tabindex="1" required="true">
                                 <option value="0">Seleccione Producto</option>
                             </select>
-                            <label id="errorNombre"  class="error" for="cbProducto"></label>
+                            <label id="errorNombreProducto"  class="error" for="cbProducto"></label>
                         </div><br />
                         <div class="form-group col-md-4">
                             <label  class="custom-control-label" for="cbCategoria">Categoría:</label>
@@ -55,8 +55,9 @@
                         </div><br />
                         <div class="form-group col-md-4">
                             <label  class="custom-control-label">Marca:</label>
-                            <input class="form-control" name="txtMarca" id="txtMarca" type="text" value="" maxlength="45" placeholder="Marca del Producto" oninput="" tabindex="3" oninput="validarMarca()"required></div><br />
+                            <input class="form-control" name="txtMarca" id="txtMarca" type="text" value="" maxlength="45" placeholder="Marca del Producto" tabindex="3" oninput="validarMarca()" required="true">
                             <label id="errorMarca" class="error" for="txtMarca"></label>
+                        </div><br />
 
                     </div>
                     <div class="row col-md-12">
@@ -66,17 +67,18 @@
                                 <div class="form-group col-md-12">
                                     <label class="custom-control-label" for="cbCiudadOferta">Ciudad de la oferta:</label>
                                     <select class="form-control custom-select" id="cbCiudadOferta"  name="cbCiudadOferta"  oninput="validarCiudadOferta()" tabindex="4" required>
-                                        <option selected="0">Seleccione Ciudad</option>
+                                        <option value="0" selected="0">Seleccione Ciudad</option>
                                     </select>
-                                    <label id="errorCiudad" class="error" for="cbCiudadOferta"></label>
+                                    <label id="errorCiudadOferta" class="error" for="cbCiudadOferta"></label>
 
                                 </div><br />
                             </div>
                             <div class="row col-md-12">
                                 <div class="form-group col-md-12">
                                     <label class="custom-control-label">Nombre de la tienda:</label>
-                                    <input class="form-control"  name="txtNombreTienda" id="txtNombreTienda" type="text" value="" maxlength="20" placeholder="Introduzca nombre de la tienda " oninput="validarNombreTienda()" tabindex="6" required></div><br />
+                                    <input class="form-control"  name="txtNombreTienda" id="txtNombreTienda" type="text" value="" maxlength="20" placeholder="Introduzca nombre de la tienda " oninput="validarNombreTienda()" tabindex="6" required>
                                     <label id="errorNombreTienda" class="error" for="txtNombreTienda"></label>
+                                </div><br />
                             </div>
                         </div>
                         <div class="form-group mx-auto d-block img-fluid  col-md-6">
@@ -84,7 +86,7 @@
                                 <div class="form-group col-md-12">
                                     <label class="custom-control-label">Dirección de la tienda:</label>
                                     <input class="form-control"  name="txtDireccionTienda" id="txtDireccionTienda" type="text" placeholder="Dirección de la tienda" oninput="validarDireccionTienda()" tabindex="5" required></input></div><br />
-                                    <label id="errorDireccion" class="error" for="txtDireccionTienda"></label>
+                                <label id="errorDireccion" class="error" for="txtDireccionTienda"></label>
                             </div>
                             <label class="custom-control-label mx-auto d-block" for="imgProducto">Imagen del producto:</label>
                             <div class="row">
@@ -96,7 +98,7 @@
                             </div>
                             <div class="custom-file col-md-12 mx-auto d-block">
                                 <label class="custom-file-label" for="selectorImagen">Seleccione Imagen</label>
-                                <input type="file" class="custom-file-input " name="selectorImagen" id="selectorImagen" onchange="mostrarImagen()" oninput="validarImagen()"tabindex="7" >
+                                <input type="file" accept="image/*" class="custom-file-input " name="selectorImagen" id="selectorImagen" onchange="mostrarImagen();validarImagen();" oninput="validarImagen" tabindex="7" >
                                 <label id="errorImagen" class="error" for="selectorImagen"></label>
                             </div>
                         </div>
@@ -109,7 +111,7 @@
                         </div><br />
                         <div class="form-group col-md-6">
                             <label class="custom-control-label">Precio:</label>
-                            <input class="form-control"  name="txtPrecio" id="txtPrecio" type="number" min="1" value="1" maxlength="20" placeholder="Precio de oferta" oninput="validarPrecioDeOferta()" tabindex="9" required>
+                            <input class="form-control"  name="txtPrecio" id="txtPrecio" type="text" min="1" value="1" maxlength="20" placeholder="Precio de oferta" oninput="validarPrecioDeOferta()" tabindex="9" required>
                             <label id="errorPrecio" class="error" for="txtPrecio"></label>
                         </div><br />
 
@@ -125,7 +127,7 @@
                         <div class="form-group col-md-6">
                             <label class="custom-control-label">Fecha de Finalización:</label>
                             <input class="form-control"  name="txtFechaDeFinalizacion" id="txtFechaDeFinalizacion" type="date" value="2000-12-10" maxlength="45"  oninput="validarFechaFinalizacion()" tabindex="11" required>
-                            <label id="erroFechaFinalizacion" class="error" for="txtFechaFinalizacion"></label>
+                            <label id="errorFechaFinalizacion" class="error" for="txtFechaFinalizacion"></label>
                         </div><br />
 
                     </div>

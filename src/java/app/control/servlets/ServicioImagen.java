@@ -71,13 +71,11 @@ public class ServicioImagen extends HttpServlet {
             
             
             // byte[] content = resultSet.getBytes("content");
-            response.setContentType(getServletContext().getMimeType(idImagenString));
+            response.setContentType(getServletContext().getMimeType(idImagenString));//segun jpg png
             response.setContentLength(content.length);
-            response.getOutputStream().write(content);
+            response.getOutputStream().write(content);//escribe la imagen a la cadena de salida
             
-            
-            
-            processRequest(request, response);
+            processRequest(request, response);//ejecuta la acción
         } catch (AppException ex) {
             Logger.getLogger(ServicioImagen.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -1,9 +1,9 @@
 window.onload = function () {
 
-    $('#botonIngresar').on('click', accionEnviarDatos);
+    $('#botonIngresar').on('click', accionEnviarDatosLogin);
 };
 
-function accionEnviarDatos() {
+function accionEnviarDatosLogin() {
     //debugger;
     if (validarFormularioLogin()) {
         var objDatos = {

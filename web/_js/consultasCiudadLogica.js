@@ -31,12 +31,9 @@ function cargarComboBoxDatos() {
             var item = datosComboBox[i];
             var opcion = document.createElement("option");
             opcion.setAttribute("value", item.idCiudad);
-            //opcion.setAttribute("style", "style='color: #000000; background: #FFEEEE;'");
             opcion.setAttribute("label", item.nombreCiudad + " | " + item.departamentoCiudad);
-            opcion.innerHTML=""+item.nombreCiudad + " | " + item.departamentoCiudad;
-            //var texto = document.createTextNode("<option value='"+item.idCiudad+"' label='"+item.nombreCiudad+"'></option>");
-            //opcion.appendChild(document.createTextNode(texto));
-            //comboBox.appendChild(opcion);
+            opcion.innerHTML = ""+item.nombreCiudad + " | " + item.departamentoCiudad;
+            
             comboBox.appendChild(opcion);
         }
     }

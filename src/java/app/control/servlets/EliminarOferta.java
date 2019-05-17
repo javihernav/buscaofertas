@@ -61,106 +61,106 @@ public class EliminarOferta extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, AppException {
+//        response.setContentType("application/json;charset=UTF-8");
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+
             HttpSession sesion = request.getSession();
-            String idOfertaString = (String)request.getParameter("idOferta");
-            System.out.println("id de la oferta recibido en el servlet EliminarOferta: "+idOfertaString);
+            Object idOfertaObject = request.getParameter("idOferta");
+            Object usuarioObject = sesion.getAttribute("usuario");
             Usuario usuarioVo = null;
-            Oferta ofertaVo = null;
-            Ubicacion ubicacionVo = null;
-            Tipo tipoVo = null;
-            Categoria categoriaVo = null;
-            Imagen imagenVo = null;
-            DetalleProducto detalleProductoVo = null;
+            Oferta ofertaAEliminar = null;
+            Ubicacion ubicacionAEliminar = null;
+      
+            Imagen imagenAEliminar = null;
+            DetalleProducto detalleProductoAEliminar = null;
             Producto productoVo = null;
             Marca marcaVo = null;
 
-            
             String mensaje;
             mensaje = "";
-            if (idOfertaString != null) {
-                int idOferta=0;
+//            if (idOfertaObject != null && usuarioObject != null) {
+            if (idOfertaObject != null) {
+                String idOfertaString = (String) idOfertaObject;
+                usuarioVo = (Usuario)usuarioObject;
+                System.out.println("linea 69 de Servlet EliminarOferta id de la oferta recibido: " + idOfertaString+" usuario:"+usuarioVo);
+                int idOferta = 0;
                 try {
                     idOferta = Integer.parseInt(idOfertaString);
-            } catch (NumberFormatException e) {
-                System.out.println("error al convertir el numero de oferta");
-            }
+                } catch (NumberFormatException e) {
+                    System.out.println("error al convertir el numero de oferta");
+                }
                 Connection cnn;
                 cnn = Conectar.getCnn();
-                
-                //ControlUsuario controlUsuario = new ControlUsuario(cnn);
-                ControlUbicacion controlUbicacion = new ControlUbicacion(cnn);
-                ControlDetalleProducto controlDetalleProducto = new ControlDetalleProducto(cnn);
-                
-                ControlImagen controlImagen = new ControlImagen(cnn);
+
                 ControlOferta controlOferta = new ControlOferta(cnn);
                 ControlOferta_Tiene_Ubicacion controlOferta_Tiene_Ubicacion = new ControlOferta_Tiene_Ubicacion(cnn);
+                ControlUbicacion controlUbicacion = new ControlUbicacion(cnn);
+                ControlDetalleProducto controlDetalleProducto = new ControlDetalleProducto(cnn);
                 ControlDetalleProducto_Tiene_Imagen controlDetalleProducto_Tiene_Imagen = new ControlDetalleProducto_Tiene_Imagen(cnn);
+                ControlImagen controlImagen = new ControlImagen(cnn);
                 ControlProducto controlProducto = new ControlProducto(cnn);
-                ControlTipo controlTipo = new ControlTipo(cnn);
-                ControlCategoria controlCategoria = new ControlCategoria(cnn);
                 ControlMarca controlMarca = new ControlMarca(cnn);
 
-                Oferta offer= new Oferta();
+                Oferta offer = new Oferta();
                 offer.setIdOferta(idOferta);
-                ofertaVo=controlOferta.ObtenerId(offer);
-                
-                Oferta_Tiene_Ubicacion offerTieneUbicacion= new Oferta_Tiene_Ubicacion();
-                offerTieneUbicacion.setOferta_idOferta(ofertaVo.getIdOferta());
-                Oferta_Tiene_Ubicacion oferta_Tiene_UbicacionVo=controlOferta_Tiene_Ubicacion.ObtenerId(offerTieneUbicacion);
-                
-                Ubicacion ubicacion= new Ubicacion();
-                ubicacion.setIdUbicacion(oferta_Tiene_UbicacionVo.getUbicacion_idUbicacion());
-                ubicacionVo=controlUbicacion.ObtenerId(ubicacion);
-                
-                DetalleProducto detalleProducto= new DetalleProducto();
+                ofertaAEliminar = controlOferta.ObtenerId(offer);
+
+                Oferta_Tiene_Ubicacion offerTieneUbicacion = new Oferta_Tiene_Ubicacion();
+                offerTieneUbicacion.setOferta_idOferta(ofertaAEliminar.getIdOferta());
+                Oferta_Tiene_Ubicacion ofertaTUAEliminar = controlOferta_Tiene_Ubicacion.ObtenerId(offerTieneUbicacion); System.out.println("línea 111 offerTieneUbicacion: " + offerTieneUbicacion);
+                System.out.println("línea 112 ofertaTUAEliminar: " + ofertaTUAEliminar);
+
+                Ubicacion ubicacion = new Ubicacion();
+                ubicacion.setIdUbicacion(ofertaTUAEliminar.getUbicacion_idUbicacion());
+                ubicacionAEliminar = controlUbicacion.ObtenerId(ubicacion);
+
+                System.out.println("línea 116 Eliminación ofertaTUAEliminar: " + ofertaTUAEliminar);
+                controlOferta_Tiene_Ubicacion.eliminar(ofertaTUAEliminar);//elimina otu
+                System.out.println("línea 118 Eliminación ubicacionAEliminar: " + ubicacionAEliminar);
+                controlUbicacion.eliminar(ubicacionAEliminar);
+
+                DetalleProducto detalleProducto = new DetalleProducto();
                 detalleProducto.setOferta_idOferta(idOferta);
-                detalleProductoVo = controlDetalleProducto.ObtenerId(detalleProducto);
-                
-                DetalleProducto_Tiene_Imagen detalleProducto_Tiene_Imagen= new DetalleProducto_Tiene_Imagen();
+                detalleProductoAEliminar = controlDetalleProducto.ObtenerId(detalleProducto);
+
+                DetalleProducto_Tiene_Imagen detalleProducto_Tiene_Imagen = new DetalleProducto_Tiene_Imagen();
                 detalleProducto_Tiene_Imagen.setDetalleProducto_Oferta_idOferta(idOferta);
-                detalleProducto_Tiene_Imagen.setDetalleProducto_Producto_idProducto(detalleProductoVo.getProducto_idProducto());
-                DetalleProducto_Tiene_Imagen detalleProducto_Tiene_ImagenVo = controlDetalleProducto_Tiene_Imagen.ObtenerId(detalleProducto_Tiene_Imagen);
+                detalleProducto_Tiene_Imagen.setDetalleProducto_Producto_idProducto(detalleProductoAEliminar.getProducto_idProducto());
+                DetalleProducto_Tiene_Imagen DPTIAEliminar = controlDetalleProducto_Tiene_Imagen.ObtenerId(detalleProducto_Tiene_Imagen);
+
+                Imagen Imagen = new Imagen();
+                Imagen.setIdImagen(DPTIAEliminar.getImagen_idImagen());
+                imagenAEliminar = controlImagen.ObtenerId(Imagen);
+
+                productoVo = new Producto();
+                productoVo.setIdProducto(detalleProductoAEliminar.getProducto_idProducto());
+                productoVo = controlProducto.ObtenerId(productoVo);
                 
-                Imagen Imagen= new Imagen();
-                Imagen.setIdImagen(detalleProducto_Tiene_ImagenVo.getImagen_idImagen());
-                imagenVo = controlImagen.ObtenerId(Imagen);
-                
-                Producto producto= new Producto();
-                producto.setIdProducto(detalleProductoVo.getProducto_idProducto());
-                productoVo = controlProducto.ObtenerId(producto);
-                
-                Marca marca= new Marca();
+                Marca marca = new Marca();
                 marca.setIdMarca(productoVo.getMarca_idMarca());
                 marcaVo = controlMarca.ObtenerId(marca);
-                
-                Tipo Tipo= new Tipo();
-                Tipo.setIdTipo(productoVo.getCategoria_idCategoria());
-                tipoVo = controlTipo.ObtenerId(Tipo);
-                
-                Categoria categoria= new Categoria();
-                categoria.setIdCategoria(tipoVo.getCategoria_idCategoria());
-                categoriaVo = controlCategoria.ObtenerId(categoria);
-                
-                
+
                 try {
-                    controlDetalleProducto_Tiene_Imagen.eliminar(detalleProducto_Tiene_ImagenVo);
-                    controlImagen.eliminar(imagenVo);
-                    controlDetalleProducto.eliminar(detalleProductoVo);
-                    controlProducto.eliminar(productoVo);
-                    controlMarca.eliminar(marcaVo);
-                    controlTipo.eliminar(tipoVo);
-                    controlCategoria.eliminar(categoriaVo);
-                    controlOferta_Tiene_Ubicacion.eliminar(oferta_Tiene_UbicacionVo);
-                    controlOferta.eliminar(ofertaVo);
-                    controlUbicacion.eliminar(ubicacionVo);
+                    System.out.println("línea 136 Eliminación DPTIAEliminar: " + DPTIAEliminar);
+                    controlDetalleProducto_Tiene_Imagen.eliminar(DPTIAEliminar);
+                    System.out.println("línea 138 Eliminación imagenAEliminar: " + imagenAEliminar);
+                    controlImagen.eliminar(imagenAEliminar);
+                    System.out.println("línea 140 Eliminación detalleProductoAEliminar: " + detalleProductoAEliminar);
+                    controlDetalleProducto.eliminar(detalleProductoAEliminar);
+                    System.out.println("línea 142 Eliminación ofertaTUAEliminar: " + ofertaTUAEliminar);
+                    controlOferta_Tiene_Ubicacion.eliminar(ofertaTUAEliminar);
+                    System.out.println("línea 144 Eliminación ofertaAEliminar: " + ofertaAEliminar);
+                    controlOferta.eliminar(ofertaAEliminar);
+                    System.out.println("línea 146 Eliminación ubicacionAEliminar: " + ubicacionAEliminar);
+                    controlUbicacion.eliminar(ubicacionAEliminar);
+                    System.out.println("línea 148 Final del proceso");
 
                 } catch (AppException ex) {
                     RespuestaServer resp = new RespuestaServer();
                     resp.setCodigo(0);
                     resp.setMensaje("Fallo al eliminar datos de la oferta" + ex.getMensaje());
+                    System.out.println("línea 154 error respuestaServer: " + resp);
                     out.println(new Gson().toJson(resp));
                 }
                 System.out.println("OK");
@@ -169,8 +169,18 @@ public class EliminarOferta extends HttpServlet {
                 RespuestaServer resp = new RespuestaServer();
                 resp.setCodigo(1);
                 resp.setMensaje("Eliminacion de datos correcta");
+                System.out.println("línea 163 supero el proceso de eliminación respuestaServer: " + resp);
                 out.println(new Gson().toJson(resp));
+//            response.sendRedirect("./jsp/GestionarOfertas.jsp");
+//            return;
 
+            }
+            else{
+                
+                System.out.println("línea 171 error en usuario o número de oferta nulo! ");
+                
+//            response.sendRedirect("./jsp/GestionarOfertas.jsp");
+//            return;
             }
         }
     }

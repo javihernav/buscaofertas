@@ -47,10 +47,11 @@
     <body>
         <%
 
-            String idOfertaString = null;
+            String idOfertaString = null; Usuario usuario = null;
             HttpSession sesion2 = request.getSession();
             try {
-                idOfertaString = (String) sesion2.getAttribute("idOferta");
+                idOfertaString = (String) request.getParameter("idOferta");
+                usuario = (Usuario) sesion2.getAttribute("usuario");
 
             } catch (Exception e) {
                 response.sendRedirect("./PaginaPrincipal.jsp");
@@ -71,8 +72,8 @@
             Connection cnn = Conectar.getCnn();
             ControlOferta controlOferta = new ControlOferta(cnn);
             Oferta oferta = controlOferta.consultarPorIdOferta(idOferta);
-            request.setAttribute("oferta", oferta);
-            System.out.println("oferta "+oferta+" asignada como atributo de request en modificarOferta.jsp");
+            //request.setAttribute("oferta", oferta);
+            System.out.println("linea 76 oferta "+oferta+" asignada como atributo de request en modificarOferta.jsp");
 
             Oferta_Tiene_Ubicacion otu = new Oferta_Tiene_Ubicacion();
             otu.setOferta_idOferta(oferta.getIdOferta());System.out.println("linea: "+78+otu);
@@ -132,7 +133,7 @@
             System.out.println("\nId de imagen: " + imagenExtraida.getIdImagen());
             request.setAttribute("imagen", imagenExtraida);
             System.out.println("linea: "+134+imagenExtraida+" ModificarOferta.jsp");
-            
+            request.setAttribute("usuario", usuario);
 
         %>
 
@@ -176,7 +177,7 @@
                             <div class="col-md-6 row">
 
                                 <label class="custom-file-label" for="selectorImagen">Seleccione Imagen</label>
-                                <input type="file" class="custom-file-input " value="<%= imagenExtraida.getLinkImagen()%>" id="selectorImagen" onchange="mostrarImagen()">
+                                <input type="file" accept="image/*" class="custom-file-input " value="<%= imagenExtraida.getNombreImagen()%>" id="selectorImagen" onchange="mostrarImagen()">
                             </div>
                             <div class="col-md-6">
                                 <img class="" id="imgProducto"  src="../_img/lupa.png" alt="Imagen del producto" oninput="validarImagen()" height="35 vw" required>

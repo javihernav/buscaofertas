@@ -24,19 +24,27 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Gestión de Ofertas</title>
+        <meta charset="UTF-8">
+        <meta name="titulo" content="Proyecto BuscaOfertas">
+        <meta name="descripcion" content="Entrega Proyecto BuscaOfertas">
+        <meta name="viewport" content="width=device-width" user-scalable=no, initial-scale=1.0, maximum-scale=1.0, 
+              maximum-scalable=1.0>
+        <link rel="shortcut icon" type="image/x-icon" href="../_img/LETRERO-BUSCAOFERTAS-Y-nombre-técnico.png">
+        <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+
+
     </head>
     <body>
         <header>
             <%@include file="/jsp/Barra.jsp" %>
         </header>
         <div>
-            <%                
-                System.out.println("linea 26 GestionarOfertas");
+            <%                System.out.println("linea 26 GestionarOfertas");
                 HttpSession sesion1 = request.getSession();
                 System.out.println("linea 28 GestionarOfertas");
                 Object usu = sesion1.getAttribute("usuario");
                 if (usu == null) {
-                    System.out.println("objeto nulo usu: "+usu);
+                    System.out.println("objeto nulo usu: " + usu);
                     response.sendRedirect("/BuscaOfertas/jsp/PaginaPrincipal.jsp");
                     return;
                 }
@@ -51,12 +59,14 @@
                 Usuario usuarioValidado = controlUsuario.ObtenerId(usuario);
                 ArrayList<Oferta> ofertas = new ArrayList();
                 ControlOferta controlOferta = new ControlOferta(cnn);
+                sesion1.setAttribute("usuario", usuarioValidado);
+                
             %>
 
             <div class="container">
 
                 <div class="form-group "id="listado">
-                    <form action="">
+                    <form action="" method="POST">
                         <div class="row">
                             &nbsp;
                         </div>
@@ -95,23 +105,24 @@
                                 DetalleProducto detalleProducto = new DetalleProducto();
                                 DetalleProducto_Tiene_Imagen dpti = new DetalleProducto_Tiene_Imagen();
                                 for (Oferta oferta : ofertas) {
-                                    System.out.println("oferta: "+oferta);
+                                    System.out.println("oferta: " + oferta);
                                     detalleProducto.setOferta_idOferta(oferta.getIdOferta());
                                     detalleProducto = ControlDetalleProducto.ObtenerId(detalleProducto);
+                                    System.out.println("detalleProducto: " + detalleProducto);
                                     dpti.setDetalleProducto_Oferta_idOferta(oferta.getIdOferta());
                                     dpti.setDetalleProducto_Producto_idProducto(detalleProducto.getProducto_idProducto());
+                                    System.out.println("dpti ingresado: " + dpti);
                                     dpti = controlDetalleProducto_Tiene_Imagen.ObtenerId(dpti);
+                                    System.out.println("dpti: " + dpti);
                                     imagen.setIdImagen(dpti.getImagen_idImagen());
                                     imagen = controlImagen.ObtenerId(imagen);
+                                    System.out.println("imagen: " + imagen);
+                                    
                             %>
-
-                     
 
                             <div class="articulo col-md-11 row">
                                 <div  class="visorImagen col-md-5">
                                     <div class="col-md-12">
-                                        <!--<img class='col-md-12' width='160' height='160' alt='Bicicleta Roadmaster Storm 29 F.disco Shimano + Luces+ Malet' src='https://http2.mlstatic.com/bicicleta-roadmaster-storm-29-fdisco-shimano-luces-malet-D_NP_868612-MCO29687500840_032019-X.webp' srcset='https://http2.mlstatic.com/bicicleta-roadmaster-storm-29-fdisco-shimano-luces-malet-D_NP_868612-MCO29687500840_032019-X.webp 1x, https://http2.mlstatic.com/bicicleta-roadmaster-storm-29-fdisco-shimano-luces-malet-D_NQ_NP_868612-MCO29687500840_032019-V.webp 2x' />--> 
-                                        <!--<img class='col-md-12' width='160' height='160' alt="<%=oferta.getNombreOferta()%>" src="${pageContext.request.contextPath}/ServicioImagen/<%= imagen.getNombreImagen() %>">-->
                                         <img class='col-md-12' width='160' height='160' alt="<%=oferta.getNombreOferta()%>" src="${pageContext.request.contextPath}/ServicioImagen/<%= imagen.getIdImagen()%>">
                                     </div>
                                 </div>
@@ -127,7 +138,7 @@
                                             <h3>Fecha de Inicio: <%= oferta.getFechaInicio()%></h3>
                                         </div>
                                         <div class="col-md-4">
-                                            <input class="btn btn-outline-danger" type="submit" value="Modificar" name="btnModificar" />
+                                            <input class="btn btn-outline-danger btnModificar" idOferta="<%= String.valueOf(oferta.getIdOferta())%>" type="button"  name="btnModificar" value="Modificar">
                                         </div>
                                     </div>
                                     <div>
@@ -139,80 +150,14 @@
                                             <h3>Fecha de Límite: <%= oferta.getFechaFin()%></h3>
                                         </div>
                                         <div class="col-md-4">
-                                            <input class="btn btn-outline-dark" type="submit" value="Eliminar" name="btnModificar" />
+                                        
+                                            <!--<button name="btnEliminar" class="btn btn-outline-dark btnEliminar" type="button" onclick='eliminarOfertaId("<%= oferta.getIdOferta()%>","<%= usuarioValidado%>")'>Eliminar</button>-->
+                                            <input name="btnEliminar" class="btn btn-outline-dark btnEliminar" idOferta="<%= String.valueOf(oferta.getIdOferta())%>" type="button" value="Eliminar">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--                            <li class="results-item highlighted article stack "style="border: #000 solid 2px;"> 
-                                                            <div class="rowItem item highlighted item--stack item--has-row-logo new to-item " id="MCO492858474">
-                                                                <div class="item__image item__image--stack"> 
-                                                                    <div class="images-viewer" item-url="https://articulo.mercadolibre.com.co/MCO-492858474-bicicleta-roadmaster-storm-29-fdisco-shimano-luces-malet-_JM" item-id="MCO492858474"> <div class="image-content"> <a href="https://articulo.mercadolibre.com.co/MCO-492858474-bicicleta-roadmaster-storm-29-fdisco-shimano-luces-malet-_JM" class="figure item-image item__js-link"> 
-                                                                                <img class='lazy-load' width='160' height='160' alt='Bicicleta Roadmaster Storm 29 F.disco Shimano + Luces+ Malet' src='https://http2.mlstatic.com/bicicleta-roadmaster-storm-29-fdisco-shimano-luces-malet-D_NP_868612-MCO29687500840_032019-X.webp' srcset='https://http2.mlstatic.com/bicicleta-roadmaster-storm-29-fdisco-shimano-luces-malet-D_NP_868612-MCO29687500840_032019-X.webp 1x, https://http2.mlstatic.com/bicicleta-roadmaster-storm-29-fdisco-shimano-luces-malet-D_NQ_NP_868612-MCO29687500840_032019-V.webp 2x' /> 
-                                                                            </a> 
-                                                                        </div> 
-                                                                    </div>
-                                                                </div>
-                                                                <div class="item__info-container highlighted "> 
-                                                                    <div class="item__info item--hide-right-col ">
-                                                                        <h2 class="item__title list-view-item-title"> <a href="https://articulo.mercadolibre.com.co/MCO-492858474-bicicleta-roadmaster-storm-29-fdisco-shimano-luces-malet-_JM" class="item__info-title">
-                                                                                <span class="main-title"> Bicicleta Roadmaster Storm 29 F.disco Shimano + Luces+ Malet </span> 
-                                                                            </a> 
-                                                                            <div class="item__brand"> 
-                                                                                <a class="item__brand-link" href="https://tienda.mercadolibre.com.co/roadmaster"> 
-                                                                                    <span class="item__brand-title-tos"> por Roadmaster </span> 
-                                                                                </a> 
-                                                                            </div>
-                                                                        </h2> <div class="price__container"> 
-                                                                            <span class="price-old" itemprop="price-old"> 
-                                                                                <del> $&nbsp;799.900 </del> 
-                                                                            </span><div class="item__price item__price-discount"> 
-                                                                                <span class="price__symbol">$</span> 
-                                                                                <span class="price__fraction">571.900</span>
-                                                                            </div> <div class="item__discount ">28% OFF</div> 
-                                                                        </div> <div class="item__stack_column highlighted"> 
-                                                                            <div class="item__stack_column__info"> 
-                                                                                <div class="stack_column_item installments highlighted">
-                                                                                    <span class="item-installments showInterest"> 
-                                                                                        <span class="item-installments-multiplier"> 36x </span> 
-                                                                                        <span class="item-installments-price"> $ 15.886 </span>
                             
-                                                                                    </span> 
-                                                                                </div> 
-                                                                                <div class="stack_column_item shipping highlighted"> 
-                                                                                    <div class="item__shipping free-shipping highlighted"> 
-                                                                                        <p class="stack-item-info "> Env&iacute;o gratis</p> 
-                                                                                    </div> 
-                                                                                </div> 
-                                                                                <div class="stack_column_item status">
-                                                                                    <div class="item__status">
-                                                                                        <div class="item__condition"> 169 vendidos 
-                                                                                        </div>
-                            
-                                                                                    </div> 
-                                                                                </div> 
-                                                                            </div> 
-                                                                        </div> 
-                                                                        <div class="stack_colum_right without-attributes without-reviews"> 
-                                                                            <div class="stack_column_right__bottom "> 
-                                                                            </div> 
-                                                                        </div> 
-                                                                    </div>
-                            
-                                                                </div>
-                                                                <form class="item__bookmark-form" action="/search/bookmarks/MCO492858474/make" method="post" id="bookmarkForm" class="bookmark-form"> 
-                                                                    <button type="submit" class="bookmarks favorite " data-id="MCO492858474"> 
-                                                                        <div class="item__bookmark"> 
-                                                                            <div class="icon">
-                            
-                                                                            </div>
-                                                                        </div> 
-                                                                    </button> 
-                                                                    <input type="hidden" name="method" value='add'/> 
-                                                                    <input type="hidden" name="itemId" value='MCO492858474'>
-                                                                </form> 
-                                                            </div>
-                                                        </li>-->
 
                             <%
                                 }
@@ -224,11 +169,11 @@
                         <div>
                             &nbsp;
                         </div>
-                        <div class="row col-md-12">
+<!--                        <div class="row col-md-12">
                             <input class="btn-dark col-md-3 offset-1 form-control" type="button" value="Modificar" name="btnModificar" id="btnModificar"/>
                             <input class="btn-dark col-md-3 offset-1 form-control" type="button" value="Eliminar" name="btnEliminar" id="btnEliminar"/>
 
-                        </div>
+                        </div>-->
 
                         <div>
                             &nbsp;
@@ -246,12 +191,18 @@
         </div>
 
 
+<!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <link href="../_css/styles.css" rel="stylesheet" type="text/css" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
 
-        <script type="text/javascript" src="../_js/jquery-3.3.1.js"></script>
-        <script type="text/javascript" src="../_js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../_js/popper.min.js"></script>
-        <link rel="stylesheet" href="../_css/bootstrap.min.css">
-        <link href="../_css/styles.css" rel="stylesheet" type="text/css" />S
+                <script type="text/javascript" src="../_js/jquery-3.3.1.js"></script>
+                <script type="text/javascript" src="../_js/bootstrap.min.js"></script>
+                <script type="text/javascript" src="../_js/popper.min.js"></script>
+                <link rel="stylesheet" href="../_css/bootstrap.min.css">
+        <link href="../_css/styles.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="../_js/gestionarOfertasLogica.js"></script>
+        <script type="text/javascript" src="../_js/eliminarOfertaLogica.js"></script>
     </body>
 </html>
