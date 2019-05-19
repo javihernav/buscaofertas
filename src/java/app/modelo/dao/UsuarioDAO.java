@@ -75,7 +75,7 @@ public class UsuarioDAO implements IDao<Usuario> {
         CallableStatement cst;
         try {
 
-            cst = Conectar.getCnn().prepareCall("{CALL buscaofertas.insertUsuario (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+            cst = Conectar.getCnn().prepareCall("{CALL buscaofertas.insertUsuario (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
         } catch (SQLException ex) {
             throw new AppException(-2, "error al preparar el procedimiento almacenado insertUsuario:" + ex.getMessage());
         }
@@ -98,7 +98,6 @@ public class UsuarioDAO implements IDao<Usuario> {
             cst.setString(8, vo.getFechaNacimiento());
             cst.setString(9, String.valueOf(vo.getGenero()));
             cst.setString(10, "usuario");/*vo.getRol()*/
-            cst.registerOutParameter(11, java.sql.Types.INTEGER);
 
             // Ejecuta el procedimiento almacenado
             ResultSet rs = cst.executeQuery();

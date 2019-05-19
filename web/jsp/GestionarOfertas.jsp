@@ -39,21 +39,21 @@
             <%@include file="/jsp/Barra.jsp" %>
         </header>
         <div>
-            <%                System.out.println("linea 26 GestionarOfertas");
+            <%                //System.out.println("linea 26 GestionarOfertas");
                 HttpSession sesion1 = request.getSession();
-                System.out.println("linea 28 GestionarOfertas");
+                //System.out.println("linea 28 GestionarOfertas");
                 Object usu = sesion1.getAttribute("usuario");
                 if (usu == null) {
-                    System.out.println("objeto nulo usu: " + usu);
+                    //System.out.println("objeto nulo usu: " + usu);
                     response.sendRedirect("/BuscaOfertas/jsp/PaginaPrincipal.jsp");
                     return;
                 }
                 Usuario usuario = (Usuario) usu;
-                System.out.println("linea 35 GestionarOfertas usuario: " + usuario);
+                //System.out.println("linea 35 GestionarOfertas usuario: " + usuario);
                 Connection cnn = Conectar.getCnn();
-                System.out.println("linea 37 GestionarOfertas después de conexión");
+                //System.out.println("linea 37 GestionarOfertas después de conexión");
 
-                System.out.println("linea 39 GestionarOfertas pasó el if");
+                //System.out.println("linea 39 GestionarOfertas pasó el if");
                 ControlUsuario controlUsuario = new ControlUsuario(cnn);
 
                 Usuario usuarioValidado = controlUsuario.ObtenerId(usuario);
@@ -105,18 +105,18 @@
                                 DetalleProducto detalleProducto = new DetalleProducto();
                                 DetalleProducto_Tiene_Imagen dpti = new DetalleProducto_Tiene_Imagen();
                                 for (Oferta oferta : ofertas) {
-                                    System.out.println("oferta: " + oferta);
+                                    //System.out.println("oferta: " + oferta);
                                     detalleProducto.setOferta_idOferta(oferta.getIdOferta());
                                     detalleProducto = ControlDetalleProducto.ObtenerId(detalleProducto);
-                                    System.out.println("detalleProducto: " + detalleProducto);
+                                    //System.out.println("detalleProducto: " + detalleProducto);
                                     dpti.setDetalleProducto_Oferta_idOferta(oferta.getIdOferta());
                                     dpti.setDetalleProducto_Producto_idProducto(detalleProducto.getProducto_idProducto());
-                                    System.out.println("dpti ingresado: " + dpti);
+                                    //System.out.println("dpti ingresado: " + dpti);
                                     dpti = controlDetalleProducto_Tiene_Imagen.ObtenerId(dpti);
-                                    System.out.println("dpti: " + dpti);
+                                    //System.out.println("dpti: " + dpti);
                                     imagen.setIdImagen(dpti.getImagen_idImagen());
                                     imagen = controlImagen.ObtenerId(imagen);
-                                    System.out.println("imagen: " + imagen);
+                                    //System.out.println("imagen: " + imagen);
                                     
                             %>
 
@@ -204,5 +204,27 @@
         <link href="../_css/styles.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="../_js/gestionarOfertasLogica.js"></script>
         <script type="text/javascript" src="../_js/eliminarOfertaLogica.js"></script>
+        
+        
+        
+        
+                <%@include file="./Footer.jsp" %>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $().UItoTop({easingType: 'easeOutQuart'});
+
+            });
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+        <a href="#" id="toTop"> </a>
+        <script type="text/javascript" src="../_js/navigation.js"></script>
+        <link href="../_css/style.css" rel="stylesheet" type="text/css" media="all"/>
+        <script type="text/javascript" src="../_js/jquery-1.9.0.min.js"></script> 
+        <script src="../_js/jquery.openCarousel.js" type="text/javascript"></script>
+        <script type="text/javascript" src="../_js/easing.js"></script>
+        <script type="text/javascript" src="../_js/move-top.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
     </body>
 </html>

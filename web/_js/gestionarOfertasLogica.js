@@ -36,13 +36,13 @@ function accionModificarOferta(idOfert) {
 
         $.ajax({
             type: 'POST',
-            url: '/BuscaOfertas/jsp/ModificarOferta.jsp',
+            url: '/BuscaOfertas/SeleccionOferta',
 
             //contentType:'application/json',
             data: (objDatos),
             //dataType:'json',
             success: function (data, textStatus, jqXHR) {
-                alert(data.mensaje);
+                //alert(data.mensaje);
                 if (data.codigo !== 0) {
                     $(location).attr('href', '/BuscaOfertas/jsp/ModificarOferta.jsp');
                 }

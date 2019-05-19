@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -88,7 +87,7 @@ public class RegistrarUsuario extends HttpServlet {
                     RespuestaServer resp = new RespuestaServer();
                     resp.setCodigo(0);
                     resp.setMensaje("Fallo al insertar Datos" + ex.getMensaje());
-                    out.println(id+""+new Gson().toJson(resp));
+                    out.println(new Gson().toJson(resp));
                 }
                 System.out.println("OK");
                 HttpSession sesion = request.getSession();

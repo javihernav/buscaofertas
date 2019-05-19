@@ -17,7 +17,7 @@
               maximum-scalable=1.0>
 
         <link rel="shortcut icon" type="image/x-icon" href="../_img/LETRERO-BUSCAOFERTAS-Y-nombre-técnico.png">
-        
+
         <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
 
     </head>
@@ -27,7 +27,273 @@
             <%@include file="/jsp/Barra.jsp" %>
         </header>
 
+        
+        
+        
+            <div class="main">
+        <div class="content">
+            <div class="content_top">
+                <div class="wrap">
+                    <h3>Productos Más Buscados</h3>
+                </div>
+                <div class="line"> </div>
+                <div class="wrap">
+                    <div class="ocarousel_slider">  
+                        <div class="ocarousel example_photos" data-ocarousel-perscroll="3">
+                            <div class="ocarousel_window">
+                                <a href="#" title="img1"> <img src="../images/latest-product-img1.jpg" alt="" /><p></p></a>
+                                <a href="#" title="img2"> <img src="../images/latest-product-img2.jpg" alt="" /><p>Soplador</p></a>
+                                <a href="#" title="img3"> <img src="../images/latest-product-img3.jpg" alt="" /><p>Impresora</p></a>
+                                <a href="#" title="img4"> <img src="../images/latest-product-img4.jpg" alt="" /><p>Mesa elegante</p></a>
+                                <a href="#" title="img5"> <img src="../images/latest-product-img5.jpg" alt="" /><p>Taladro</p></a>
+                                <a href="#" title="img6"> <img src="../images/latest-product-img6.jpg" alt="" /><p>Coche</p></a>
+                                <a href="#" title="img2"> <img src="../images/latest-product-img2.jpg" alt="" /><p>Aspiradora</p></a>
+                                <a href="#" title="img3"> <img src="../images/latest-product-img3.jpg" alt="" /><p>Impresora hp</p></a>
+                                <a href="#" title="img4"> <img src="../images/latest-product-img4.jpg" alt="" /><p>Mesa de trabajo</p></a>
+                                <a href="#" title="img5"> <img src="../images/latest-product-img5.jpg" alt="" /><p>Atornillador eléctrico</p></a>
+                                <a href="#" title="img6"> <img src="../images/latest-product-img6.jpg" alt="" /><p>Coche semiautomático</p></a>
+                            </div>
+                            <span>           
+                                <a href="#" data-ocarousel-link="left" style="float: left;" class="prev"> </a>
+                                <a href="#" data-ocarousel-link="right" style="float: right;" class="next"> </a>
+                            </span>
+                        </div>
+                    </div>  
+                </div>    		
+            </div>
+            <div class="content_bottom">
+                <div class="wrap">
+                    <div class="content-bottom-left">
+                        <div class="categories">
+                            <h3>Todas Las Categorías</h3>
+                            <ul>
+                                <li><a href="#">Tecnología</a></li>
+                                <li><a href="#">Electrodomésticos</a></li>
+                                <li><a href="#">Computadoras</a></li>
+                                <li><a href="#">Hogar</a></li>
+                                <li><a href="#">Vehículos</a></li>
+                                <li><a href="#">Salud y Belleza</a></li>
+                                <li><a href="#">Herramientas de Trabajo</a></li>
+                                <li><a href="#">Instrumentos Musicales</a></li>
+                                <li><a href="#">Deportes</a></li>
+                            </ul>
+                        </div>		
+                        <div class="buters-guide">
+                            <h3>Otros anuncios</h3>
+                            <p><span>Cámara con el 50% de descuento.</span></p>	
+                            <p>Oferta disponible en almacenes éxito. </p>
+                        </div>	
+                        <div class="add-banner">
+                            <img src="../images/camera.png" alt="" />
+                            <div class="banner-desc">
+                                <h4>Cámara </h4>
+                                <a href="#">Más información</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="add-banner add-banner2">
+                            <img src="../images/computer.png" alt="" />
+                            <div class="banner-desc">
+                                <h4></h4>
 
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+
+                    <div class="content-bottom-right">
+                        <h3>Resultados de búsqueda</h3>
+                        <div class="section group">
+                            <div class="grid_1_of_4 images_1_of_4">
+                                <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
+                                <a href="preview.html"><img src="../images/product-img1.jpg" alt="" /></a>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p><span class="rupees">$839.93 </span></p>
+                                    </div>
+                                    <div class="add-cart">								
+                                        <h4><a href="preview.html">Más información</a></h4>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>					 
+                            </div>
+                            <div class="grid_1_of_4 images_1_of_4">
+                                <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
+                                <a href="preview.html"><img src="../images/product-img2.jpg" alt="" /></a>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p><span class="rupees">$839.93 </span></p>
+                                    </div>
+                                    <div class="add-cart">								
+                                        <h4><a href="preview.html">Más información</a></h4>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+                            </div>
+                            <div class="grid_1_of_4 images_1_of_4">
+                                <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
+                                <a href="preview.html"><img src="../images/product-img3.jpg" alt="" /></a>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p><span class="rupees">$839.93 </span></p>
+                                    </div>
+                                    <div class="add-cart">								
+                                        <h4><a href="preview.html">Más información</a></h4>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+                            </div>
+                            <div class="grid_1_of_4 images_1_of_4">
+                                <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
+                                <a href="preview.html"><img src="../images/product-img4.jpg" alt="" /></a>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p><span class="rupees">$839.93 </span></p>
+                                    </div>
+                                    <div class="add-cart">								
+                                        <h4><a href="preview.html">Más información</a></h4>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section group">
+                            <div class="grid_1_of_4 images_1_of_4">
+                                <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
+                                <a href="preview.html"><img src="../images/product-img1.jpg" alt="" /></a>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p><span class="rupees">$839.93 </span></p>
+                                    </div>
+                                    <div class="add-cart">								
+                                        <h4><a href="preview.html">Más información</a></h4>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>					 
+                            </div>
+                            <div class="grid_1_of_4 images_1_of_4">
+                                <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
+                                <a href="preview.html"><img src="../images/product-img2.jpg" alt="" /></a>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p><span class="rupees">$839.93 </span></p>
+                                    </div>
+                                    <div class="add-cart">								
+                                        <h4><a href="preview.html">Más información</a></h4>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+                            </div>
+                            <div class="grid_1_of_4 images_1_of_4">
+                                <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
+                                <a href="preview.html"><img src="../images/product-img3.jpg" alt="" /></a>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p><span class="rupees">$839.93 </span></p>
+                                    </div>
+                                    <div class="add-cart">								
+                                        <h4><a href="preview.html">Más información</a></h4>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+                            </div>
+                            <div class="grid_1_of_4 images_1_of_4">
+                                <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
+                                <a href="preview.html"><img src="../images/product-img4.jpg" alt="" /></a>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p><span class="rupees">$839.93 </span></p>
+                                    </div>
+                                    <div class="add-cart">								
+                                        <h4><a href="preview.html">Más información</a></h4>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section group">
+                            <div class="grid_1_of_4 images_1_of_4">
+                                <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
+                                <a href="preview.html"><img src="../images/product-img1.jpg" alt="" /></a>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p><span class="rupees">$839.93 </span></p>
+                                    </div>
+                                    <div class="add-cart">								
+                                        <h4><a href="preview.html">Más información</a></h4>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>					 
+                            </div>
+                            <div class="grid_1_of_4 images_1_of_4">
+                                <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
+                                <a href="preview.html"><img src="../images/product-img2.jpg" alt="" /></a>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p><span class="rupees">$839.93 </span></p>
+                                    </div>
+                                    <div class="add-cart">								
+                                        <h4><a href="preview.html">Más información</a></h4>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+                            </div>
+                            <div class="grid_1_of_4 images_1_of_4">
+                                <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
+                                <a href="preview.html"><img src="../images/product-img3.jpg" alt="" /></a>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p><span class="rupees">$839.93 </span></p>
+                                    </div>
+                                    <div class="add-cart">								
+                                        <h4><a href="preview.html">Más información</a></h4>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+                            </div>
+                            <div class="grid_1_of_4 images_1_of_4">
+                                <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
+                                <a href="preview.html"><img src="../images/product-img4.jpg" alt="" /></a>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p><span class="rupees">$839.93 </span></p>
+                                    </div>
+                                    <div class="add-cart">								
+                                        <h4><a href="preview.html">Más información</a></h4>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-articles">
+                            <h3>Articulos</h3>
+                            <ul>
+                                <li>
+                                    <div class="article">
+                                        <p><span>Impresoras HP OfficeJet Pro 6900</span></p>
+                                        <p>Potencie la oficina con color económico e impresión veloz a doble cara. Ahorre papel con impresión automática a doble cara y haga más cosas sin perder tiempo. Tenga una serie de opciones de impresión móvil y configuración móvil sencilla.1,2
+                                            Impresora apta para seguridad dinámica. Destinada solo al uso con cartuchos que usen un chip original HP. Los cartuchos que usan un chip de otro fabricante podrían no funcionar y los que funcionen, podrían no hacerlo en el futuro.</p>
+                                        <p><a href="#">Mas información aqui.</a></p>
+                                    </div>
+                                </li>
+                                <li>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--
         <div class="container col-md-8">
 
             <form class="form-inline" action="" autocomplete="on">
@@ -50,19 +316,37 @@
                 </div>
             </form>
         </div>
+-->
 
-        <!-- <script type="text/javascript" src="../_js/jquery-3.3.1.js"></script>
-          <script type="text/javascript" src="../_js/bootstrap.min.js"></script>
-         <script type="text/javascript" src="../_js/popper.min.js"></script>
-         <link rel="stylesheet" href="../_css/bootstrap.min.css">
-        <link href="../_css/styles.css" rel="stylesheet" type="text/css" />-->
-         
+        <%@include file="./Footer.jsp" %>
+        <script type="text/javascript" src="../_js/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="../_js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../_js/popper.min.js"></script>
+        <link rel="stylesheet" href="../_css/bootstrap.min.css">
+        <link href="../_css/styles.css" rel="stylesheet" type="text/css" />
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-         <link href="../_css/styles.css" rel="stylesheet" type="text/css" />
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link href="../_css/styles.css" rel="stylesheet" type="text/css" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+        < script type = "text/javascript" >
+        $(document).ready(function () {
+                    $().UItoTop({easingType: 'easeOutQuart'});
+        
+        });
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
+        <a href="#" id="toTop"> </a>
+        <script type="text/javascript" src="../_js/navigation.js"></script>
+        <link href="../_css/style.css" rel="stylesheet" type="text/css" media="all"/>
+        <script type="text/javascript" src="../_js/jquery-1.9.0.min.js"></script> 
+        <script src="../_js/jquery.openCarousel.js" type="text/javascript"></script>
+        <script type="text/javascript" src="../_js/easing.js"></script>
+        <script type="text/javascript" src="../_js/move-top.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
     </body>
 
 </html>

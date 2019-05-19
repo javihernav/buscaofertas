@@ -1,13 +1,14 @@
 window.onload = function () {
     cargarComboBoxCiudad();
     cargarComboBoxCategorias();
+    cargarComboBoxProducto();
     $('#botonActualizar').on('click', accionEnviarDatos);
     $('#botonCancelar').on('click', volver);
 };
 
 function accionEnviarDatos() {
-    if (true) {
-        var formData = new FormData(document.getElementById("formOferta"))
+    if (validarFormularioOferta()) {
+        var formData = new FormData(document.getElementById("formOferta"));
         /*
         var objDatos = {
 

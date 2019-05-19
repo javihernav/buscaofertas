@@ -57,10 +57,10 @@ import javax.servlet.http.Part;
  */
 @WebServlet(name = "ModificarOferta", urlPatterns = {"/ModificarOferta"})
 @MultipartConfig(
-        fileSizeThreshold   = 1024 * 1024 * 1,  // 1 MB
-        maxFileSize         = 1024 * 1024 * 10, // 10 MB
-        maxRequestSize      = 1024 * 1024 * 15, // 15 MB
-        location            = "./temp"
+        fileSizeThreshold = 1024 * 1024 * 100, // 100 MB
+        maxFileSize = 1024 * 1024 * 100, // 100 MB
+        maxRequestSize = 1024 * 1024 * 150, // 150 MB
+        location = "./temp"
 )
 public class ModificarOferta extends HttpServlet {
 
@@ -80,54 +80,69 @@ public class ModificarOferta extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession sesion = request.getSession();
             Usuario usuarioVo = (Usuario) sesion.getAttribute("usuario");
-            Oferta ofertaVo = (Oferta) sesion.getAttribute("oferta");
-            Ubicacion ubicacionVo = (Ubicacion) sesion.getAttribute("ubicacion");
-           
-            Categoria categoriaVo = (Categoria) sesion.getAttribute("categoria");
-            Imagen imagenVo = (Imagen) sesion.getAttribute("imagen");
-            DetalleProducto detalleProductoVo = (DetalleProducto) sesion.getAttribute("detalleProducto");
-            Producto productoVo = (Producto) sesion.getAttribute("producto");
-            Marca marcaVo = (Marca) sesion.getAttribute("marca");
+            Oferta ofertaVo = (Oferta)sesion.getAttribute("oferta");
+            Ubicacion ubicacionVo = new Ubicacion();
+            System.out.println("linea 84 recibidos: usuarioVo: " + usuarioVo + "\nofertaVo: " + ofertaVo + "\nubicacionVo:" + ubicacionVo);
 
-            String nombreProducto = request.getParameter("txtNombreProducto");
-           
-            String categoriaProducto = request.getParameter("txtCategoria");
+            Categoria categoriaVo = new Categoria();
+            Imagen imagenVo = new Imagen();
+            DetalleProducto detalleProductoVo = new DetalleProducto();
+            Producto productoVo = new Producto();
+            Marca marcaVo = new Marca();
+
+            String idProductoString = request.getParameter("cbProducto");
+            System.out.println("linea 84 servlet RegistrarOfertas nombreProducto: " + idProductoString);
+
+            String idCategoriaProductoString = request.getParameter("cbCategoria");
+            System.out.println("linea 89 servlet RegistrarOfertas cbCategoria: " + idCategoriaProductoString);
             String marcaProducto = request.getParameter("txtMarca");
             String nombreOferta = request.getParameter("txtNombreOferta");
-            String ciudadOferta = request.getParameter("cbCiudadOferta");
+            String idCiudadOfertaString = request.getParameter("cbCiudadOferta");
             String nombreTienda = request.getParameter("txtNombreTienda");
-            Part imagenProducto = request.getPart("selectorImagen");
+            Part imagenProductoPart = request.getPart("selectorImagen");
             String direccionTienda = request.getParameter("txtDireccionTienda");
-            String precioOferta = request.getParameter("txtPrecio");
+            String precioOfertaString = request.getParameter("txtPrecio");
 
             Calendar fechaCreacion = Calendar.getInstance();
-            String fechaInicio = request.getParameter("txtFechaInicio");
-            String fechaFinalizacion = request.getParameter("txtFechaFinalizacion");
+            String fechaInicio = request.getParameter("txtFechaDeInicio");
+            String fechaFinalizacion = request.getParameter("txtFechaDeFinalizacion");
             String mensaje;
             mensaje = "";
-            if (ofertaVo != null
-                    && detalleProductoVo != null
-                    && ubicacionVo != null
-                   
-                    && categoriaVo != null
-                    && imagenVo != null
-                    && productoVo != null
-                    && marcaVo != null) {
+            System.out.println("linea 110 servlet ModificarOferta antes del if: ");
+            System.out.println("usuarioVo= " + usuarioVo + "\n"
+                    + "idCategoriaProducto= " + idCategoriaProductoString + "\n"
+                    + "marcaProducto= " + marcaProducto + "\n"
+                    + "nombreOferta= " + nombreOferta + "\n"
+                    + "idCiudadOferta= " + idCiudadOfertaString + "\n"
+                    + "nombreTienda= " + nombreTienda + "\n"
+                    + "imagenProducto= " + imagenProductoPart + "\n"
+                    + "direccionTienda= " + direccionTienda + "\n"
+                    + "precioOferta= " + precioOfertaString + "\n"
+                    + "fechaInicio= " + fechaInicio + "\n"
+                    + "fechaFinalizacion= " + fechaFinalizacion + "\n");
+            if (idProductoString != null
+                    && nombreOferta != null
+                    && idCiudadOfertaString != null
+                    && imagenProductoPart != null
+                    && direccionTienda != null
+                    && precioOfertaString != null
+                    && fechaInicio != null
+                    && fechaFinalizacion != null) {
                 Connection cnn;
                 cnn = Conectar.getCnn();
                 ControlUsuario controlUsuario = new ControlUsuario(cnn);
                 ControlUbicacion controlUbicacion = new ControlUbicacion(cnn);
-                
+
                 ControlImagen controlImagen = new ControlImagen(cnn);
                 ControlOferta controlOferta = new ControlOferta(cnn);
                 //ControlOferta_Tiene_Ubicacion controlOferta_Tiene_Ubicacion = new ControlOferta_Tiene_Ubicacion(cnn);
                 ControlProducto controlProducto = new ControlProducto(cnn);
-                
+
                 ControlCategoria controlCategoria = new ControlCategoria(cnn);
                 ControlMarca controlMarca = new ControlMarca(cnn);
 
                 ControlDetalleProducto controlDetalleProducto = new ControlDetalleProducto(cnn);
-                //ControlDetalleProducto_Tiene_Imagen controlDetalleProducto_Tiene_Imagen = new ControlDetalleProducto_Tiene_Imagen(cnn);
+                ControlDetalleProducto_Tiene_Imagen controlDetalleProducto_Tiene_Imagen = new ControlDetalleProducto_Tiene_Imagen(cnn);
 
                 int idUsuario = 0;
                 int idOferta = 0;
@@ -149,7 +164,8 @@ public class ModificarOferta extends HttpServlet {
                     }
                     controlOferta.modificar(ofertaVo);
 
-                    detalleProductoVo.setPrecio(Integer.parseInt(precioOferta));
+                    detalleProductoVo.setPrecio(Integer.parseInt(precioOfertaString));
+                    detalleProductoVo.setProducto_idProducto(Integer.parseInt(idProductoString));
                     controlDetalleProducto.modificar(detalleProductoVo);
 
                     ubicacionVo.setNombreTienda(nombreTienda);
@@ -160,20 +176,19 @@ public class ModificarOferta extends HttpServlet {
                     marcaVo.setNombreMarca(marcaProducto);
                     controlMarca.modificar(marcaVo);
 
-                    categoriaVo.setNombreCategoria(categoriaProducto);
-                    controlCategoria.modificar(categoriaVo);
+//                    categoriaVo.setNombreCategoria(categoriaProducto);
+//                    controlCategoria.modificar(categoriaVo);
 
+//                    productoVo.setNombreProducto(nombreProducto);
+//                    controlProducto.modificar(productoVo);
 
-                    productoVo.setNombreProducto(nombreProducto);
-                    controlProducto.modificar(productoVo);
+//                    detalleProductoVo.setPrecio(Double.parseDouble(precioOfertaString));
+//                    controlDetalleProducto.modificar(detalleProductoVo);
 
-                    detalleProductoVo.setPrecio(Double.parseDouble(precioOferta));
-                    controlDetalleProducto.modificar(detalleProductoVo);
-
-                    InputStream imgInputStream = imagenProducto.getInputStream();
+                    InputStream imgInputStream = imagenProductoPart.getInputStream();
                     imagenVo.setFotoInputStream(imgInputStream);
-                    imagenVo.setNombreImagen(imagenProducto.getSubmittedFileName());
-                    System.out.println("linea 176 servlet ModificarOferta modificando con imagenVo: "+imagenVo);
+                    imagenVo.setNombreImagen(imagenProductoPart.getSubmittedFileName());
+                    System.out.println("linea 176 servlet ModificarOferta modificando con imagenVo: " + imagenVo);
                     controlImagen.modificar(imagenVo);
 
                 } catch (AppException ex) {

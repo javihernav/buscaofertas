@@ -47,11 +47,11 @@ public class SeleccionOferta extends HttpServlet {
             if (idOfertaString != null) {
                 
                 System.out.println("idOfertaString != null");
-                
-                sesion.setAttribute("idOferta", idOfertaString);
+                int idOferta = Integer.parseInt(idOfertaString);
+                sesion.setAttribute("idOferta", idOferta);
                 RespuestaServer resp = new RespuestaServer();
                 resp.setCodigo(1);
-                resp.setMensaje("id cargado a la sesión en servlet seleccionOferta");
+                resp.setMensaje("id cargado a la sesión en servlet seleccionOferta: "+idOfertaString);
                 out.println(new Gson().toJson(resp));
                 
 

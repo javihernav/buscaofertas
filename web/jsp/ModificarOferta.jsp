@@ -47,23 +47,26 @@
     <body>
         <%
 
-            String idOfertaString = null; Usuario usuario = null;
+            Object idOfertaObject = null;
+            Usuario usuario = null;
             HttpSession sesion2 = request.getSession();
             try {
-                idOfertaString = (String) request.getParameter("idOferta");
+                idOfertaObject = sesion2.getAttribute("idOferta");
+                System.out.println("idOfertaObject: " + idOfertaObject);
                 usuario = (Usuario) sesion2.getAttribute("usuario");
+                System.out.println("usuario: " + usuario);
 
             } catch (Exception e) {
                 response.sendRedirect("./PaginaPrincipal.jsp");
             }
-            if (idOfertaString == null || idOfertaString.isEmpty()) {
+            if (idOfertaObject == null) {
                 response.sendRedirect("./PaginaPrincipal.jsp");
             }
 
             int idOferta = 1;
 
             try {
-                idOferta = Integer.parseInt(idOfertaString);
+                idOferta = (Integer) idOfertaObject;
                 System.out.println("\nnúmero de oferta recibida en el jsp ModificarOferta.jsp: " + idOferta);
             } catch (NumberFormatException e) {
                 System.out.println("error al convertir el numero de oferta");
@@ -72,29 +75,30 @@
             Connection cnn = Conectar.getCnn();
             ControlOferta controlOferta = new ControlOferta(cnn);
             Oferta oferta = controlOferta.consultarPorIdOferta(idOferta);
-            //request.setAttribute("oferta", oferta);
-            System.out.println("linea 76 oferta "+oferta+" asignada como atributo de request en modificarOferta.jsp");
+            sesion2.setAttribute("oferta", oferta);
+            System.out.println("linea 76 oferta " + oferta + " asignada como atributo de request en modificarOferta.jsp");
 
             Oferta_Tiene_Ubicacion otu = new Oferta_Tiene_Ubicacion();
-            otu.setOferta_idOferta(oferta.getIdOferta());System.out.println("linea: "+78+otu);
+            otu.setOferta_idOferta(oferta.getIdOferta());
+            System.out.println("linea: " + 78 + otu);
             ControlOferta_Tiene_Ubicacion controlOferta_Tiene_Ubicacion = new ControlOferta_Tiene_Ubicacion(cnn);
             Oferta_Tiene_Ubicacion oferta_Tiene_Ubicacion = controlOferta_Tiene_Ubicacion.consultarPorIdOferta(otu);
-            System.out.println("linea: "+81+oferta);
-            System.out.println("linea: "+82+oferta_Tiene_Ubicacion);
+            System.out.println("linea: " + 81 + oferta);
+            System.out.println("linea: " + 82 + oferta_Tiene_Ubicacion);
 
             ControlUbicacion controlUbicacion = new ControlUbicacion(cnn);
             Ubicacion ubicacionVo = new Ubicacion();
             ubicacionVo.setIdUbicacion(oferta_Tiene_Ubicacion.getUbicacion_idUbicacion());
             Ubicacion ubicacion = controlUbicacion.ObtenerId(ubicacionVo);
             request.setAttribute("ubicacion", ubicacion);
-            System.out.println("linea: "+88+ubicacion);
+            System.out.println("linea: " + 88 + ubicacion);
 
             ControlDetalleProducto controlDetalleProducto = new ControlDetalleProducto(cnn);
             DetalleProducto detalleProductoVo = new DetalleProducto();
             detalleProductoVo.setOferta_idOferta(oferta.getIdOferta());
             DetalleProducto detalleProductoExtraido = controlDetalleProducto.ObtenerId(detalleProductoVo);
             request.setAttribute("detalleProducto", detalleProductoExtraido);
-            System.out.println("linea: "+95+detalleProductoExtraido);
+            System.out.println("linea: " + 95 + detalleProductoExtraido);
 
             Producto productoVo = new Producto();
             productoVo.setIdProducto(detalleProductoExtraido.getProducto_idProducto());
@@ -102,21 +106,21 @@
             Producto productoExtraido = controlProducto.ObtenerId(productoVo);
             System.out.println("\nId de producto: " + productoExtraido.getIdProducto());
             request.setAttribute("producto", productoExtraido);
-            System.out.println("linea: "+103+productoExtraido);
+            System.out.println("linea: " + 103 + productoExtraido);
 
             Marca marcaVo = new Marca();
             marcaVo.setIdMarca(productoExtraido.getMarca_idMarca());
             ControlMarca controlMarca = new ControlMarca(cnn);
             Marca marcaExtraida = controlMarca.ObtenerId(marcaVo);
             request.setAttribute("marca", marcaExtraida);
-            System.out.println("linea: "+110+marcaExtraida);
+            System.out.println("linea: " + 110 + marcaExtraida);
 
             Categoria CategoriaVo = new Categoria();
             CategoriaVo.setIdCategoria(productoExtraido.getCategoria_idCategoria());
             ControlCategoria controlCategoria = new ControlCategoria(cnn);
             Categoria categoriaExtraido = controlCategoria.ObtenerId(CategoriaVo);
             request.setAttribute("categoria", categoriaExtraido);
-            System.out.println("linea: "+117+categoriaExtraido);
+            System.out.println("linea: " + 117 + categoriaExtraido);
 
             DetalleProducto_Tiene_Imagen detalleProducto_Tiene_ImagenVo = new DetalleProducto_Tiene_Imagen();
             detalleProducto_Tiene_ImagenVo.setDetalleProducto_Oferta_idOferta(oferta.getIdOferta());
@@ -124,7 +128,7 @@
             ControlDetalleProducto_Tiene_Imagen controlDetalleProducto_Tiene_Imagen = new ControlDetalleProducto_Tiene_Imagen(cnn);
             DetalleProducto_Tiene_Imagen detalleProducto_Tiene_ImagenExtraido = controlDetalleProducto_Tiene_Imagen.ObtenerId(detalleProducto_Tiene_ImagenVo);
             System.out.println("\nId de imagen buscada: " + detalleProducto_Tiene_ImagenExtraido.getImagen_idImagen());
-            System.out.println("linea: "+126+detalleProducto_Tiene_ImagenExtraido);
+            System.out.println("linea: " + 126 + detalleProducto_Tiene_ImagenExtraido);
 
             Imagen imagenVo = new Imagen();
             imagenVo.setIdImagen(detalleProducto_Tiene_ImagenExtraido.getImagen_idImagen());
@@ -132,7 +136,7 @@
             Imagen imagenExtraida = controlImagen.ObtenerId(imagenVo);
             System.out.println("\nId de imagen: " + imagenExtraida.getIdImagen());
             request.setAttribute("imagen", imagenExtraida);
-            System.out.println("linea: "+134+imagenExtraida+" ModificarOferta.jsp");
+            System.out.println("linea: " + 134 + imagenExtraida + " ModificarOferta.jsp");
             request.setAttribute("usuario", usuario);
 
         %>
@@ -147,7 +151,6 @@
                 </figure>-->
 
         <div class="container">
-
             <form id="formOferta" class="form-check" autocomplete="on" method="post" action="" enctype="multipart/form-data" >
 
                 <div class="container">
@@ -155,48 +158,100 @@
                     <div class="row">
                         &nbsp;
                     </div>
-                    <center><h1 class="mx-auto d-block">Modificar Ofertas</h1></center>
+                    <center><h1 class="mx-auto d-block">Modificar Oferta</h1></center>
                     <div class="row">
-                        <div class="form-group col-md-4"><label  class="custom-control-label">Nombre del producto:</label><input class="form-control" id="txtNombreProducto" type="text" value="<%= productoExtraido.getNombreProducto()%>" maxlength="45" placeholder="Nombre del producto " oninput="validarNombreProducto()" required></div><br />
-                        <div class="form-group col-md-4"><label  class="custom-control-label">Categoría:</label><input class="form-control"  id="txtCategoria" type="text" value=""<%= categoriaExtraido.getNombreCategoria()%> maxlength="45" placeholder="Categoría del Producto" oninput="" required></div><br />
-                        <div class="form-group col-md-4"><label  class="custom-control-label">Marca:</label><input class="form-control"  id="txtMarca" type="text" value="<%= marcaExtraida.getNombreMarca()%>" maxlength="45" placeholder="Marca del Producto" oninput="" required></div><br />
-                        <div class="form-group col-md-12"><label class="custom-control-label">Nombre de la tienda:</label><input class="form-control"  id="txtNombreTienda" type="text" value="<%= ubicacion.getNombreTienda()%>" maxlength="20" placeholder="Introduzca nombre de la tienda " oninput="validarNombreTienda()" required></div><br />
-
-
-                        <div class="form-group col-md-12"><label class="custom-control-label">Dirección de la tienda:</label><input class="form-control"  id="txtDireccionTienda" type="text" value="<%= ubicacion.getDireccion()%>" placeholder="Dirección de la tienda" oninput="validarDireccionTienda()" required></input></div><br />
-                        <div class="form-group col-md-12">
-                            <label class="custom-control-label" for="cbCiudadOferta">Ciudad de la oferta:</label>
-                            <select class="custom-select" id="cbCiudadOferta"  oninput="validarCiudadOferta()" required><option selected="0">Seleccione Ciudad</option>
+                        <div class="form-group col-md-4">
+                            <label  class="custom-control-label" for="cbProducto">Nombre del producto:</label>
+                            <select class="form-control" name="cbProducto" id="cbProducto" placeholder="Nombre del producto " value="<%= productoExtraido.getNombreProducto()%>" onchange="validarProducto()" tabindex="1" required="true">
+                                <option value="0">Seleccione Producto</option>
                             </select>
+                            <label id="errorNombreProducto"  class="error" for="cbProducto"></label>
+                        </div><br />
+                        <div class="form-group col-md-4">
+                            <label  class="custom-control-label" for="cbCategoria">Categoría:</label>
+                            <select class="form-control" name="cbCategoria" id="cbCategoria" tabindex="2" onchange="validarCategoria()" value"<%= categoriaExtraido.getNombreCategoria()%>" required>
+                                    <option value="0">Seleccionar categoría</option>       
+                            </select>
+                            <label id="errorCategoria" class="error" for="cbCategoria"></label>
+                        </div><br />
+                        <div class="form-group col-md-4">
+                            <label  class="custom-control-label">Marca:</label>
+                            <input class="form-control" name="txtMarca" id="txtMarca" type="text"  value="<%= marcaExtraida.getNombreMarca()%>"  maxlength="45" placeholder="Marca del Producto" tabindex="3" oninput="validarMarca()" required="true">
+                            <label id="errorMarca" class="error" for="txtMarca"></label>
+                        </div><br />
 
-                        </div>
-
-
-                        <label class="mx-auto d-block img-fluid custom-control-label" for="">Imagen del producto:</label>
-                        <div class="mx-auto form-group col-md-12 row conjuntoImagen">
-                            <div class="col-md-6 row">
-
-                                <label class="custom-file-label" for="selectorImagen">Seleccione Imagen</label>
-                                <input type="file" accept="image/*" class="custom-file-input " value="<%= imagenExtraida.getNombreImagen()%>" id="selectorImagen" onchange="mostrarImagen()">
-                            </div>
-                            <div class="col-md-6">
-                                <img class="" id="imgProducto"  src="../_img/lupa.png" alt="Imagen del producto" oninput="validarImagen()" height="35 vw" required>
-                            </div>
-                        </div>
-                        <div class="row col-md-12">
-                            &nbsp;
-                        </div>
-                        <div class="row">
-                            &nbsp;
-                        </div>
-                        <div class="form-group col-md-6"><label  class="custom-control-label">Nombre de la Oferta:</label><input class="form-control"  id="txtNombreOferta" type="text" value="<%= oferta.getNombreOferta()%>" maxlength="45" placeholder="Introduzca nombre de oferta " oninput="validarNombreOferta()" required></div><br />
-                        <div class="form-group col-md-6"><label class="custom-control-label">Precio:</label><input class="form-control"  id="txtPrecio" type="number" min="1" value="<%= detalleProductoExtraido.getPrecio()%>" maxlength="20" placeholder="Precio de oferta" oninput="validarPrecioDeOferta()" required></div><br />
-                        <div class="form-group col-md-6"><label class="custom-control-label">Fecha de Inicio:</label><input class="form-control"  id="txtFechaDeInicio" type="date" value="<%= new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(oferta.getFechaInicio())%>" maxlength="45"  oninput="validarFechaInicio()" required></div><br />
-
-                        <div class="form-group col-md-6"><label class="custom-control-label">Fecha de Finalización:</label><input class="form-control"  id="txtFechaDeFinalizacion" type="date" value="<%= new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(oferta.getFechaFin())%>" maxlength="45"  oninput="validarFechaFinalizacion()" required></div><br />
                     </div>
+                    <div class="row col-md-12">
+                        <div class="row col-md-6">
 
+                            <div class="row col-md-12">
+                                <div class="form-group col-md-12">
+                                    <label class="custom-control-label" for="cbCiudadOferta">Ciudad de la oferta:</label>
+                                    <select class="form-control custom-select" id="cbCiudadOferta"  name="cbCiudadOferta"  oninput="validarCiudadOferta()" tabindex="4" required>
+                                        <option value="0" selected="0">Seleccione Ciudad</option>
+                                    </select>
+                                    <label id="errorCiudadOferta" class="error" for="cbCiudadOferta"></label>
 
+                                </div><br />
+                            </div>
+                            <div class="row col-md-12">
+                                <div class="form-group col-md-12">
+                                    <label class="custom-control-label">Nombre de la tienda:</label>
+                                    <input class="form-control"  name="txtNombreTienda" id="txtNombreTienda" type="text"  value="<%= ubicacion.getNombreTienda()%>"  maxlength="20" placeholder="Introduzca nombre de la tienda " oninput="validarNombreTienda()" tabindex="6" required>
+                                    <label id="errorNombreTienda" class="error" for="txtNombreTienda"></label>
+                                </div><br />
+                            </div>
+                        </div>
+                        <div class="form-group mx-auto d-block img-fluid  col-md-6">
+                            <div class="row col-md-12">
+                                <div class="form-group col-md-12">
+                                    <label class="custom-control-label">Dirección de la tienda:</label>
+                                    <input class="form-control"  name="txtDireccionTienda" id="txtDireccionTienda" value="<%= ubicacion.getDireccion()%>" type="text" placeholder="Dirección de la tienda" oninput="validarDireccionTienda()" tabindex="5" required></input></div><br />
+                                <label id="errorDireccion" class="error" for="txtDireccionTienda"></label>
+                            </div>
+                            <label class="custom-control-label mx-auto d-block" for="imgProducto">Imagen del producto:</label>
+                            <div class="row">
+                                &nbsp;
+                            </div>
+                            <img class="mx-auto d-block img-fluid" name="imgProducto" id="imgProducto"  src="${pageContext.request.contextPath}/ServicioImagen/<%= imagenExtraida.getIdImagen()%>" alt="Imagen del producto" width="200px" height="200px" required>
+                            <div class="row">
+                                &nbsp;
+                            </div>
+                            <div class="custom-file col-md-12 mx-auto d-block">
+                                <label class="custom-file-label" for="selectorImagen">Seleccione Imagen</label>
+                                <input type="file" accept="image/*" class="custom-file-input " value="<%= imagenExtraida.getNombreImagen()%>" name="selectorImagen" id="selectorImagen" onchange="mostrarImagen();validarImagen();" oninput="validarImagen" tabindex="7" >
+                                <label id="errorImagen" class="error" for="selectorImagen"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label  class="custom-control-label">Nombre de la Oferta:</label>
+                            <input class="form-control"  name="txtNombreOferta" id="txtNombreOferta" type="text" value="<%= oferta.getNombreOferta()%>" maxlength="45" placeholder="Introduzca nombre de oferta " oninput="validarNombreOferta()" tabindex="8" required>
+                            <label id="errorNombreOferta" class="error" for="txtNombreOferta"></label>
+                        </div><br />
+                        <div class="form-group col-md-6">
+                            <label class="custom-control-label">Precio:</label>
+                            <input class="form-control"  name="txtPrecio" id="txtPrecio" value="<%= detalleProductoExtraido.getPrecio()%>" type="text" min="1" value="1" maxlength="20" placeholder="Precio de oferta" oninput="validarPrecioDeOferta()" tabindex="9" required>
+                            <label id="errorPrecio" class="error" for="txtPrecio"></label>
+                        </div><br />
+
+                    </div>
+                    <div class="row">
+
+                        <div class="form-group col-md-6">
+                            <label class="custom-control-label">Fecha de Inicio:</label>
+                            <input class="form-control"  name="txtFechaDeInicio" id="txtFechaDeInicio" type="date" value="<%= new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(oferta.getFechaInicio())%>" maxlength="45"  oninput="validarFechaInicio()" tabindex="10" required>
+                            <label id="errorFechaInicio" class="error" for="txtFechaInicio"></label>
+                        </div><br />
+
+                        <div class="form-group col-md-6">
+                            <label class="custom-control-label">Fecha de Finalización:</label>
+                            <input class="form-control"  name="txtFechaDeFinalizacion" id="txtFechaDeFinalizacion" type="date" value="<%= new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(oferta.getFechaFin())%>" maxlength="45"  oninput="validarFechaFinalizacion()" tabindex="11" required>
+                            <label id="errorFechaFinalizacion" class="error" for="txtFechaFinalizacion"></label>
+                        </div><br />
+
+                    </div>
                     <div class="row">
                         &nbsp;
                     </div>
@@ -205,8 +260,8 @@
                             &nbsp;
                         </div>
                         <div class="row col-md-6">
-                            <input class="btn btn-dark offset-1 col-md-4"  id="botonCancelar" type="button" value="Cancelar">
-                            <input class="btn btn-danger offset-1 col-md-4"  id="botonActualizar" type="button" value="Actualizar">
+                            <input class="btn btn-dark offset-1 col-md-4"  id="botonCancelar" type="button" value="Cancelar" tabindex="12" >
+                            <input class="btn btn-danger offset-1 col-md-4"  id="botonActualizar" type="button" value="Actualizar" tabindex="13" >
                         </div>
                     </div>
 
@@ -228,8 +283,32 @@
         <script type="text/javascript" src="../_js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../_js/popper.min.js"></script>
         <script type="text/javascript" src="../_js/registrarOfertaFechasLogica.js"></script>
+        <script type="text/javascript" src="../_js/productoLogica.js"></script>
+        <script type="text/javascript" src="../_js/categoriaLogica.js"></script>
         <!--<script type="text/javascript" src="../_js/registrarOferta.js"></script>-->
 
+        
+        
+        
+                <%@include file="./Footer.jsp" %>
+        
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $().UItoTop({easingType: 'easeOutQuart'});
+
+            });
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+        <a href="#" id="toTop"> </a>
+        <script type="text/javascript" src="../_js/navigation.js"></script>
+        <link href="../_css/style.css" rel="stylesheet" type="text/css" media="all"/>
+        <script type="text/javascript" src="../_js/jquery-1.9.0.min.js"></script> 
+        <script src="../_js/jquery.openCarousel.js" type="text/javascript"></script>
+        <script type="text/javascript" src="../_js/easing.js"></script>
+        <script type="text/javascript" src="../_js/move-top.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
     </body>
 
 </html>

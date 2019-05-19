@@ -84,5 +84,29 @@
         <link href="../_css/styles.css" rel="stylesheet" type="text/css" />
         <script src="../_js/categoriaLogica.js" type="text/javascript"></script>
         <script src="../_js/validacionProducto.js" type="text/javascript"></script>
+        
+        
+        
+        
+        
+        
+                <%@include file="./Footer.jsp" %>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $().UItoTop({easingType: 'easeOutQuart'});
+
+            });
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+        <a href="#" id="toTop"> </a>
+        <script type="text/javascript" src="../_js/navigation.js"></script>
+        <link href="../_css/style.css" rel="stylesheet" type="text/css" media="all"/>
+        <script type="text/javascript" src="../_js/jquery-1.9.0.min.js"></script> 
+        <script src="../_js/jquery.openCarousel.js" type="text/javascript"></script>
+        <script type="text/javascript" src="../_js/easing.js"></script>
+        <script type="text/javascript" src="../_js/move-top.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
     </body>
 </html>

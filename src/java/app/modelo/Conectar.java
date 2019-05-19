@@ -22,9 +22,9 @@ public final class Conectar {
             Class.forName("com.mysql.jdbc.Driver");
             cnn = DriverManager.getConnection(url, usuario, clave);
             //cnn.setAutoCommit(false);
-            if (cnn != null) {
-                System.out.println("Conexión a base de datos " + cnn + " OK\n");
-            }
+//            if (cnn != null) {
+//                System.out.println("Conexión a base de datos " + cnn + " OK\n");
+//            }
         } catch (SQLException ex) {
             throw new AppException(-2, "Base de datos no disponible" + ex.getMessage());
         } catch (ClassNotFoundException ex) {
@@ -39,9 +39,9 @@ public final class Conectar {
             Class.forName("com.mysql.jdbc.Driver");
             cnn = DriverManager.getConnection(url, usuario, clave);
             
-            if (cnn != null) {
-                System.out.println("Conexión a base de datos " + cnn + " OK\n");
-            }
+//            if (cnn != null) {
+//                System.out.println("Conexión a base de datos " + cnn + " OK\n");
+//            }
         } catch (SQLException ex) {
             throw new AppException(-2, "Base de datos no disponible" + ex.getMessage());
         } catch (ClassNotFoundException ex) {

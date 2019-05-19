@@ -108,74 +108,99 @@
             </form>
         </div>
         <div class="container">
-        <br>
-        <!--se saca con a.btn y enter
-        <a href="#ventana1" class="btn btn-primary btn-lg" data-toggle="modal">Boton 1</a>
-        <a href="#ventana2" class="btn btn-success btn-lg" data-toggle="modal">Boton 2</a>-->
-        <!--se saca con .modal.fade y enter-->
-        <div class="modal fade" id="ventana1">
-            <!--se saca con .modal-dialog y enter-->
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <!--header de la ventana-->
-                    <div class="modal-header">
-                        <!--&times es para que salga la x de cerrar la ventana como botón-->
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">
-                            Bienvenido a BuscaOfertas
-                        </h4>
-                    </div>
-                    <!--Contenido de la ventana-->
-                    <!--se saca con .modal-body y enter-->
-                    <div class="modal-body">
-                        <p>El lugar para encontrar las mejores ofertas</p>
+            <br>
+            <!--se saca con a.btn y enter
+            <a href="#ventana1" class="btn btn-primary btn-lg" data-toggle="modal">Boton 1</a>
+            <a href="#ventana2" class="btn btn-success btn-lg" data-toggle="modal">Boton 2</a>-->
+            <!--se saca con .modal.fade y enter-->
+            <div class="modal fade" id="ventana1">
+                <!--se saca con .modal-dialog y enter-->
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!--header de la ventana-->
+                        <div class="modal-header">
+                            <!--&times es para que salga la x de cerrar la ventana como botón-->
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">
+                                Bienvenido a BuscaOfertas
+                            </h4>
+                        </div>
+                        <!--Contenido de la ventana-->
+                        <!--se saca con .modal-body y enter-->
+                        <div class="modal-body">
+                            <p>El lugar para encontrar las mejores ofertas</p>
 
-                    </div>
-                    <!--Footer de la ventana-->
-                    <!--se saca con .modal-footer y enter-->
-                    <div class="modal-footer">
-                        <!--con data-dismiss le damos la funcionalidad de cerrar-->
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="redireccionar()">Aceptar</button>
+                        </div>
+                        <!--Footer de la ventana-->
+                        <!--se saca con .modal-footer y enter-->
+                        <div class="modal-footer">
+                            <!--con data-dismiss le damos la funcionalidad de cerrar-->
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="redireccionar()">Aceptar</button>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="modal fade" id="ventana2">
-            <!--se saca con .modal-dialog y enter-->
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <!--header de la ventana-->
-                    <div class="modal-header">
-                        <!--&times es para que salga la x de cerrar la ventana como botón-->
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">
-                            Error de autenticación
-                        </h4>
-                    </div>
-                    <!--Contenido de la ventana-->
-                    <!--se saca con .modal-body y enter-->
-                    <div class="modal-body">
-                        <p>Usted ha ingresado nombre de usuario o contraseña incorrectos.
-                        </p>
+            <div class="modal fade" id="ventana2">
+                <!--se saca con .modal-dialog y enter-->
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!--header de la ventana-->
+                        <div class="modal-header">
+                            <!--&times es para que salga la x de cerrar la ventana como botón-->
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">
+                                Error de autenticación
+                            </h4>
+                        </div>
+                        <!--Contenido de la ventana-->
+                        <!--se saca con .modal-body y enter-->
+                        <div class="modal-body">
+                            <p>Usted ha ingresado nombre de usuario o contraseña incorrectos.
+                            </p>
 
-                    </div>
-                    <!--Footer de la ventana-->
-                    <!--se saca con .modal-footer y enter-->
-                    <div class="modal-footer">
-                        <!--con data-dismiss le damos la funcionalidad de cerrar-->
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
-                      
+                        </div>
+                        <!--Footer de la ventana-->
+                        <!--se saca con .modal-footer y enter-->
+                        <div class="modal-footer">
+                            <!--con data-dismiss le damos la funcionalidad de cerrar-->
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-        <script type="text/javascript" src="../_js/validacion.js"></script>
+        </div><!--        
+
+
+        -->
+
+
+
         <script type="text/javascript" src="../_js/loginLogica.js"></script>
-        <script type="text/javascript" src="../_js/jquery-3.3.1.js"></script>
+              <script type="text/javascript" src="../_js/validacion.js"></script>
+
+        <%@include file="./Footer.jsp" %>
+        <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $().UItoTop({easingType: 'easeOutQuart'});
+
+                                });
+        </script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <a href="#" id="toTop"> </a>
+        <script type="text/javascript" src="../_js/navigation.js"></script>
+        <link href="../_css/style.css" rel="stylesheet" type="text/css" media="all"/>
+        <!--<script type="text/javascript" src="../_js/jquery-1.9.0.min.js"></script>--> 
+        <script src="../_js/jquery.openCarousel.js" type="text/javascript"></script>
+        <script type="text/javascript" src="../_js/easing.js"></script>
+        <script type="text/javascript" src="../_js/move-top.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
+        
+        
         <link href="../_css/styles.css" rel="stylesheet" type="text/css" />
-     
         <script type="text/javascript" src="../_js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../_js/popper.min.js"></script>
         <link rel="stylesheet" href="../_css/bootstrap.min.css">
