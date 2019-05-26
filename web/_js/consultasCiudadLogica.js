@@ -1,4 +1,4 @@
-function cargarComboBoxDatos() {
+function cargarComboBoxDatos(seleccion) {
     $.ajax({
         type: 'POST',
         url: '/BuscaOfertas/usus/consultarCiudad',//nombre url del servlet
@@ -12,7 +12,7 @@ function cargarComboBoxDatos() {
                 alert("No hay datos para mostrar");
             } else if (data.codigo === 1) {
                 //alert("Si hay datos: "+data.data);
-                llenarComboBox(data.data);
+                llenarComboBox(data.data,seleccion);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -21,7 +21,7 @@ function cargarComboBoxDatos() {
 
 
     });
-    function llenarComboBox(datosComboBox) {
+    function llenarComboBox(datosComboBox, seleccion) {
         //debugger;
         //var comboBox = $("#tablaDatos");
         var comboBox = document.getElementById("cbCiudadUsuario");
@@ -31,10 +31,14 @@ function cargarComboBoxDatos() {
             var item = datosComboBox[i];
             var opcion = document.createElement("option");
             opcion.setAttribute("value", item.idCiudad);
+            if(item.idCiudad == seleccion){
+                opcion.setAttribute("selected","true");
+            }
             opcion.setAttribute("label", item.nombreCiudad + " | " + item.departamentoCiudad);
             opcion.innerHTML = ""+item.nombreCiudad + " | " + item.departamentoCiudad;
             
             comboBox.appendChild(opcion);
         }
+        
     }
 }

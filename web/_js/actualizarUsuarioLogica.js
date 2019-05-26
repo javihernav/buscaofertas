@@ -1,5 +1,5 @@
 window.onload = function () {
-    cargarComboBoxDatos();
+    cargarComboBoxDatos(document.getElementById("cbCiudadUsuario").getAttribute("selectedIndex"));
     seleccionarOption();
     $('#botonRegistrar').on('click', accionEnviarDatos);
 };

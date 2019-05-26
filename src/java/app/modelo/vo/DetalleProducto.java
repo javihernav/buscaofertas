@@ -7,9 +7,9 @@ public class DetalleProducto  implements IVo {
 
     int Oferta_idOferta;
     int Producto_idProducto;
-    double precio;
+    int precio;
 
-    public DetalleProducto(int Oferta_idOferta, int Producto_idProducto, double precio) {
+    public DetalleProducto(int Oferta_idOferta, int Producto_idProducto, int precio) {
         this.Oferta_idOferta = Oferta_idOferta;
         this.Producto_idProducto = Producto_idProducto;
         this.precio = precio;
@@ -25,7 +25,7 @@ public DetalleProducto(){}
     public int getProducto_idProducto(){
         return Producto_idProducto;
     }
-    public double getPrecio(){
+    public int getPrecio(){
         return precio;
     }
 
@@ -38,7 +38,7 @@ public DetalleProducto(){}
     public void setProducto_idProducto(int Producto_idProducto){
         this.Producto_idProducto = Producto_idProducto;
     }
-    public void setPrecio(double precio){
+    public void setPrecio(int precio){
         this.precio = precio;
     }
 

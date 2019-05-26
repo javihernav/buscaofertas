@@ -33,19 +33,20 @@ function accionEnviarDatos() {
             url: '/BuscaOfertas/RegistrarOfertas',
             //contentType:'application/json',
             data: (formData),
-            dataType: 'html',
-            cache: false,
+//            dataType: 'html',
+//            cache: false,
+//enctype: 'multipart/form-data',
             contentType: false,
             processData: false,
             success: function (data, textStatus, jqXHR) {
-//                alert(data.mensaje);
-                alert("Oferta creada exitosamente!");
+                alert(data.mensaje);
+                //alert("Oferta creada exitosamente!");
                 if (data.codigo !== 0) {
                     $(location).attr('href', '/BuscaOfertas/jsp/GestionarOfertas.jsp');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert('NO OK ' + JSON.stringify(jqXHR));
+                //alert('NO OK ' + JSON.stringify(jqXHR));
             }
 
 

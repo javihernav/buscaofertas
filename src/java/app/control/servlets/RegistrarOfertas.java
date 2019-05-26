@@ -56,9 +56,21 @@ import javax.servlet.http.Part;
  */
 @WebServlet(name = "RegistrarOfertas", urlPatterns = {"/RegistrarOfertas"})
 @MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 100, // 100 MB
-        maxFileSize = 1024 * 1024 * 100, // 100 MB
-        maxRequestSize = 1024 * 1024 * 150, // 150 MB
+        fileSizeThreshold = 1024 * 1024 * 5, // 5 MB The file size in bytes 
+                                                //after which the file will be 
+                                                //temporarily stored on disk.
+                                                // The default size is 0 bytes.
+        maxFileSize = 1024 * 1024 * 5, // 5 MB
+        //The maximum size allowed for uploaded files, in bytes. If the size of
+        //any uploaded file is greater than this size, the web container will 
+        //throw an exception (IllegalStateException). The default size is unlimited.
+        maxRequestSize = 1024 * 1024 * 10, // 10 MB
+                                            //The maximum size allowed for a 
+                                            //multipart/form-data request, in bytes. 
+                                            //The web container will throw an exception 
+                                            //if the overall size of all uploaded files 
+                                            //exceeds this threshold. 
+                                            //The default size is unlimited.
         location = "./temp"
 )
 public class RegistrarOfertas extends HttpServlet {
@@ -177,7 +189,7 @@ public class RegistrarOfertas extends HttpServlet {
                     Producto productoEstraido = controlProducto.ObtenerId(productoVo);
                     System.out.println("linea 177 servlet RegistrarOfertas productoExtraido: " + productoEstraido);
 
-                    DetalleProducto detalleProductoVo = new DetalleProducto(idOferta, idProducto, Double.parseDouble(precioOfertaString));
+                    DetalleProducto detalleProductoVo = new DetalleProducto(idOferta, idProducto, Integer.parseInt(precioOfertaString));
 
                     controlDetalleProducto.insertar(detalleProductoVo);
                     System.out.println("linea 183 servlet RegistrarOfertas detalleProductoVo: " + detalleProductoVo);

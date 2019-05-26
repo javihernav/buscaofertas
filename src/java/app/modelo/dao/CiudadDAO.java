@@ -135,7 +135,7 @@ Connection cnn;
         CallableStatement cst = null;
         try{
             cst = Conectar.getCnn().prepareCall(sql);
-            cst.setString(1, vo.getNombreCiudad());
+            cst.setInt(1, vo.getIdCiudad());
             rs = cst.executeQuery();
             if(rs.next()){
                 Ciudad ciudadVo = new Ciudad();

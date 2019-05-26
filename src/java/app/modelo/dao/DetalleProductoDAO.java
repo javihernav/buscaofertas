@@ -31,7 +31,7 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
                 DetalleProducto vo = new DetalleProducto();
                 vo.setOferta_idOferta(rs.getInt(1));
                 vo.setProducto_idProducto(rs.getInt(2));
-                vo.setPrecio(rs.getDouble(3));
+                vo.setPrecio(rs.getInt(3));
                 list.add(vo);
             }
         } catch (SQLException ex) {
@@ -57,7 +57,7 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
             cst = Conectar.getCnn().prepareCall(sql);
             cst.setInt(1, vo.getOferta_idOferta());
             cst.setInt(2, vo.getProducto_idProducto());
-            cst.setDouble(3, vo.getPrecio());
+            cst.setInt(3, vo.getPrecio());
 
             ResultSet rs = cst.executeQuery();
             int id = 0;
@@ -84,15 +84,15 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
         CallableStatement cst = null;
         try {
             cst = Conectar.getCnn().prepareCall(sql);
-            cst.setDouble(1, vo.getPrecio());
-            cst.setInt(2, vo.getOferta_idOferta());
-            cst.setInt(3, vo.getProducto_idProducto());
+            cst.setInt(1, vo.getOferta_idOferta());
+            cst.setInt(2, vo.getProducto_idProducto());
+            cst.setInt(3, vo.getPrecio());
 
             cst.executeUpdate();
         } catch (SQLException ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto"+ex.getMessage());
+            throw new AppException(-2, "error al modificar a DetalleProducto"+ex.getMessage());
         } catch (Exception ex) {
-            throw new AppException(-2, "error al acceder a DetalleProducto"+ex.getMessage());
+            throw new AppException(-2, "error al modificar a DetalleProducto"+ex.getMessage());
         } finally {
             try {
                 cst.close();
@@ -142,8 +142,8 @@ public class DetalleProductoDAO implements IDao<DetalleProducto> {
                 voTemp = new DetalleProducto();
                 voTemp.setOferta_idOferta(rs.getInt("Oferta_idOferta"));
                 voTemp.setProducto_idProducto(rs.getInt("Producto_idProducto"));//Producto_idProducto
-                voTemp.setPrecio(rs.getDouble("precio"));
-                System.out.println("Oferta_idOferta " + rs.getInt("Oferta_idOferta") + " Producto_idProducto " + rs.getInt("Producto_idProducto") + " precio " + rs.getDouble("precio") + " en detalle producto");
+                voTemp.setPrecio(rs.getInt("precio"));
+                System.out.println("Oferta_idOferta " + rs.getInt("Oferta_idOferta") + " Producto_idProducto " + rs.getInt("Producto_idProducto") + " precio " + rs.getInt("precio") + " en detalle producto");
                 return (voTemp);
             }
             return null;

@@ -162,7 +162,6 @@
         <script type="text/javascript" src="../_js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../_js/popper.min.js"></script>
         <script type="text/javascript" src="../_js/registrarOfertaFechasLogica.js"></script>
-        <!--<script type="text/javascript" src="../_js/registrarOferta.js"></script>-->
         <script src="../_js/categoriaLogica.js" type="text/javascript"></script>
         <script src="../_js/productoLogica.js" type="text/javascript"></script>
         

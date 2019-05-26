@@ -2,11 +2,11 @@ window.onload = function () {
     cargarComboBoxCiudad();
     cargarComboBoxCategorias();
     cargarComboBoxProducto();
-    $('#botonActualizar').on('click', accionEnviarDatos);
+    $('#botonActualizar').on('click', accionEnviarDatosModificar);
     $('#botonCancelar').on('click', volver);
 };
 
-function accionEnviarDatos() {
+function accionEnviarDatosModificar() {
     if (validarFormularioOferta()) {
         var formData = new FormData(document.getElementById("formOferta"));
         /*
@@ -32,8 +32,9 @@ function accionEnviarDatos() {
             url: '/BuscaOfertas/ModificarOferta',
             //contentType:'application/json',
             data: (formData),
-            dataType:'html',
-            cache: false,
+//            dataType:'html',
+//            cache: false,
+//enctype: 'multipart/form-data',
             contentType: false,
             processData: false,
             success: function (data, textStatus, jqXHR) {
@@ -43,7 +44,7 @@ function accionEnviarDatos() {
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert('NO OK ' + JSON.stringify(jqXHR));
+                //alert('Falla en actualización: ' + JSON.stringify(jqXHR));
             }
 
 

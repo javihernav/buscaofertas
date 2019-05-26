@@ -5,17 +5,8 @@
  */
 package app.control.servlets;
 
-import app.control.ControlUsuario;
-import app.modelo.Conectar;
-import app.modelo.vo.Usuario;
-import app.utils.AppException;
-import app.utils.RespuestaServer;
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +18,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author JAVIER
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "prueba", urlPatterns = {"/prueba"})
+public class prueba extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,48 +32,23 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet prueba</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet prueba at " + request.getContextPath() + "</h1>");
             HttpSession sesion = request.getSession();
-            Object usuarioObject = request.getParameter("usuario");
-            Object claveObject = request.getParameter("clave");
-            String mensaje = "";
-            if (usuarioObject != null && claveObject != null) {
-            String usuario = (String)usuarioObject;
-            String clave = (String)claveObject;
-                Connection cnn;
-                try {
-                    cnn = Conectar.getCnn();
-                    ControlUsuario control = new ControlUsuario(cnn);
-
-                    Usuario vo = new Usuario();
-                    vo.setNombreUsuario(usuario);
-                    vo.setContrasena(clave);
-
-                    Usuario voValidado = control.validarUsuario(vo);
-                    RespuestaServer resp = new RespuestaServer();
-                    if (voValidado != null) {
-                        //sesion.setAttribute("usuario", usuario);
-                        System.out.println("Validación OK");
-                        //HttpSession sesion = request.getSession();
-                        sesion.setAttribute("usuario", voValidado);
-                        resp.setCodigo(1);
-                        System.out.println(voValidado.getNombreUsuario());
-                        resp.setMensaje("Bienvenido " + voValidado.getNombre());
-                        out.println(new Gson().toJson(resp));
-
-                    } else {
-                        resp.setCodigo(0);
-                        resp.setMensaje("Datos Incorrectos");
-                        out.println(new Gson().toJson(resp));
-
-                    }
-
-                } catch (AppException ex) {
-                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }
+            String texto = request.getParameter("nombreentrada");
+            String select = request.getParameter("nombreequipo");
+            out.println("entrada1:"+texto);
+            out.println("equipo:"+select);
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

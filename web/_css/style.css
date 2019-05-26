@@ -524,12 +524,14 @@ body {
 	display: block;
 	float: left;
 	margin: 1% 0 1% 1.6%;
+        
 }
 .grid_1_of_4:first-child {
 	margin-left: 0;
 }
 .images_1_of_4 {
 	width:20.72%;
+        
 	padding:1.5%; 
 	text-align: center;
 	position: relative;

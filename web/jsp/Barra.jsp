@@ -26,8 +26,11 @@
                     <div class="header_top_right row">
                         <div class="search_box row">
                             <span>Buscar producto</span>
-                            <form id="Cuadro">
-                                <input type="text" value="" placeholder="Buscar producto">
+                            <form id="Cuadro" action="./PaginaPrincipal.jsp">
+                                <div class="row">
+                                <input id="cuadroBusqueda" name="cuadroBusqueda" type="text" value="" placeholder="Buscar producto">
+                                <input id="btnBusqueda" type="submit" value="">
+                                </div>
                             </form>
                             <!--<a id="btnInicarSesion" href="contact.html">Iniciar Sesión</a>-->
                             <div class="clear"></div>

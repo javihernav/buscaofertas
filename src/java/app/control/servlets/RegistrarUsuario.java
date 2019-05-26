@@ -50,7 +50,7 @@ public class RegistrarUsuario extends HttpServlet {
             String telefono = request.getParameter("telefono");
             int ciudad = Integer.parseInt(request.getParameter("ciudad"));
             String fechaDeNacimiento = request.getParameter("fechaDeNacimiento");
-            String usuario = request.getParameter("usuario");
+            String usuarioString = request.getParameter("usuario");
             String clave = request.getParameter("clave");
             
             String genero = request.getParameter("genero");
@@ -62,7 +62,7 @@ public class RegistrarUsuario extends HttpServlet {
                     && telefono != null
                     && ciudad != 0
                     && fechaDeNacimiento != null
-                    && usuario != null
+                    && usuarioString != null
                     && clave != null
                     && genero != null
                     ) {
@@ -76,7 +76,7 @@ public class RegistrarUsuario extends HttpServlet {
                 vo.setTelefono(telefono);
                 vo.setCiudad_idCiudad(ciudad);
                 vo.setFechaNacimiento(fechaDeNacimiento);
-                vo.setNombreUsuario(usuario);
+                vo.setNombreUsuario(usuarioString);
                 vo.setContrasena(clave);
                 vo.setGenero(genero.charAt(0));
                 int id=0;
@@ -91,7 +91,8 @@ public class RegistrarUsuario extends HttpServlet {
                 }
                 System.out.println("OK");
                 HttpSession sesion = request.getSession();
-                sesion.setAttribute("usuario", usuario);
+                vo = control.ObtenerId(vo);
+                sesion.setAttribute("usuario", vo);
                 RespuestaServer resp = new RespuestaServer();
                 resp.setCodigo(1);
                 resp.setMensaje("Usuario creado satisfactoriamente");

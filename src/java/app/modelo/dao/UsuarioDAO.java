@@ -313,5 +313,7 @@ public class UsuarioDAO implements IDao<Usuario> {
         }
         return null;
     }
-
+    public static void main(String[] args) {
+        
+    }
 }

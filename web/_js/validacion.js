@@ -509,12 +509,27 @@ function validarImagen() {
         document.getElementById("selectorImagen").style.borderColor = "#FF0000";
         document.getElementById("errorImagen").innerHTML = "Debe seleccionar una imagen! ";
         retorno = 0;
-    } else {
+    } else if (!validarTamanio()) {
+        document.getElementById("selectorImagen").style.borderColor = "#FF0000";
+        document.getElementById("errorImagen").innerHTML = "El tamaño no debe superar 5Mb! ";
+        retorno = 0;
+    }else{
         document.getElementById("selectorImagen").style.borderColor = "#000000";
         document.getElementById("errorImagen").innerHTML = "";
     }
     
     
+    return retorno === 1;
+}
+function validarTamanio() {
+    retorno = 1;
+    var tamanio = $('#selectorImagen')[0].files[0].size;//tamaño en bytes de la imagen
+    console.log("tamaño de la imagen(bytes):"+tamanio);
+    var tamanioMegaBytes = parseInt(tamanio / 1024 / 1024);
+    if (tamanioMegaBytes >  5) {
+        alert("Imagen muy grande: " + tamanioMegaBytes);
+        retorno = 0;
+    }
     return retorno === 1;
 }
 
