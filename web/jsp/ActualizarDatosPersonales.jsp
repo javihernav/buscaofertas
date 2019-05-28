@@ -105,8 +105,13 @@
                         <label class="control-label " for="cbGenero">Género:</label>
                         <select class="form-control "id="cbGenero" type="text" onchange="validarGenero()" selectedIndex="<%= vo.getGenero() %>" required>
 <!--                            <option value="">Seleccione género</option>-->
-<option value="m" selected="<%=(vo.getGenero()=='m'? true:false)%>" >Masculino</option>
-<option value="f" selected="<%=(vo.getGenero()=='f'? true:false)%>" >Femenino</option>
+<%if(vo.getGenero()=='m'){%>
+<option value="m" selected="true" >Masculino</option>
+<option value="f" >Femenino</option>
+<%}else{%>
+<option value="m"  >Masculino</option>
+<option value="f" selected="true" >Femenino</option>
+<%}%>
                         </select>
                             <label id="errorGenero" class="error" for="cbGenero"></label>
                     </div>
