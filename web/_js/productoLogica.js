@@ -1,4 +1,4 @@
-function cargarComboBoxProducto() {
+function cargarComboBoxProducto(seleccion) {
 
     $.ajax({
         type: 'POST',
@@ -13,7 +13,7 @@ function cargarComboBoxProducto() {
                 alert("No hay datos de productos para mostrar");
             } else if (data.codigo === 1) {
                 //alert("Si hay datos: "+data.data);
-                llenarComboBoxProductos(data.data);
+                llenarComboBoxProductos(data.data,seleccion);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -22,7 +22,7 @@ function cargarComboBoxProducto() {
 
 
     });
-    function llenarComboBoxProductos(datosComboBox) {
+    function llenarComboBoxProductos(datosComboBox,seleccion) {
         //debugger;
         //var comboBox = $("#tablaDatos");
         var comboBox = document.getElementById("cbProducto");
@@ -32,6 +32,9 @@ function cargarComboBoxProducto() {
             var item = datosComboBox[i];
             var opcion = document.createElement("option");
             opcion.setAttribute("value", item.idProducto);
+              if(seleccion == item.idProducto){
+                opcion.setAttribute("selected","true");
+            }
             //opcion.setAttribute("style", "style='color: #000; background: #fff;'");
             opcion.setAttribute("label", item.nombreProducto);
             opcion.innerHTML = "" + item.nombreProducto;

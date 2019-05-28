@@ -1,4 +1,4 @@
-function cargarComboBoxCategorias() {
+function cargarComboBoxCategorias(seleccion) {
     //debugger;
     //alert("cargar combo box categorias");
     //cargarComboBoxCiudad();
@@ -15,7 +15,7 @@ function cargarComboBoxCategorias() {
                 alert("No hay datos para mostrar en categorías");
             } else if (data.codigo === 1) {
                 //alert("Si hay datos: "+data.data);
-                llenarComboBoxCategorias(data.data);
+                llenarComboBoxCategorias(data.data,seleccion);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -24,7 +24,7 @@ function cargarComboBoxCategorias() {
 
 
     });
-    function llenarComboBoxCategorias(datosComboBox) {
+    function llenarComboBoxCategorias(datosComboBox,seleccion) {
         //debugger;
         //var comboBox = $("#tablaDatos");
         var comboBox = document.getElementById("cbCategoria");
@@ -34,6 +34,9 @@ function cargarComboBoxCategorias() {
             var item = datosComboBox[i];
             var opcion = document.createElement("option");
             opcion.setAttribute("value", item.idCategoria);
+            if(item.idCategoria==seleccion){
+                opcion.setAttribute("selected","true");
+            }
             opcion.setAttribute("label", item.nombreCategoria + " | " + item.categoriaPrincipal);
             opcion.innerHTML = ""+item.nombreCategoria + " | " + item.categoriaPrincipal;
             comboBox.appendChild(opcion);

@@ -136,7 +136,7 @@
             Imagen imagenExtraida = controlImagen.ObtenerId(imagenVo);
             System.out.println("\nId de imagen: " + imagenExtraida.getIdImagen());
             request.setAttribute("imagen", imagenExtraida);
-            System.out.println("linea: " + 134 + imagenExtraida + " ModificarOferta.jsp");
+            //System.out.println("linea: " + 134 + imagenExtraida + " ModificarOferta.jsp");
             request.setAttribute("usuario", usuario);
 
         %>
@@ -162,14 +162,14 @@
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label  class="custom-control-label" for="cbProducto">Nombre del producto:</label>
-                            <select class="form-control" name="cbProducto" id="cbProducto" placeholder="Nombre del producto " value="<%= productoExtraido.getNombreProducto()%>" onchange="validarProducto()" tabindex="1" required="true">
+                            <select class="form-control" name="cbProducto" id="cbProducto" placeholder="Nombre del producto " selectedIndex="<%=productoExtraido.getIdProducto()%>" value="<%= productoExtraido.getNombreProducto()%>" onchange="validarProducto()" tabindex="1" required="true">
                                 <option value="0">Seleccione Producto</option>
                             </select>
                             <label id="errorNombreProducto"  class="error" for="cbProducto"></label>
                         </div><br />
                         <div class="form-group col-md-4">
                             <label  class="custom-control-label" for="cbCategoria">Categoría:</label>
-                            <select class="form-control" name="cbCategoria" id="cbCategoria" tabindex="2" onchange="validarCategoria()" value"<%= categoriaExtraido.getNombreCategoria()%>" required>
+                            <select class="form-control" name="cbCategoria" id="cbCategoria" tabindex="2" onchange="validarCategoria()" selectedIndex="<%=productoExtraido.getCategoria_idCategoria()%>"  value"<%= categoriaExtraido.getNombreCategoria()%>" required>
                                     <option value="0">Seleccionar categoría</option>       
                             </select>
                             <label id="errorCategoria" class="error" for="cbCategoria"></label>
@@ -186,8 +186,8 @@
 
                             <div class="row col-md-12">
                                 <div class="form-group col-md-12">
-                                    <label class="custom-control-label" for="cbCiudadOferta">Ciudad de la oferta:</label>
-                                    <select class="form-control custom-select" id="cbCiudadOferta"  name="cbCiudadOferta"  oninput="validarCiudadOferta()" tabindex="4" required>
+                                    <label class="custom-control-label" for="cbCiudadOferta" >Ciudad de la oferta:</label>
+                                    <select class="form-control custom-select" id="cbCiudadOferta"  name="cbCiudadOferta" selectedIndex="<%= ubicacion.getCiudad() %>" oninput="validarCiudadOferta()" tabindex="4" required>
                                         <option value="0" selected="0">Seleccione Ciudad</option>
                                     </select>
                                     <label id="errorCiudadOferta" class="error" for="cbCiudadOferta"></label>

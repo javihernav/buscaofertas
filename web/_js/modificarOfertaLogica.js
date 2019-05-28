@@ -1,7 +1,7 @@
 window.onload = function () {
-    cargarComboBoxCiudad();
-    cargarComboBoxCategorias();
-    cargarComboBoxProducto();
+    cargarComboBoxCiudad(document.getElementById("cbCiudadOferta").getAttribute("selectedindex"));
+    cargarComboBoxCategorias(document.getElementById("cbCategoria").getAttribute("selectedindex"));
+    cargarComboBoxProducto(document.getElementById("cbProducto").getAttribute("selectedindex"));
     $('#botonActualizar').on('click', accionEnviarDatosModificar);
     $('#botonCancelar').on('click', volver);
 };

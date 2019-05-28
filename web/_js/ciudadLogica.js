@@ -1,4 +1,4 @@
-function cargarComboBoxCiudad() {
+function cargarComboBoxCiudad(seleccion) {
     cargarFechas();
     $.ajax({
         type: 'POST',
@@ -13,7 +13,7 @@ function cargarComboBoxCiudad() {
                 alert("No hay datos para mostrar");
             } else if (data.codigo === 1) {
                 //alert("Si hay datos: "+data.data);
-                llenarComboBoxCiudad(data.data);
+                llenarComboBoxCiudad(data.data,seleccion);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -22,7 +22,7 @@ function cargarComboBoxCiudad() {
 
 
     });
-    function llenarComboBoxCiudad(datosComboBox) {
+    function llenarComboBoxCiudad(datosComboBox,seleccion) {
             //debugger;
         //var comboBox = $("#tablaDatos");
         var comboBox = document.getElementById("cbCiudadOferta");
@@ -32,6 +32,9 @@ function cargarComboBoxCiudad() {
             var item = datosComboBox[i];
             var opcion = document.createElement("option");
             opcion.setAttribute("value", item.idCiudad);
+            if(seleccion == item.idCiudad){
+                opcion.setAttribute("selected","true");
+            }
             //opcion.setAttribute("style", "style='color: #000000; background: #FFEEEE;'");
             opcion.setAttribute("label", item.nombreCiudad + " | " + item.departamentoCiudad);
             opcion.innerHTML=""+item.nombreCiudad + " | " + item.departamentoCiudad;
