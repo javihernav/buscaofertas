@@ -156,14 +156,14 @@
 
                                 %>
                                 <div class="grid_1_of_4 images_1_of_4">
-                                    <h4><a href="preview.html"><%= oferta.getNombreOferta()%> </a></h4>
-                                    <a href="preview.html"><img src="${pageContext.request.contextPath}/ServicioImagen/<%= oferta.getIdImagen()%>" alt="" /></a>
+                                    <h4><a href="DetalleProducto.html"><%= oferta.getNombreOferta()%> </a></h4>
+                                    <a href="DetalleProducto.html"><img src="${pageContext.request.contextPath}/ServicioImagen/<%= oferta.getIdImagen()%>" alt="" /></a>
                                     <div class="price-details">
                                         <div class="price-number">
                                             <p><span class="rupees">$ <%=oferta.getPrecio()%></span></p>
                                         </div>
                                         <div class="add-cart">								
-                                            <h4><a href="preview.html">Más información</a></h4>
+                                            <h4><a href="DetalleProducto.html">Más información</a></h4>
                                         </div>
                                         <div class="clear"></div>
                                     </div>					 

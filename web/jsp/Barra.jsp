@@ -208,9 +208,6 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a class="dropdown-item" href="#">Resumen</a>
-                                </li>
-                                <li>
                                     <a  class="dropdown-item" href="./GestionarOfertas.jsp">Mis Ofertas</a>
                                 </li>
                                 <li>
@@ -221,6 +218,9 @@
                                 <li>
                                     <a  class="dropdown-item" href="./AgregarProducto.jsp">Agregar Productos</a>
                                 </li>
+                                    <li>
+                                        <a class="dropdown-item" href="./GestionarUsuarios.jsp">Gestionar Usuarios</a>
+                                    </li>
                                 <% }%>
                                 <% }%>
                                 <li>
