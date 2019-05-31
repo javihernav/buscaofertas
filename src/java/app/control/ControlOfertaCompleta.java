@@ -28,9 +28,9 @@ public class ControlOfertaCompleta extends ControlGenerico<OfertaDAO, Oferta> {
         return ofertaDao.consultarPorIdUsuario(idUsuario);
     }
 
-    public Oferta consultarPorIdOferta(int idOferta) throws AppException {
-        OfertaDAO ofertaDao = new OfertaDAO();
-        return ofertaDao.consultarPorIdOferta(idOferta);
+    public OfertaCompleta consultarOfertaCompletaPorIdOferta(int idOferta) throws AppException {
+        OfertaCompletaDAO ofertaCompletaDao = new OfertaCompletaDAO();
+        return ofertaCompletaDao.consultarOfertaCompletaPorIdOferta(idOferta);
     }
 
     public ArrayList<OfertaCompleta> ConsultarOfertaCompleta(String consulta) throws AppException {

@@ -270,12 +270,15 @@ public class OfertaCompletaDAO implements IDao<Oferta> {
                 vo.setNombreTienda(rs.getString("nombreTienda"));
                 vo.setDireccion(rs.getString("direccion"));
                 vo.setCiudad(rs.getString("ciudad"));
+                vo.setNombreCiudad(rs.getString("nombreCiudad"));
+                vo.setDepartamentoCiudad(rs.getString("departamentoCiudad"));
                 vo.setIdProducto(rs.getInt("idProducto"));
                 vo.setNombreProducto(rs.getString("nombreProducto"));
                 vo.setPrecio(rs.getInt("precio"));
                 vo.setIdCategoria(rs.getInt("idCategoria"));
                 vo.setNombreCategoria(rs.getString("nombreCategoria"));
                 vo.setIdMarca(rs.getInt("Marca_idMarca"));
+                vo.setNombreMarca(rs.getString("nombreMarca"));
                 vo.setCategoriaPrincipal(rs.getString("categoriaPrincipal"));
                 vo.setId_DetalleProducto_tiene_Imagen(rs.getInt("Id_DetalleProducto_tiene_Imagen"));
                 vo.setIdImagen(rs.getInt("idImagen"));
@@ -298,6 +301,61 @@ public class OfertaCompletaDAO implements IDao<Oferta> {
         }
         return list;
     }
+    public OfertaCompleta consultarOfertaCompletaPorIdOferta(int idOferta) throws AppException {
+
+        
+        String sql = "{CALL buscaofertas.consultarOfertaCompletaPorIdOferta(?)}";
+        ResultSet rs = null;
+        CallableStatement cst = null;
+        try {
+            cst = Conectar.getCnn().prepareCall(sql);
+            cst.setInt(1, idOferta);
+            rs = cst.executeQuery();
+            if (rs.next()) {
+                OfertaCompleta vo = new OfertaCompleta();
+                vo.setIdUsuario(rs.getInt("Usuario_idUsuario"));
+                vo.setIdOferta(rs.getInt("idOferta"));
+                vo.setNombreOferta(rs.getString("nombreOferta"));
+                vo.setFechaCreacion(rs.getDate("fechaCreacion"));
+                vo.setFechaInicio(rs.getDate("fechaInicio"));
+                vo.setFechaFin(rs.getDate("fechaFin"));
+                vo.setVecesCompartida(rs.getInt("vecesCompartida"));
+                vo.setId_Oferta_tiene_Ubicacion(rs.getInt("Id_Oferta_tiene_Ubicacion"));
+                vo.setIdUbicacion(rs.getInt("idUbicacion"));
+                vo.setNombreTienda(rs.getString("nombreTienda"));
+                vo.setDireccion(rs.getString("direccion"));
+                vo.setCiudad(rs.getString("ciudad"));
+                vo.setNombreCiudad(rs.getString("nombreCiudad"));
+                vo.setDepartamentoCiudad(rs.getString("departamentoCiudad"));
+                vo.setIdProducto(rs.getInt("idProducto"));
+                vo.setNombreProducto(rs.getString("nombreProducto"));
+                vo.setPrecio(rs.getInt("precio"));
+                vo.setIdCategoria(rs.getInt("idCategoria"));
+                vo.setNombreCategoria(rs.getString("nombreCategoria"));
+                vo.setIdMarca(rs.getInt("Marca_idMarca"));
+                vo.setNombreMarca(rs.getString("nombreMarca"));
+                vo.setCategoriaPrincipal(rs.getString("categoriaPrincipal"));
+                vo.setId_DetalleProducto_tiene_Imagen(rs.getInt("Id_DetalleProducto_tiene_Imagen"));
+                vo.setIdImagen(rs.getInt("idImagen"));
+                vo.setLinkImagen(rs.getString("linkImagen"));
+                vo.setFoto(rs.getBytes("foto"));
+                
+                return(vo);
+            }
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al acceder a Oferta Completa"+ex.getMessage());
+        } catch (Exception ex) {
+            throw new AppException(-2, "error al acceder a Oferta Completa"+ex.getMessage());
+        } finally {
+            try {
+                cst.close();
+                rs.close();
+                
+            } catch (Exception ex) {
+            }
+        }
+        return null;
+    }
 
     
     
@@ -305,10 +363,10 @@ public class OfertaCompletaDAO implements IDao<Oferta> {
     
 public static void main(String[] args){
 OfertaCompletaDAO ofertaDAO = new OfertaCompletaDAO();
-Oferta oferta = new Oferta();
-oferta.setIdOferta(57);
+OfertaCompleta oferta = new OfertaCompleta();
+oferta.setIdOferta(1);
         try {
-            oferta = ofertaDAO.consultarPorIdOferta(oferta.getIdOferta());
+            oferta = ofertaDAO.consultarOfertaCompletaPorIdOferta(oferta.getIdOferta());
         } catch (AppException ex) {
             Logger.getLogger(OfertaCompletaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

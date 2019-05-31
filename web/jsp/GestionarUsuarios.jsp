@@ -56,11 +56,12 @@
                     <td class="text-center"><%= usu.getIdUsuario()%></td>
                     <td class="text-center"><%= usu.getNombreUsuario()%></td>
                     <td class="text-center">
-
                         <!-- <input type="hidden" value="<//%= rs.getInt("Id_Usuario")%>" id="Editar"/>
                         <input type="submit" class="btn btn-warning" data-toggle="modal" data-target="#myModal1" value="Editar"/>  -->
                         <a href="../editarusuario_usu.jsp?id=<%= usu.getIdUsuario()%>" class="btn btn-primary">Editar</a>
-                        <a href="../usuario_eliminarusuario?id=<%= usu.getIdUsuario()%>" class="btn btn-danger">Eliminar</a>
+                        <!--<a href="../usuario_eliminarusuario?id=<%= usu.getIdUsuario()%>" class="btn btn-danger">Eliminar</a>-->
+                        <button class="btn btn-danger" onclick=alertaeliminar(<%= usu.getIdUsuario()%>)>Eliminar</button>
+                       
                     </td>
                 </tr>
                 <%}%>
@@ -86,5 +87,6 @@
     <script type="text/javascript" src="../_js/easing.js"></script>
     <script type="text/javascript" src="../_js/move-top.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
+    <script src="../_js/eliminar_usuariologica.js" type="text/javascript"></script>
 </body>
 </html>

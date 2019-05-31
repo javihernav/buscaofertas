@@ -18,19 +18,46 @@ public class OfertaCompleta implements IVo {
     String nombreTienda;
     String direccion;
     String ciudad;
+    String nombreCiudad;
+    String departamentoCiudad;
+
+    public String getDepartamentoCiudad() {
+        return departamentoCiudad;
+    }
+
+    public void setDepartamentoCiudad(String departamentoCiudad) {
+        this.departamentoCiudad = departamentoCiudad;
+    }
     int idProducto;
     String nombreProducto;
     int precio;
     int idCategoria;
     String nombreCategoria;
     int idMarca;
+    String nombreMarca;
     String categoriaPrincipal;
     int Id_DetalleProducto_tiene_Imagen;
     int idImagen;
     String linkImagen;
     byte[] foto;
 
-    public OfertaCompleta(int idOferta, int idUsuario, String nombreOferta, Date fechaCreacion, Date fechaInicio, Date fechaFin, int vecesCompartida, int Id_Oferta_tiene_Ubicacion, int idUbicacion, String nombreTienda, String direccion, String ciudad, int idProducto, String nombreProducto, int precio, int idCategoria, String nombreCategoria, int idMarca, String categoriaPrincipal, int Id_DetalleProducto_tiene_Imagen, int idImagen, String linkImagen, byte[] foto) {
+    public String getNombreCiudad() {
+        return nombreCiudad;
+    }
+
+    public void setNombreCiudad(String nombreCiudad) {
+        this.nombreCiudad = nombreCiudad;
+    }
+
+    public String getNombreMarca() {
+        return nombreMarca;
+    }
+
+    public void setNombreMarca(String nombreMarca) {
+        this.nombreMarca = nombreMarca;
+    }
+
+    public OfertaCompleta(int idOferta, int idUsuario, String nombreOferta, Date fechaCreacion, Date fechaInicio, Date fechaFin, int vecesCompartida, int Id_Oferta_tiene_Ubicacion, int idUbicacion, String nombreTienda, String direccion, String ciudad, String nombreCiudad, String departamentoCiudad, int idProducto, String nombreProducto, int precio, int idCategoria, String nombreCategoria, int idMarca, String nombreMarca, String categoriaPrincipal, int Id_DetalleProducto_tiene_Imagen, int idImagen, String linkImagen, byte[] foto) {
         this.idOferta = idOferta;
         this.idUsuario = idUsuario;
         this.nombreOferta = nombreOferta;
@@ -43,18 +70,25 @@ public class OfertaCompleta implements IVo {
         this.nombreTienda = nombreTienda;
         this.direccion = direccion;
         this.ciudad = ciudad;
+        this.nombreCiudad = nombreCiudad;
+        this.departamentoCiudad = departamentoCiudad;
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.precio = precio;
         this.idCategoria = idCategoria;
         this.nombreCategoria = nombreCategoria;
         this.idMarca = idMarca;
+        this.nombreMarca = nombreMarca;
         this.categoriaPrincipal = categoriaPrincipal;
         this.Id_DetalleProducto_tiene_Imagen = Id_DetalleProducto_tiene_Imagen;
         this.idImagen = idImagen;
         this.linkImagen = linkImagen;
         this.foto = foto;
     }
+
+   
+
+   
 
     public OfertaCompleta() {
     }
@@ -245,7 +279,10 @@ public class OfertaCompleta implements IVo {
 
     @Override
     public String toString() {
-        return "OfertaCompleta [" + "Id_DetalleProducto_tiene_Imagen " + Id_DetalleProducto_tiene_Imagen + " " + "Id_Oferta_tiene_Ubicacion " + Id_Oferta_tiene_Ubicacion + " " + "categoriaPrincipal " + categoriaPrincipal + " " + "ciudad " + ciudad + " " + "direccion " + direccion + " " + "fechaCreacion " + fechaCreacion + " " + "fechaFin " + fechaFin + " " + "fechaInicio " + fechaInicio + " " + "foto " + Arrays.toString(foto) + " " + "idCategoria " + idCategoria + " " + "idImagen " + idImagen + " " + "idMarca " + idMarca + " " + "idOferta " + idOferta + " " + "idProducto " + idProducto + " " + "idUbicacion " + idUbicacion + " " + "idUsuario " + idUsuario + " " + "linkImagen " + linkImagen + " " + "nombreCategoria " + nombreCategoria + " " + "nombreOferta " + nombreOferta + " " + "nombreProducto " + nombreProducto + " " + "nombreTienda " + nombreTienda + " " + "precio " + precio + " " + "vecesCompartida " + vecesCompartida + "]";
+        return "OfertaCompleta [" + "Id_DetalleProducto_tiene_Imagen " + Id_DetalleProducto_tiene_Imagen + " " + "Id_Oferta_tiene_Ubicacion " + Id_Oferta_tiene_Ubicacion + " " + "categoriaPrincipal " + categoriaPrincipal + " " + "ciudad " + ciudad + " " + "departamentoCiudad " + departamentoCiudad + " " + "direccion " + direccion + " " + "fechaCreacion " + fechaCreacion + " " + "fechaFin " + fechaFin + " " + "fechaInicio " + fechaInicio + " " + "foto " + Arrays.toString(foto) + " " + "idCategoria " + idCategoria + " " + "idImagen " + idImagen + " " + "idMarca " + idMarca + " " + "idOferta " + idOferta + " " + "idProducto " + idProducto + " " + "idUbicacion " + idUbicacion + " " + "idUsuario " + idUsuario + " " + "linkImagen " + linkImagen + " " + "nombreCategoria " + nombreCategoria + " " + "nombreCiudad " + nombreCiudad + " " + "nombreMarca " + nombreMarca + " " + "nombreOferta " + nombreOferta + " " + "nombreProducto " + nombreProducto + " " + "nombreTienda " + nombreTienda + " " + "precio " + precio + " " + "vecesCompartida " + vecesCompartida + "]";
     }
+
+
+  
 
 }
