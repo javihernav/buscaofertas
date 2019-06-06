@@ -48,7 +48,7 @@
             //System.out.println("linea 28 GestionarOfertas");
             String busqueda = request.getParameter("cuadroBusqueda");
             Object usu = sesion1.getAttribute("usuario");
-                Connection cnn = Conectar.getCnn();
+            Connection cnn = Conectar.getCnn();
             if (usu == null) {
                 //System.out.println("objeto nulo usu: " + usu);
 //                    response.sendRedirect("/BuscaOfertas/jsp/Login.jsp");
@@ -63,8 +63,8 @@
                 Usuario usuarioValidado = controlUsuario.ObtenerId(usuario);
                 sesion1.setAttribute("usuario", usuarioValidado);
             }
-                ArrayList<OfertaCompleta> ofertas = new ArrayList();
-                ControlOfertaCompleta controlOfertaCompleta = new ControlOfertaCompleta(cnn);
+            ArrayList<OfertaCompleta> ofertas = new ArrayList();
+            ControlOfertaCompleta controlOfertaCompleta = new ControlOfertaCompleta(cnn);
 
         %>
 
@@ -146,13 +146,13 @@
                                 <%
                                     if (busqueda == null) {
                                         ofertas = null;
-                                    }else if (busqueda.equals("")) {
+                                    } else if (busqueda.equals("")) {
                                         ofertas = null;
-                                    }else{
-                                    ofertas = controlOfertaCompleta.ConsultarOfertaCompleta(busqueda);
-                                    
-                                    for (OfertaCompleta oferta : ofertas) {
-                                        //System.out.println("imagen: " + imagen);
+                                    } else {
+                                        ofertas = controlOfertaCompleta.ConsultarOfertaCompleta(busqueda);
+
+                                        for (OfertaCompleta oferta : ofertas) {
+                                            //System.out.println("imagen: " + imagen);
 
                                 %>
                                 <div class="grid_1_of_4 images_1_of_4">
@@ -169,7 +169,7 @@
                                     </div>					 
                                 </div>
                                 <% }
-} %>
+                                    }%>
                                 <!--                                <div class="grid_1_of_4 images_1_of_4">
                                                                     <h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
                                                                     <a href="preview.html"><img src="../images/product-img2.jpg" alt="" /></a>
@@ -388,7 +388,7 @@ $(document).ready(function () {
                     $().UItoTop({easingType: 'easeOutQuart'});
 
 });
-</script>
+        </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 

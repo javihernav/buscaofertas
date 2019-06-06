@@ -256,6 +256,46 @@ public class UsuarioDAO implements IDao<Usuario> {
         }
 
     }
+    public Usuario ObtenerPorId(Usuario vo) throws AppException {
+//vo es un usuario que solo tiene nombreUsuario
+        if(vo==null)return null;
+        String sql = "{CALL buscaofertas.obtenerPorIdUsuario(?)}";
+        ResultSet rs = null;
+        CallableStatement cst = null;
+        try {
+            cst = Conectar.getCnn().prepareCall(sql);
+            cst.setInt(1, vo.getIdUsuario());
+            rs = cst.executeQuery();
+            Usuario voTemp = null;
+            if (rs.next()) {
+                voTemp = new Usuario();
+                voTemp.setIdUsuario(rs.getInt(1));
+                voTemp.setCiudad_idCiudad(rs.getInt(2));
+                voTemp.setNombreUsuario(rs.getString(3));
+                voTemp.setContrasena(rs.getString(4));
+                voTemp.setNombre(rs.getString(5));
+                voTemp.setApellido(rs.getString(6));
+                voTemp.setTelefono(rs.getString(7));
+                voTemp.setCorreo(rs.getString(8));
+                voTemp.setFechaNacimiento(rs.getString(9));
+                voTemp.setGenero(rs.getString(10).charAt(0));
+                voTemp.setRol(rs.getString(11));
+                return (voTemp);
+            }
+            return null;
+        } catch (SQLException ex) {
+            throw new AppException(-2, "error al consultar datos:" + ex.getMessage());
+        } finally {
+            try {
+                //cst.close();
+                //rs.close();
+               
+            } catch (Exception ex) {
+                throw new AppException(-2, "error al cerrar conexión:" + ex.getMessage());
+            }
+        }
+
+    }
 
     public Usuario validarUsuario(Usuario vo) throws AppException {
         //usuario vo solo trae el nombreUsuario y la contraseña sin encriptar

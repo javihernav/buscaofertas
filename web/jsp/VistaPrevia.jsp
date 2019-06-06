@@ -1,3 +1,8 @@
+<%@page import="app.control.ControlUsuario"%>
+<%@page import="app.modelo.vo.Promedio"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="app.modelo.vo.Calificacion"%>
+<%@page import="app.control.ControlCalificacion"%>
 <%@page import="app.control.ControlOfertaCompleta"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="app.modelo.Conectar"%>
@@ -58,10 +63,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         OfertaCompleta ofertaCompleta = new OfertaCompleta();
         Connection cnn = Conectar.getCnn();
         ControlOfertaCompleta coc = new ControlOfertaCompleta(cnn);
+        ControlCalificacion cc = new ControlCalificacion(cnn);
+        ControlUsuario cu = new ControlUsuario(cnn);
+        Usuario usuario = null;
+        ArrayList<Calificacion> calificaciones = null;
+        Promedio promedio = null;
         try {
             idOferta = Integer.parseInt(request.getParameter("idOferta"));
 
             ofertaCompleta = coc.consultarOfertaCompletaPorIdOferta(idOferta);
+            calificaciones = cc.consultarCalificacionesOferta(idOferta);
+            promedio = cc.obtenerCalificacionPromedio(idOferta);
         } catch (Exception e) {
         }
     %>
@@ -103,10 +115,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </ul>
                             </div>
                             <div class="desc span_3_of_2">
-                                <h2><%=ofertaCompleta.getNombreProducto()%></h2>
+                                <h2><span><%=ofertaCompleta.getNombreProducto()%></span></h2>
                                 <!--<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>-->					
                                 <div class="price">
                                     <p>Precio: <span>$<%=ofertaCompleta.getPrecio()%></span></p>
+                                </div>
+                                <div class="price">
+                                    <p>Calificación de Precio: <span><%=promedio.getPuntosPrecio()%></span></p>
+                                </div>
+                                <div class="price">
+                                    <p>Calificación de Calidad: <span><%=promedio.getPuntosCalidad()%></span></p>
                                 </div>
                                 <div id="idOferta" data-val="<%=ofertaCompleta.getIdOferta()%>" class="price">
                                     <p>IdOferta: <span><%=ofertaCompleta.getIdOferta()%></span></p>
@@ -206,10 +224,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                             <h4>Cómo calificas esta oferta?</h4>
                                             <p>Deseas escribir tu propia opinión al respecto?</p>
                                             <form>
-                                                <div>
-                                                    <span><label>Nombre de Usuario<span class="red">*</span></label></span>
-                                                    <span><input id="nombreUsuario" type="text" value=""></span>
-                                                </div>
+                                                <!--                                                <div>
+                                                                                                    <span><label>Nombre de Usuario<span class="red">*</span></label></span>
+                                                                                                    <span><input id="nombreUsuario" type="text" value=""></span>
+                                                                                                </div>-->
                                                 <div><span><label>Resumen de la Calificación<span class="red">*</span></label></span>
                                                     <span><input id="resumen" type="text" value=""></span>
                                                 </div>						
@@ -221,6 +239,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                     <span><input id="btnEnviar" type="button" value="ENVIAR CALIFICACIÓN" class="btn btn-dangers"></span>
                                                 </div>
                                             </form>
+                                            <%for (Calificacion calificacion : calificaciones) {
+                                            
+                                                usuario = new Usuario();
+                                                usuario.setIdUsuario(calificacion.getIdUsuario());
+                                                usuario = cu.obtenerPorId(usuario);
+                                                System.out.println("usuario: "+usuario);
+                                            %>
+                                            <h3>Usuario:<%=usuario.getNombreUsuario()%></h3>
+                                            <div><span><label>Resumen de la Calificación:<span class="red"><%=calificacion.getResumen()%></span></label></span>
+
+                                                <span><label>Opinión:<span class="red"><%=calificacion.getOpinion()%></span></label></span>
+                                                <span><label>Puntos por Precio:<span class="red"><%=calificacion.getPuntosPrecio()%></span></label></span>
+                                                <span><label>Puntos por Calidad:<span class="red"><%=calificacion.getPuntosCalidad()%></span></label></span>
+                                            </div>						
+
+                                            <%}%>
                                         </div>			
                                         <script type="text/javascript">
         /* place inside document ready function */
@@ -376,9 +410,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script type="text/javascript">
 
         window.onload = function () {
-         
+
             $('#btnEnviar').on('click', enviarCalificacion);
-         
+
         };
 
 

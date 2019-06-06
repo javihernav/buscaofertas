@@ -9,7 +9,10 @@ import app.modelo.dao.CalificacionDAO;
 import app.modelo.dao.CategoriaDAO;
 import app.modelo.vo.Calificacion;
 import app.modelo.vo.Categoria;
+import app.modelo.vo.Promedio;
+import app.utils.AppException;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,5 +23,10 @@ public class ControlCalificacion extends ControlGenerico<CalificacionDAO,Calific
     public ControlCalificacion(Connection cnn) {
         super(cnn, new CalificacionDAO(cnn));
     }
-    
+    public ArrayList<Calificacion> consultarCalificacionesOferta(int idOferta) throws AppException{
+        return this.getDao().consultarCalificacionesOferta(idOferta);
+    }
+    public Promedio obtenerCalificacionPromedio(int idOferta) throws AppException{
+        return this.getDao().obtenerCalificacionPromedio(idOferta);
+    }
 }

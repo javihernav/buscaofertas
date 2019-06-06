@@ -2,6 +2,7 @@ package app.modelo.dao;
 
 import app.modelo.Conectar;
 import app.modelo.vo.Calificacion;
+import app.modelo.vo.Promedio;
 import app.utils.AppException;
 import app.utils.interfaces.IDao;
 import java.sql.Connection;
@@ -38,13 +39,6 @@ public class CalificacionDAO implements IDao<Calificacion> {
                 vo.setOpinion(rs.getString("opinion"));
                 list.add(vo);
             }
-            //    int idCalificacion;
-//    int idUsuario;
-//    int idOferta;
-//    int puntosPrecio;
-//    int puntosCalidad;
-//    String resumen;
-//    String opinion;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } catch (Exception ex) {
@@ -58,6 +52,70 @@ public class CalificacionDAO implements IDao<Calificacion> {
             }
         }
         return list;
+    }
+    public ArrayList<Calificacion> consultarCalificacionesOferta(int idOferta) throws AppException {
+        ArrayList<Calificacion> list = new ArrayList<Calificacion>();
+
+        String sql = "{CALL buscaofertas.consultarCalificaciones(?)}";
+        ResultSet rs = null;
+        CallableStatement cst = null;
+        try {
+            cst = Conectar.getCnn().prepareCall(sql);
+            cst.setInt(1, idOferta);
+            rs = cst.executeQuery();
+            while (rs.next()) {
+                Calificacion vo = new Calificacion();
+                vo.setIdCalificacion(rs.getInt("idCalificacion"));
+                vo.setIdUsuario(rs.getInt("idUsuario"));
+                vo.setIdOferta(rs.getInt("idOferta"));
+                vo.setPuntosPrecio(rs.getInt("puntosPrecio"));
+                vo.setPuntosCalidad(rs.getInt("puntosCalidad"));
+                vo.setResumen(rs.getString("resumen"));
+                vo.setOpinion(rs.getString("opinion"));
+                list.add(vo);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                cst.close();
+                rs.close();
+
+            } catch (Exception ex) {
+            }
+        }
+        return list;
+    }
+    public Promedio obtenerCalificacionPromedio(int idOferta) throws AppException {
+        Promedio prom = new Promedio();
+
+        String sql = "{CALL buscaofertas.obtenerCalificacionPromedio(?)}";
+        ResultSet rs = null;
+        CallableStatement cst = null;
+        try {
+            cst = Conectar.getCnn().prepareCall(sql);
+            cst.setInt(1, idOferta);
+            rs = cst.executeQuery();
+            if (rs.next()) {
+                prom.setPuntosCalidad(rs.getDouble("promedioCalidad"));
+                prom.setPuntosPrecio(rs.getDouble("promedioPrecio"));
+                
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                cst.close();
+                rs.close();
+
+            } catch (Exception ex) {
+            }
+        }
+        return prom;
     }
 
     public int Insertar(Calificacion vo) throws AppException {

@@ -24,4 +24,7 @@ public class ControlUsuario extends ControlGenerico<UsuarioDAO,Usuario>{
     public Usuario validarUsuario(Usuario vo) throws AppException {
         return this.getDao().validarUsuario(vo);
     }
+    public Usuario obtenerPorId(Usuario vo) throws AppException {
+        return this.getDao().ObtenerPorId(vo);
+    }
 }
